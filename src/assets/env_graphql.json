@@ -1,0 +1,9 @@
+{
+"uri": "http://afroba.iptime.org:3202/graphql",
+"cache": "",
+"headers": "", 
+"apiuri": "http://afroba.iptime.org:3202",
+"server_port": "3202",
+"client_port": "3201",
+"menu_port": "3210" 
+}

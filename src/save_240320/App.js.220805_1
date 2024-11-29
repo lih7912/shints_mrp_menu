@@ -1,0 +1,337 @@
+import React, { useState, useEffect, useRef } from 'react';
+import classNames from 'classnames';
+import { Route, useHistory, useLocation } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+
+import { AppTopbar } from './AppTopbar';
+import { AppFooter } from './AppFooter';
+import { AppMenu } from './AppMenu';
+import { AppConfig } from './AppConfig';
+
+import MgrKcdBank from './pages/MgrKcdBank';
+import MgrKcdUser from './pages/MgrKcdUser';
+import MgrKcdSizeMst from './pages/MgrKcdSizeMst';
+
+import PrimeReact from 'primereact/api';
+import { Tooltip } from 'primereact/tooltip';
+import { TabView, TabPanel } from 'primereact/tabview';
+import { TabMenu } from 'primereact/tabmenu';
+import { Panel } from 'primereact/panel';
+
+import 'primereact/resources/primereact.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
+import 'prismjs/themes/prism-coy.css';
+import './assets/demo/flags/flags.css';
+import './assets/demo/Demos.scss';
+import './assets/layout/layout.scss';
+import './App.scss';
+import './TabViewDemo.css';
+import Iframe from 'react-iframe'
+
+const App = () => {
+    const [isTab1, setIsTab1] = useState('hidden');
+    const [isTab2, setIsTab2] = useState('hidden');
+    const [isTab3, setIsTab3] = useState('hidden');
+    const [tabViewDatas, setTabViewDatas] = useState([]);
+    const [tabDatas, setTabDatas] = useState([]);
+    const [tabCount, setTabCount] = useState(0);
+    const [layoutMode, setLayoutMode] = useState('static');
+    const [layoutColorMode, setLayoutColorMode] = useState('light')
+    const [inputStyle, setInputStyle] = useState('outlined');
+    const [ripple, setRipple] = useState(true);
+    const [staticMenuInactive, setStaticMenuInactive] = useState(false);
+    const [overlayMenuActive, setOverlayMenuActive] = useState(false);
+    const [mobileMenuActive, setMobileMenuActive] = useState(false);
+    const [mobileTopbarMenuActive, setMobileTopbarMenuActive] = useState(false);
+    const [activeIndex2, setActiveIndex2] = useState(0);
+    const copyTooltipRef = useRef();
+    const location = useLocation();
+
+    const history = useHistory();
+
+    PrimeReact.ripple = true;
+
+    let menuClick = false;
+    let mobileTopbarMenuClick = false;
+
+    const getTabViews_0 = (tab) => {
+       let _url1 = "http://localhost:3000/#/" + tab.url1;
+       return (
+          <TabPanel key={tab.title} header={tab.content} closable >
+            <Iframe url={_url1}
+                    width="100%"
+                    height="900px"
+                    id="{tab.title}"
+                    className="myClassname"
+                    display="block"
+                    styles={{border: 0}}
+                    position="relative"/>
+           </TabPanel>
+       )
+    } 
+
+
+    const getTabViews_1 = (tab) => {
+       var _path = "/" + tab.url1;
+       var _component  = null;
+       if (tab.url1 === "mgrkcdbank") _component = MgrKcdBank;
+       if (tab.url1 === "mgrkcduser") _component = MgrKcdUser;
+       if (tab.url1 === "mgrkcdsizemst") _component = MgrKcdSizeMst;
+           
+       return (
+          <TabPanel key={tab.title} header={tab.content} closable >
+               <Route path={_path} component={_component} />
+          </TabPanel>
+       )
+    } 
+
+    const getTabViews = (tab) => {
+       let _url1 = "http://localhost:3000/#/" + tab.url1;
+       return (
+          <div className="hidden" >
+            <Iframe url={_url1}
+                    width="100%"
+                    height="900px"
+                    id="{tab.title}"
+                    className="myClassname"
+                    display="block"
+                    styles={{border: 0}}
+                    position="relative"/>
+          </div>
+       )
+    } 
+
+
+    useEffect(() => {
+        var _tabDatas = [];
+        _tabDatas.push({ label: "tab0", title: "tab0", content: "은행계좌관리", url1: "mgrkcdbank" });
+        _tabDatas.push({ label: "tab1", title: "tab0", content: "은행계좌관리", url1: "mgrkcdbank" });
+        _tabDatas.push({ label: "tab2", title: "tab0", content: "은행계좌관리", url1: "mgrkcdbank" });
+        setTabDatas(_tabDatas);
+
+        var _tabViewDatas = [];
+        var _tTabView = getTabViews({ label: "tab0", title: "tab0", content: "은행계좌관리", url1: "mgrkcdbank" });
+        _tabViewDatas.push(_tTabView);
+        _tTabView = getTabViews({ label: "tab1", title: "tab1", content: "은행계좌관리", url1: "mgrkcduser" });
+        _tabViewDatas.push(_tTabView);
+        _tTabView = getTabViews({ label: "tab2", title: "tab2", content: "은행계좌관리", url1: "mgrkcduser" });
+        _tabViewDatas.push(_tTabView);
+        setTabViewDatas(_tabViewDatas);
+
+        // history.push('/' + _tTabView.url1);
+        setIsTab1('show0');
+
+
+        if (mobileMenuActive) {
+            addClass(document.body, "body-overflow-hidden");
+        } else {
+            removeClass(document.body, "body-overflow-hidden");
+        }
+    }, [mobileMenuActive]);
+
+    useEffect(() => {
+        copyTooltipRef && copyTooltipRef.current && copyTooltipRef.current.updateTargetEvents();
+    }, [location]);
+
+    const onInputStyleChange = (inputStyle) => {
+        setInputStyle(inputStyle);
+    }
+
+    const onRipple = (e) => {
+        PrimeReact.ripple = e.value;
+        setRipple(e.value)
+    }
+
+    const onLayoutModeChange = (mode) => {
+        setLayoutMode(mode)
+    }
+
+    const onColorModeChange = (mode) => {
+        setLayoutColorMode(mode)
+    }
+
+    const onWrapperClick = (event) => {
+        if (!menuClick) {
+            setOverlayMenuActive(false);
+            setMobileMenuActive(false);
+        }
+
+        if (!mobileTopbarMenuClick) {
+            setMobileTopbarMenuActive(false);
+        }
+
+        mobileTopbarMenuClick = false;
+        menuClick = false;
+    }
+
+    const onToggleMenuClick = (event) => {
+        menuClick = true;
+
+        if (isDesktop()) {
+            if (layoutMode === 'overlay') {
+                if (mobileMenuActive === true) {
+                    setOverlayMenuActive(true);
+                }
+
+                setOverlayMenuActive((prevState) => !prevState);
+                setMobileMenuActive(false);
+            }
+            else if (layoutMode === 'static') {
+                setStaticMenuInactive((prevState) => !prevState);
+            }
+        }
+        else {
+            setMobileMenuActive((prevState) => !prevState);
+        }
+
+        event.preventDefault();
+    }
+
+    const onSidebarClick = () => {
+        menuClick = true;
+    }
+
+    const onMobileTopbarMenuClick = (event) => {
+        mobileTopbarMenuClick = true;
+
+        setMobileTopbarMenuActive((prevState) => !prevState);
+        event.preventDefault();
+    }
+
+    const onMobileSubTopbarMenuClick = (event) => {
+        mobileTopbarMenuClick = true;
+
+        event.preventDefault();
+    }
+
+    const onMenuItemClick = (event) => {
+        if (!event.item.items) {
+            setOverlayMenuActive(false);
+            setMobileMenuActive(false);
+        }
+    }
+
+    const onTabChange1 = (event) => {
+        console.log(event);
+        if (event.index === 0) {
+          setIsTab1('show0');
+          setIsTab2('hidden');
+          setIsTab3('hidden');
+        }
+        if (event.index === 1) {
+          setIsTab1('hidden');
+          setIsTab2('show0');
+          setIsTab3('hidden');
+        }
+        if (event.index === 2) {
+          setIsTab1('hidden');
+          setIsTab2('hidden');
+          setIsTab3('show0');
+        }
+        setActiveIndex2(event.index);
+    }
+
+
+    const isDesktop = () => {
+        return window.innerWidth >= 992;
+    }
+
+    const menu = [
+        {
+            label: '기초정보관리', icon: 'pi pi-fw pi-clone',
+            items: [
+                { label: '은행계좌관리', icon: 'pi pi-fw pi-user-edit', url1: 'mgrkcdbank' },
+                { label: '사용자관리', icon: 'pi pi-fw pi-user-edit', url1: 'mgrkcduser' },
+                { label: '사이즈관리', icon: 'pi pi-fw pi-user-edit', url1: 'mgrkcdsizemst'}
+            ]
+        }
+    ];
+
+    const addClass = (element, className) => {
+        if (element.classList)
+            element.classList.add(className);
+        else
+            element.className += ' ' + className;
+    }
+
+    const removeClass = (element, className) => {
+        if (element.classList)
+            element.classList.remove(className);
+        else
+            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
+
+    const wrapperClass = classNames('layout-wrapper', {
+        'layout-overlay': layoutMode === 'overlay',
+        'layout-static': layoutMode === 'static',
+        'layout-static-sidebar-inactive': staticMenuInactive && layoutMode === 'static',
+        'layout-overlay-sidebar-active': overlayMenuActive && layoutMode === 'overlay',
+        'layout-mobile-sidebar-active': mobileMenuActive,
+        'p-input-filled': inputStyle === 'filled',
+        'p-ripple-disabled': ripple === false,
+        'layout-theme-light': layoutColorMode === 'light'
+    });
+
+    return (
+        <div className={wrapperClass} onClick={onWrapperClick}>
+            <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
+
+            <AppTopbar onToggleMenuClick={onToggleMenuClick} layoutColorMode={layoutColorMode}
+                mobileTopbarMenuActive={mobileTopbarMenuActive} onMobileTopbarMenuClick={onMobileTopbarMenuClick} onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick} />
+
+            <div className="layout-sidebar" onClick={onSidebarClick}>
+                <AppMenu model={menu} onMenuItemClick={onMenuItemClick} layoutColorMode={layoutColorMode} />
+            </div>
+
+            <div className="layout-main-container">
+                <div className="layout-main">
+                    <TabMenu model={tabDatas} activeIndex={activeIndex2} onTabChange={onTabChange1} />
+                    <div className={isTab1} >
+                       <Iframe url="http://localhost:3000/#/mgrkcdbank"
+                               width="100%"
+                               height="900px"
+                               id="id1"
+                               className="myClassname"
+                               display="block"
+                               styles={{border: 0}}
+                               position="relative"/>
+                    </div>
+                    <div className={isTab2} >
+                       <Iframe url="http://localhost:3000/#/mgrkcduser"
+                               width="100%"
+                               height="900px"
+                               id="id1"
+                               className="myClassname"
+                               display="block"
+                               styles={{border: 0}}
+                               position="relative"/>
+                    </div>
+                    <div className={isTab3} >
+                       <Iframe url="http://localhost:3000/#/mgrkcdsizemst"
+                               width="100%"
+                               height="900px"
+                               id="id1"
+                               className="myClassname"
+                               display="block"
+                               styles={{border: 0}}
+                               position="relative"/>
+                    </div>
+                </div>
+
+                <AppFooter layoutColorMode={layoutColorMode} />
+            </div>
+
+            <AppConfig rippleEffect={ripple} onRippleEffect={onRipple} inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
+                layoutMode={layoutMode} onLayoutModeChange={onLayoutModeChange} layoutColorMode={layoutColorMode} onColorModeChange={onColorModeChange} />
+
+            <CSSTransition classNames="layout-mask" timeout={{ enter: 200, exit: 200 }} in={mobileMenuActive} unmountOnExit>
+                <div className="layout-mask p-component-overlay"></div>
+            </CSSTransition>
+
+        </div>
+    );
+
+}
+
+export default App;
