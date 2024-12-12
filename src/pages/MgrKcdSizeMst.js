@@ -477,7 +477,7 @@ const MgrKcdSizeMst = () => {
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => onQrySizeGroupChange(e)} placeholder="Search..." />
                 <InputText type="search" onInput={(e) => onQrySizeMemberChange(e)} placeholder="Search..." />
-                <Button label="Search" icon="pi pi-search" className="p-button-text" onClick={searchKCD_SIZE_MST} />
+                <Button label="Search"  accessKey='S'  icon="pi pi-search" className="p-button-text" onClick={searchKCD_SIZE_MST} />
                 <Button label="Reload" icon="pi pi-refresh" className="p-button-text" onClick={searchRefresh} />
             </span>
         </div>

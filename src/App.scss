@@ -1,8 +1,33 @@
-body { overflow-y:hidden; }
+body { overflow-y:hidden; background-color: #e5e5e5 !important;}
 .hidden { display:none; }
 .show0 { z-index:1; display:block; }
-.wrapperClass9 { position:'fixed'; padding: 0rem 0rem 0rem 0rem; top:0rem; left: 0rem; height:66rem; width:139.0rem;  }
-.layout-main-container9 { zIndex:1; position:'absolute'; padding: 1rem 0rem 0rem 1rem; top:1rem; left: 19rem; height: 65rem; width:126rem;  }
-.layout-sidebar { zIndex:1; position:'absolute'; padding: 1rem 0rem 0rem 1rem;  top: 1rem; left: 1rem; height:65rem;}
+.wrapperClass9 { position:'fixed'; padding: 0rem 0rem 0rem 0rem; top:0rem; left: 0rem; height:67.3rem; width:139.0rem;  }
+.layout-main-container9 { z-index:1; position:'absolute'; padding: 1rem 0rem 0rem 1.5rem; top:1rem; left: 19rem; height: 65rem; width:124.5rem;  }
+.layout-sidebar { z-index:1; position:'absolute'; padding: 1rem 0rem 0rem 1rem;  top: 1rem; left: 1rem; height:718px; overflow-x:hidden; box-shadow: none; border-radius: 0px;}
 .p-tree { padding: 0rem 0rem 0rem 0rem; border: 0; }
 .p-tree-content { margin: 0rem; padding: 0rem; }
+.p-treenode .p-treenode-leaf { padding: 3px 0 3px 0 !important; }
+
+iframe {
+    background-color: transparent !important;
+    width: 1360px;
+}
+
+#id11 {
+    height: 680px;
+    background-color: #e5e5e5 !important;
+    z-index:999;
+}
+
+button {
+    background-color: #6366F1;
+    border-radius: 3px !important;
+    border:none;
+    color:white;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.p-treenode-icon {
+    display: none;
+}

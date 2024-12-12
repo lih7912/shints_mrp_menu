@@ -378,7 +378,7 @@ const MgrKcdBank = () => {
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => onQrySearchStringChange(e)} placeholder="Search..." />
                 <Dropdown id="id_qry_status" value={qryStatus} onChange={(e) => onQryStatusChange(e)} options={datasKCD_CODE_STATUS_CD} optionLabel="CD_NAME" placeholder="Select One"></Dropdown>
-                <Button label="Search" icon="pi pi-search" className="p-button-text" onClick={searchKCD_BANK} />
+                <Button label="Search"  accessKey='S'  icon="pi pi-search" className="p-button-text" onClick={searchKCD_BANK} />
             </span>
         </div>
     );

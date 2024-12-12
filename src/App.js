@@ -120,8 +120,8 @@ const App = () => {
     const [iframeTitles19, setIframeTitles19] = useState('');
     const [iframeTitles20, setIframeTitles20] = useState('');
 
-    const [styleValOff, setStyleValOff] = useState({ zIndex: '1', position:'absolute' , backgroundColor:'white'});
-    const [styleValOn, setStyleValOn] = useState({ zIndex: '999', position:'absolute', backgroundColor:'white' });
+    const [styleValOff, setStyleValOff] = useState({ zIndex: '1', position:'absolute' , backgroundColor:'#e5e5e5'});
+    const [styleValOn, setStyleValOn] = useState({ zIndex: '999', position:'absolute', backgroundColor:'#e5e5e5' });
     const [styleVal1, setStyleVal1] = useState({ zIndex: '1' });
     const [styleVal2, setStyleVal2] = useState({ zIndex: '1' });
     const [styleVal3, setStyleVal3] = useState({ zIndex: '1' });
@@ -132,7 +132,7 @@ const App = () => {
     const [styleVal8, setStyleVal8] = useState({ zIndex: '1' });
     const [styleVal9, setStyleVal9] = useState({ zIndex: '1' });
     const [styleVal10, setStyleVal10] = useState({ zIndex: '1' });
-    const [styleVal11, setStyleVal11] = useState({ zIndex: '1', backgroundColor:'white' });
+    const [styleVal11, setStyleVal11] = useState({ zIndex: '1', backgroundColor:'#e5e5e5' });
 
     const [isTabs1, setIsTabs1] = useState('show0');
     const [isTabs2, setIsTabs2] = useState('show0');
@@ -371,7 +371,7 @@ const App = () => {
           <TabPanel key={tab.title} header={tab.content} closable >
             <Iframe url={_url1}
                     width="100%"
-                    height="675px"
+                    height="677px"
                     id="{tab.title}"
                     className="myClassname"
                     display="block"
@@ -692,7 +692,7 @@ const App = () => {
 
     const procVisible = (idx, argUrl, argLabel) => {
 
-        var argH = '675px';
+        var argH = '677px';
         var argS = 'no';
 
         if (idx === 0) {
@@ -934,7 +934,7 @@ const App = () => {
             setIframeUrls1(argUrl);
             setIframeTitles1(argLabel);
             setIframeH1(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS1(argS);
@@ -953,7 +953,7 @@ const App = () => {
             setIframeUrls2(argUrl);
             setIframeTitles2(argLabel);
             setIframeH2(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS2(argS);
@@ -972,7 +972,7 @@ const App = () => {
             setIframeUrls3(argUrl);
             setIframeTitles3(argLabel);
             setIframeH3(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS3(argS);
@@ -991,7 +991,7 @@ const App = () => {
             setIframeUrls4(argUrl);
             setIframeTitles4(argLabel);
             setIframeH4(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS4(argS);
@@ -1010,7 +1010,7 @@ const App = () => {
             setIframeUrls5(argUrl);
             setIframeTitles5(argLabel);
             setIframeH5(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS5(argS);
@@ -1029,7 +1029,7 @@ const App = () => {
             setIframeUrls6(argUrl);
             setIframeTitles6(argLabel);
             setIframeH6(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS6(argS);
@@ -1048,7 +1048,7 @@ const App = () => {
             setIframeUrls7(argUrl);
             setIframeTitles7(argLabel);
             setIframeH7(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS7(argS);
@@ -1067,7 +1067,7 @@ const App = () => {
             setIframeUrls8(argUrl);
             setIframeTitles8(argLabel);
             setIframeH8(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS8(argS);
@@ -1088,7 +1088,7 @@ const App = () => {
             setIframeUrls9(argUrl);
             setIframeTitles9(argLabel);
             setIframeH9(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS9(argS);
@@ -1107,7 +1107,7 @@ const App = () => {
             setIframeUrls10(argUrl);
             setIframeTitles10(argLabel);
             setIframeH10(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS10(argS);
@@ -1125,7 +1125,7 @@ const App = () => {
             setIframeUrls11(argUrl);
             setIframeTitles11(argLabel);
             setIframeH11(argH);
-            if (argH0 === '800px') {
+            if (argH0 >= '800px') {
                argS = 'yes';
             }
             setIframeS11(argS);
@@ -1982,8 +1982,8 @@ const App = () => {
                 { key: '2-2', label: 'Material Search', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0302_MATL_SEARCH'},
                 { key: '2-3', label: 'MRP Record(Style)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0303_MRP_RECORD_STYLE'},
                 { key: '2-20', label: 'Copy Product', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030301_COPY_PRODUCT'},
-                { key: '2-21', label: 'Copy Style', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030302_COPY_STYLE'},
-                { key: '2-22', label: 'Mrp By Search', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030303_MRP_BY_SEARCH'},
+                { key: '2-21', label: 'Style Mrp Search', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030302_COPY_STYLE'},
+                { key: '2-22', label: 'Order Mrp Search', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030303_MRP_BY_SEARCH'},
                 { key: '2-4', label: 'MRP Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0305_MRP_MANAGER'},
                 { key: '2-6', label: 'Seq Delete', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030501_DEL_MRP_PACK'},
                 { key: '2-7', label: 'Po History', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030502_PO_HISTORY'},
@@ -2181,7 +2181,7 @@ const App = () => {
                 <Tree value={menuInfo} onSelectionChange={onMenuItemClick} />
                 */}
 
-                <div style={{ marginTop: '0rem', width: '13rem', height: '4rem' }}>
+                <div style={{ marginTop: '0rem', width: '13rem', height: '4rem',  marginBottom:'0rem' }}>
                    {/*
                     <div style={{ float:'left', marginTop: '0rem', width: '3.5rem', height: '4rem' }}>
                         <i className="custom-target-icon pi pi-user p-text-secondary "
@@ -2195,21 +2195,25 @@ const App = () => {
                     */}
                     <div style={{ float:'left', marginTop: '0rem', width: '9.5rem', height: '4rem' }}>
                         <span style={{ width: '9rem' }}>
-                            <p style={{ width: '9rem', display: 'inline-block' }} >User:{userInfo.USER_ID} </p>
+                            <p style={{ width: '9rem', display: 'inline-block', color:'blue'}} >{userInfo.USER_ID} </p>
                         </span>
                         <span style={{ width: '9rem' }}>
-                            <p style={{ width: '9rem', display: 'inline-block' }} >Team:{userInfo.USER_NAME} </p>
+                            <p style={{ width: '9rem', display: 'inline-block', color:'blue' }} >{userInfo.USER_NAME} </p>
                         </span>
                     </div>
-                    <div style={{ float:'left', marginTop: '0rem', width: '3.5rem', height: '4rem' }}>
+                    <div style={{ float:'left', marginTop: '0.6rem', width: '3rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-refresh p-text-secondary "
                             data-pr-position="right"
                             data-pr-at="right+5 top"
                             data-pr-my="left center-2"
                             onClick={onClickIcon1}
-                            style={{ fontSize: '2.5rem', cursor: 'pointer' }}>
+                            style={{ fontSize: '2rem', cursor: 'pointer'}}>
                         </i>
                     </div>
+                    
+                </div>
+                <div style={{ marginBottom: '0rem', width:'100%', padding:'0'}}>
+                      <button style={{ marginBottom: '1rem', width:'90%'}} onClick={ () => { window.location.href='/' }}>Log out</button>
                 </div>
                 <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
             </div>
@@ -2224,7 +2228,7 @@ const App = () => {
                                key={iframeKey1}
                                frameborder="0"
                                scrolling={iframeS1}
-                               width="1365px"
+                               
                                height={iframeH1}
                                ref={ref_iframe1}
                                id="id1"
@@ -2237,7 +2241,7 @@ const App = () => {
                                ref={ref_iframe2}
                                frameborder="0"
                                scrolling={iframeS2}
-                               width="1365px"
+                               
                                height={iframeH2}
                                id="id2"
                                className="myClassname"
@@ -2249,7 +2253,7 @@ const App = () => {
                                ref={ref_iframe3}
                                frameborder="0"
                                scrolling={iframeS3}
-                               width="1365px"
+                               
                                height={iframeH3}
                                id="id3"
                                className="myClassname"
@@ -2261,7 +2265,7 @@ const App = () => {
                                ref={ref_iframe4}
                                frameborder="0"
                                scrolling={iframeS4}
-                               width="1365px"
+                               
                                height={iframeH4}
                                id="id4"
                                className="myClassname"
@@ -2273,7 +2277,7 @@ const App = () => {
                                ref={ref_iframe5}
                                frameborder="0"
                                scrolling={iframeS5}
-                               width="1365px"
+                               
                                height={iframeH5}
                                id="id5"
                                className="myClassname"
@@ -2285,7 +2289,7 @@ const App = () => {
                                ref={ref_iframe6}
                                frameborder="0"
                                scrolling={iframeS6}
-                               width="1365px"
+                               
                                height={iframeH6}
                                id="id6"
                                className="myClassname"
@@ -2297,7 +2301,7 @@ const App = () => {
                                ref={ref_iframe7}
                                frameborder="0"
                                scrolling={iframeS7}
-                               width="1365px"
+                               
                                height={iframeH7}
                                id="id7"
                                className="myClassname"
@@ -2309,7 +2313,7 @@ const App = () => {
                                ref={ref_iframe8}
                                frameborder="0"
                                scrolling={iframeS8}
-                               width="1365px"
+                               
                                height={iframeH8}
                                id="id8"
                                className="myClassname"
@@ -2321,7 +2325,7 @@ const App = () => {
                                ref={ref_iframe9}
                                frameborder="0"
                                scrolling={iframeS9}
-                               width="1365px"
+                               
                                height={iframeH9}
                                id="id9"
                                className="myClassname"
@@ -2333,24 +2337,24 @@ const App = () => {
                                ref={ref_iframe10}
                                frameborder="0"
                                scrolling={iframeS10}
-                               width="1365px"
+                               
                                height={iframeH10}
                                id="id10"
                                className="myClassname"
                                />
                     </div>
+
                     <div className={isTabs11}   style={styleVal11} >
                        <iframe src={iframeUrls11}
                                key={iframeKey11}
                                ref={ref_iframe11}
                                frameborder="0"
                                scrolling={iframeS11}
-                               width="1365px"
-                               height="675px"
-                               id="id10"
-                               className="myClassname"
+                               id="id11"
+                               className="cover"
                                />
                     </div>
+                    
                     </div>
                 </div>
             </div>

@@ -563,7 +563,7 @@ const MgrKcdUser = () => {
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => onQrySearchStringChange(e)} placeholder="Search..." />
                 <Dropdown id="id_qry_status" value={qryStatus} onChange={(e) => onQryStatusChange(e)} options={datasKCD_CODE_STATUS_CD} optionLabel="CD_NAME" placeholder="Select One"></Dropdown>
-                <Button label="Search" icon="pi pi-search" className="p-button-text" onClick={searchKCD_USER} />
+                <Button label="Search"  accessKey='S'  icon="pi pi-search" className="p-button-text" onClick={searchKCD_USER} />
                 <Button label="Reload" icon="pi pi-refresh" className="p-button-text" onClick={searchRefresh} />
             </span>
         </div>

@@ -288,10 +288,10 @@ const App = () => {
 
 
     const getTabViews_0 = (tab) => {
-       // let _url1 = "http://afroba.iptime.org:3201/#/" + tab.url1;
+       // let _url1 = "http://localhost:3201/#/" + tab.url1;
        // let _url1 = `${process.env.APP_URL}` + tab.url1;
 
-       // let _url1 = "http://afroba.iptime.org:3288/webapp/mrpapp/index.html#/" + tab.url1;
+       // let _url1 = "http://localhost:3288/webapp/mrpapp/index.html#/" + tab.url1;
        let _url1 = `${window.location.protocol}//${window.location.hostname}:3101/#/` + tab.url1;
        return (
           <TabPanel key={tab.title} header={tab.content} closable >
@@ -806,7 +806,7 @@ const App = () => {
         procUnVisible(saveIndex2);
         // let _url1 = `${process.env.APP_URL}` + item.url1;
 
-        // let _url1 = "http://afroba.iptime.org:3288/webapp/mrpapp/index.html#/" + item.url1;
+        // let _url1 = "http://localhost:3288/webapp/mrpapp/index.html#/" + item.url1;
         let _url1 = `${window.location.protocol}//${window.location.hostname}:3201/#/` + item.url1;
         procVisible(_retObj.idx, _url1, item.label);
 

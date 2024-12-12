@@ -327,7 +327,7 @@ export const InputDemo = () => {
 
                         <div className="col-12 md:col-6">
                             <div className="p-inputgroup">
-                                <Button label="Search" />
+                                <Button label="Search"  accessKey='S'  />
                                 <InputText placeholder="Keyword" />
                             </div>
                         </div>

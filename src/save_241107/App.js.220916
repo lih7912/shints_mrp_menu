@@ -212,7 +212,7 @@ const App = () => {
 
 
     const getTabViews_0 = (tab) => {
-       let _url1 = "http://afroba.iptime.org:3201/#/" + tab.url1;
+       let _url1 = "http://localhost:3201/#/" + tab.url1;
        return (
           <TabPanel key={tab.title} header={tab.content} closable >
             <Iframe url={_url1}
@@ -651,7 +651,7 @@ const App = () => {
         var _retObj = procTabDatas(_retObj0.idx, event.item.url1, event.item.label);
 
         procUnVisible(saveIndex2);
-        procVisible(_retObj.idx, "http://afroba.iptime.org:3201/#/" + event.item.url1, event.item.label);
+        procVisible(_retObj.idx, "http://localhost:3201/#/" + event.item.url1, event.item.label);
 
         console.log('onMennItem:' + saveIndex2 + ',' + _retObj.idx);
 
