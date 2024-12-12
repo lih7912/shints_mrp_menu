@@ -3,18 +3,12 @@ import classNames from 'classnames';
 import { Route, useHistory, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import { AppTopbar } from './AppTopbar';
-import { AppFooter } from './AppFooter';
-import { AppMenu } from './AppMenu';
-import { AppConfig } from './AppConfig';
-import { Button } from 'primereact/button';
 import { Tree } from 'primereact/tree';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
-import { TabView, TabPanel } from 'primereact/tabview';
+import { TabPanel } from 'primereact/tabview';
 import { TabMenu } from 'primereact/tabmenu';
-import { Panel } from 'primereact/panel';
 
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
@@ -27,9 +21,15 @@ import './App.scss';
 import './TabViewDemo.css';
 import Iframe from 'react-iframe'
 import apolloOption from './assets/env_graphql';
+import { blindMenu } from './blindMenu'
 
+let userInfoForAuth = {};
+/*
+$( document ).ready( async function() {
+  blindMenu(window, apolloOption, userInfoForAuth.userId);
+});
+*/
 const App = () => {
-
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
 
@@ -225,8 +225,6 @@ const App = () => {
     const ref_iframe18 = useRef(null);
     const ref_iframe19 = useRef(null);
     const ref_iframe20 = useRef(null);
-
-
 
     const [selectedKey, setSelectedKey] = useState('');
 
@@ -444,6 +442,9 @@ const App = () => {
         var tUserInfo = {};
         tUserInfo.USER_ID = tUserId;
         tUserInfo.USER_NAME = tUserName;
+
+        userInfoForAuth.userId = tUserId;
+        
         setUserInfo(tUserInfo);
 
 /*
