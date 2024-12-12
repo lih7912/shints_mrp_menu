@@ -1852,7 +1852,7 @@ const App = () => {
                 { key: '0-9', label: 'Currency', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0112_KCD_CURRENCY', children: []},
                 { key: '0-10', label: 'Currency for Price', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0218_EXCHANGE_RATE_RECORD', children: []},
                 { key: '0-11', label: 'Country', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0104_KCD_NATION', children: []},
-                { key: '0-12', label: 'Loss', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: '', children: []},
+                /*{ key: '0-12', label: 'Loss', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: '', children: []},*/
             ]
         },
         {
@@ -1898,7 +1898,7 @@ const App = () => {
             key: '4', label: 'EXPORT/IMPORT', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
                 { key: '4-1', label: 'Shipment Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0434_SHIPMENT_MANAGER' },
-                { key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0437_EXPORT_REGIST'},
+                /*{ key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0437_EXPORT_REGIST'},*/
                 { key: '4-3', label: '수입등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0438_IMPORT_REGIST'},
                 { key: '4-8', label: 'Garment Ship', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0513_SHIPPING_LIST'},
                 { key: '4-7', label: 'Delay Report', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0450_DELAY_REPORT'},
