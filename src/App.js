@@ -21,14 +21,29 @@ import './App.scss';
 import './TabViewDemo.css';
 import Iframe from 'react-iframe'
 import apolloOption from './assets/env_graphql';
-import { blindMenu } from './blindMenu'
+import { blindMenu, getAuthInfo } from './blindMenu'
+import $ from 'jquery';
 
 let userInfoForAuth = {};
-/*
+
 $( document ).ready( async function() {
-  blindMenu(window, apolloOption, userInfoForAuth.userId);
+  userInfoForAuth.authMenuList = await getAuthInfo(window, apolloOption, userInfoForAuth.userId);
+  //console.log(userInfoForAuth);
+
+  $('.p-tree-toggler').on('click', () => {
+    setTimeout( () => {
+      let menuList = $('.p-treenode-label');
+      menuList.each( (index, menu) => {
+          for (let blindMenu of userInfoForAuth.authMenuList) {
+            if (blindMenu == $(menu).text()) {
+              $(menu).closest('li').remove();
+            }
+          }
+      });
+    }, 100);
+  })
 });
-*/
+
 const App = () => {
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
@@ -1364,7 +1379,6 @@ const App = () => {
         }
     }
 
-
     const onMenuItemClick = (argValue) => {
         console.log('onMenuItemClick=>' + argValue);
 
@@ -1373,7 +1387,7 @@ const App = () => {
             var tObj = { ...col };
             if (col.key === argValue.substring(0, 1)) tFindObj = tObj;
         });
-
+        
         if (typeof tFindObj.key === 'undefined') return;
         if (argValue.length < 2) return;
 
@@ -1741,7 +1755,7 @@ const App = () => {
                 { key: '0-9', label: 'Currency', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0112_KCD_CURRENCY', children: []},
                 { key: '0-10', label: 'Currency for Price', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0218_EXCHANGE_RATE_RECORD', children: []},
                 { key: '0-11', label: 'Country', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0104_KCD_NATION', children: []},
-                { key: '0-12', label: 'Loss', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: '', children: []},
+                /* { key: '0-12', label: 'Loss', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: '', children: []}, */
             ]
         },
         {
@@ -1787,7 +1801,7 @@ const App = () => {
             key: '4', label: 'EXPORT/IMPORT', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
                 { key: '4-1', label: 'Shipment Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0434_SHIPMENT_MANAGER' },
-                { key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0437_EXPORT_REGIST'},
+                /* { key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0437_EXPORT_REGIST'}, */
                 { key: '4-3', label: '수입등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0438_IMPORT_REGIST'},
                 { key: '4-8', label: 'Garment Ship', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0513_SHIPPING_LIST'},
                 { key: '4-7', label: 'Delay Report', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0450_DELAY_REPORT'}
@@ -2228,7 +2242,7 @@ const App = () => {
                        {/* <Button style={{ padding: '0rem' }} label="Reload" icon="pi pi-check" className="p-button-text" onClick={reloadTab(1)} /> */}
                        <iframe src={iframeUrls1}
                                key={iframeKey1}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS1}
                                
                                height={iframeH1}
@@ -2241,7 +2255,7 @@ const App = () => {
                        <iframe src={iframeUrls2}
                                key={iframeKey2}
                                ref={ref_iframe2}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS2}
                                
                                height={iframeH2}
@@ -2253,7 +2267,7 @@ const App = () => {
                        <iframe src={iframeUrls3}
                                key={iframeKey3}
                                ref={ref_iframe3}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS3}
                                
                                height={iframeH3}
@@ -2265,7 +2279,7 @@ const App = () => {
                        <iframe src={iframeUrls4}
                                key={iframeKey4}
                                ref={ref_iframe4}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS4}
                                
                                height={iframeH4}
@@ -2277,7 +2291,7 @@ const App = () => {
                        <iframe src={iframeUrls5}
                                key={iframeKey5}
                                ref={ref_iframe5}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS5}
                                
                                height={iframeH5}
@@ -2289,7 +2303,7 @@ const App = () => {
                        <iframe src={iframeUrls6}
                                key={iframeKey6}
                                ref={ref_iframe6}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS6}
                                
                                height={iframeH6}
@@ -2301,7 +2315,7 @@ const App = () => {
                        <iframe src={iframeUrls7}
                                key={iframeKey7}
                                ref={ref_iframe7}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS7}
                                
                                height={iframeH7}
@@ -2313,7 +2327,7 @@ const App = () => {
                        <iframe src={iframeUrls8}
                                key={iframeKey8}
                                ref={ref_iframe8}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS8}
                                
                                height={iframeH8}
@@ -2325,7 +2339,7 @@ const App = () => {
                        <iframe src={iframeUrls9}
                                key={iframeKey9}
                                ref={ref_iframe9}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS9}
                                
                                height={iframeH9}
@@ -2337,7 +2351,7 @@ const App = () => {
                        <iframe src={iframeUrls10}
                                key={iframeKey10}
                                ref={ref_iframe10}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS10}
                                
                                height={iframeH10}
@@ -2350,7 +2364,7 @@ const App = () => {
                        <iframe src={iframeUrls11}
                                key={iframeKey11}
                                ref={ref_iframe11}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling={iframeS11}
                                id="id11"
                                className="cover"

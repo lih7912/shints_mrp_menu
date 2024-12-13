@@ -1,5 +1,5 @@
-//import $ from 'jquery';
-/*
+import $ from 'jquery';
+
 async function ajaxToRouter(method, url, data) {
     return new Promise( resolve => {
         $.ajax({
@@ -21,20 +21,26 @@ async function ajaxToRouter(method, url, data) {
 }
   
 async function getAuthInfo(window, apolloOption, userId) {
+    /*
     return await ajaxToRouter(
-    'post',
-    `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/mssql_query`, 
-    {
-        dbQuery: `select * from kcd_user where user_id='${userId}'`
-    }
-);
+        'post',
+        `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/mssql_query`, 
+        {
+            dbQuery: `select * from kcd_user where user_id='${userId}'`
+        }
+    );
+    */
+
+    let blindList = ['Purchase Manager', 'STSIN List'];
+
+    return blindList;
 }
 
 async function blindMenu(window, apolloOption, userId) {
     let authInfo = await getAuthInfo(window, apolloOption, userId);
     console.log(authInfo);
 
-    let blindList = ['Purchase Manager', 'STSIN List'];
+    
 
     let menuList = $('.p-treenode-label');
     menuList.each( (index, menu) => {
@@ -42,5 +48,4 @@ async function blindMenu(window, apolloOption, userId) {
         //$(menu).closest('li').remove();
     });
 }
-export { blindMenu }
-*/
+export { blindMenu, getAuthInfo }
