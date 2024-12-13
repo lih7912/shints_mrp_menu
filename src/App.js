@@ -2214,7 +2214,8 @@ const App = () => {
                     
                 </div>
                 <div style={{ marginBottom: '0rem', width:'100%', padding:'0'}}>
-                      <button style={{ marginBottom: '1rem', width:'90%'}} onClick={ () => { window.location.href='/' }}>Log out</button>
+                      <button style={{ marginBottom: '0.5rem', width:'90%'}} onClick={ () => { window.location.href='/' }}>Log out</button>
+                      <button style={{ marginBottom: '1rem', width:'90%'}} onClick={ () => { window.location.href='https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba' }}>Manual</button>
                 </div>
                 <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
             </div>
