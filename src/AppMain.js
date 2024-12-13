@@ -1294,7 +1294,7 @@ const AppMain = () => {
                        {/* <Button style={{ padding: '0rem' }} label="Reload" icon="pi pi-check" className="p-button-text" onClick={reloadTab(1)} /> */}
                        <iframe src={iframeUrls1}
                                key={iframeKey1}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1307,7 +1307,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls2}
                                key={iframeKey2}
                                ref={ref_iframe2}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1319,7 +1319,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls3}
                                key={iframeKey3}
                                ref={ref_iframe3}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1331,7 +1331,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls4}
                                key={iframeKey4}
                                ref={ref_iframe4}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1343,7 +1343,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls5}
                                key={iframeKey5}
                                ref={ref_iframe5}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1355,7 +1355,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls6}
                                key={iframeKey6}
                                ref={ref_iframe6}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1367,7 +1367,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls7}
                                key={iframeKey7}
                                ref={ref_iframe7}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1379,7 +1379,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls8}
                                key={iframeKey8}
                                ref={ref_iframe8}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1391,7 +1391,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls9}
                                key={iframeKey9}
                                ref={ref_iframe9}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1403,7 +1403,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls10}
                                key={iframeKey10}
                                ref={ref_iframe10}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1415,7 +1415,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls11}
                                key={iframeKey11}
                                ref={ref_iframe11}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1427,7 +1427,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls12}
                                key={iframeKey12}
                                ref={ref_iframe12}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1439,7 +1439,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls13}
                                key={iframeKey13}
                                ref={ref_iframe13}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1451,7 +1451,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls14}
                                key={iframeKey14}
                                ref={ref_iframe14}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1463,7 +1463,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls15}
                                key={iframeKey15}
                                ref={ref_iframe15}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1475,7 +1475,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls16}
                                key={iframeKey16}
                                ref={ref_iframe16}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1487,7 +1487,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls17}
                                key={iframeKey17}
                                ref={ref_iframe17}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1499,7 +1499,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls18}
                                key={iframeKey18}
                                ref={ref_iframe18}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1511,7 +1511,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls19}
                                key={iframeKey19}
                                ref={ref_iframe19}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
@@ -1523,7 +1523,7 @@ const AppMain = () => {
                        <iframe src={iframeUrls20}
                                key={iframeKey20}
                                ref={ref_iframe20}
-                               frameborder="0"
+                               frameBorder="0"
                                scrolling="no"
                                width="1170px"
                                height="850px"
