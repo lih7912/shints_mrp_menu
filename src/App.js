@@ -1848,7 +1848,7 @@ const App = () => {
                 { key: '7-6', label: '입금조회', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0608_LC_NEGO_LIST'},
                 { key: '7-8', label: '바이어별입금관리', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0708_MANAGE_BUYER_INPUT'},
                 { key: '7-9', label: '매출채권조회', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0709_MANAGE_INVOICE_AMT'},
-                { key: '7-10', label: '(#)오더수불부', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0710_ORDER_EXPORT_REPORT'}
+                /*{ key: '7-10', label: '(#)오더수불부', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0710_ORDER_EXPORT_REPORT'}*/
             ]
         }
     ];
@@ -1960,7 +1960,7 @@ const App = () => {
                 { key: '7-6', label: '입금조회', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0608_LC_NEGO_LIST'},
                 { key: '7-8', label: '바이어별입금관리', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0708_MANAGE_BUYER_INPUT'},
                 { key: '7-9', label: '매출채권조회', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0709_MANAGE_INVOICE_AMT'},
-                { key: '7-10', label: '(#)오더수불부', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0710_ORDER_EXPORT_REPORT'}
+                /*{ key: '7-10', label: '(#)오더수불부', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0710_ORDER_EXPORT_REPORT'}*/
             ]
         }
     ];
@@ -2067,7 +2067,7 @@ const App = () => {
                 { key: '7-6', label: '입금조회', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0608_LC_NEGO_LIST'},
                 { key: '7-8', label: '바이어별입금관리', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0708_MANAGE_BUYER_INPUT'},
                 { key: '7-9', label: '매출채권조회', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0709_MANAGE_INVOICE_AMT'},
-                { key: '7-10', label: '(#)오더수불부', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0710_ORDER_EXPORT_REPORT'}
+                /*{ key: '7-10', label: '(#)오더수불부', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0710_ORDER_EXPORT_REPORT'}*/
     ];
 
 
