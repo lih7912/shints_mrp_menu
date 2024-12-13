@@ -29,7 +29,7 @@ let userInfoForAuth = {};
 $( document ).ready( async function() {
   userInfoForAuth.authMenuList = await getAuthInfo(window, apolloOption, userInfoForAuth.userId);
   //console.log(userInfoForAuth);
-
+/*
   $('.p-tree-toggler').on('click', () => {
     setTimeout( () => {
       let menuList = $('.p-treenode-label');
@@ -42,6 +42,7 @@ $( document ).ready( async function() {
       });
     }, 100);
   })
+*/
 });
 
 const App = () => {
