@@ -26,8 +26,24 @@ button {
     color:white;
     font-weight: 700;
     font-size: 1rem;
+    cursor:pointer;
 }
 
 .p-treenode-icon {
     display: none;
+}
+
+.p-treenode span {
+    font-weight: 500;
+}
+
+.p-treenode .disabled {
+    opacity: 0.7;
+    padding: 0;
+    font-weight: 300;
+    padding-left:18px;
+}
+
+.p-menuitem-link {
+    cursor:pointer;
 }

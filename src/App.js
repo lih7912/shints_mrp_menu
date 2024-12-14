@@ -21,28 +21,12 @@ import './App.scss';
 import './TabViewDemo.css';
 import Iframe from 'react-iframe'
 import apolloOption from './assets/env_graphql';
-import { blindMenu, getAuthInfo } from './blindMenu'
+import { blindMenu } from './blindMenu'
 import $ from 'jquery';
 
 let userInfoForAuth = {};
-
 $( document ).ready( async function() {
-  userInfoForAuth.authMenuList = await getAuthInfo(window, apolloOption, userInfoForAuth.userId);
-  //console.log(userInfoForAuth);
-/*
-  $('.p-tree-toggler').on('click', () => {
-    setTimeout( () => {
-      let menuList = $('.p-treenode-label');
-      menuList.each( (index, menu) => {
-          for (let blindMenu of userInfoForAuth.authMenuList) {
-            if (blindMenu == $(menu).text()) {
-              $(menu).closest('li').remove();
-            }
-          }
-      });
-    }, 100);
-  })
-*/
+  blindMenu(window, apolloOption, userInfoForAuth);
 });
 
 const App = () => {
@@ -597,80 +581,44 @@ const App = () => {
 
     const procUnVisible = (idx) => {
         if (idx === 0) {
-          // setIsTabs1('hidden');
           setStyleVal1(styleValOff);
         }
         if (idx === 1) {
-          // setIsTabs2('hidden');
           setStyleVal2(styleValOff);
         }
         if (idx === 2) {
-          // setIsTabs3('hidden');
           setStyleVal3(styleValOff);
         }
         if (idx === 3) {
-          // setIsTabs4('hidden');
           setStyleVal4(styleValOff);
         }
         if (idx === 4) {
-          // setIsTabs5('hidden');
           setStyleVal5(styleValOff);
         }
         if (idx === 5) {
-          // setIsTabs6('hidden');
           setStyleVal6(styleValOff);
         }
         if (idx === 6) {
-          // setIsTabs7('hidden');
           setStyleVal7(styleValOff);
         }
         if (idx === 7) {
-          // setIsTabs8('hidden');
           setStyleVal8(styleValOff);
         }
         if (idx === 8) {
-          // setIsTabs9('hidden');
           setStyleVal9(styleValOff);
         }
         if (idx === 9) {
-          // setIsTabs10('hidden');
           setStyleVal10(styleValOff);
         }
         if (idx === 10) {
-          // setIsTabs11('hidden');
           setStyleVal11(styleValOff);
         }
         if (idx === 11) {
           setIsTabs12('hidden');
         }
-        if (idx === 12) {
-          setIsTabs13('hidden');
-        }
-        if (idx === 13) {
-          setIsTabs14('hidden');
-        }
-        if (idx === 14) {
-          setIsTabs15('hidden');
-        }
-        if (idx === 15) {
-          setIsTabs16('hidden');
-        }
-        if (idx === 16) {
-          setIsTabs17('hidden');
-        }
-        if (idx === 17) {
-          setIsTabs18('hidden');
-        }
-        if (idx === 18) {
-          setIsTabs19('hidden');
-        }
-        if (idx === 19) {
-          setIsTabs20('hidden');
-        }
     }
 
     const procAllUnVisible = () => {
-
           setStyleVal1(styleValOff);
           setStyleVal2(styleValOff);
           setStyleVal3(styleValOff);
@@ -682,35 +630,15 @@ const App = () => {
           setStyleVal9(styleValOff);
           setStyleVal10(styleValOff);
           setStyleVal11(styleValOn);
-
-/*
-          setIsTabs1('hidden');
-          setIsTabs2('hidden');
-          setIsTabs3('hidden');
-          setIsTabs4('hidden');
-          setIsTabs5('hidden');
-          setIsTabs6('hidden');
-          setIsTabs7('hidden');
-          setIsTabs8('hidden');
-          setIsTabs9('hidden');
-          setIsTabs10('hidden');
-          setIsTabs11('hidden');
-          setIsTabs12('hidden');
-          setIsTabs13('hidden');
-          setIsTabs14('hidden');
-          setIsTabs15('hidden');
-          setIsTabs16('hidden');
-          setIsTabs17('hidden');
-          setIsTabs18('hidden');
-          setIsTabs19('hidden');
-          setIsTabs20('hidden');
-*/
     }
 
     const procVisible = (idx, argUrl, argLabel) => {
 
         var argH = '677px';
         var argS = 'no';
+
+        if (argLabel) argUrl += `?label=${encodeURI(argLabel)}`
+        console.log(argUrl, argLabel);
 
         if (idx === 0) {
           // setIsTabs1('show0');
@@ -862,78 +790,6 @@ const App = () => {
             setIframeTitles12(argLabel);
           }
         }
-        if (idx === 12) {
-          setIsTabs13('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls13(argUrl);
-            setIframeTitles13(argLabel);
-          }
-        }
-        if (idx === 13) {
-          setIsTabs14('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls14(argUrl);
-            setIframeTitles14(argLabel);
-          }
-        }
-        if (idx === 14) {
-          setIsTabs15('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls15(argUrl);
-            setIframeTitles15(argLabel);
-          }
-        }
-        if (idx === 15) {
-          setIsTabs16('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls16(argUrl);
-            setIframeTitles16(argLabel);
-          }
-        }
-        if (idx === 16) {
-          setIsTabs17('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls17(argUrl);
-            setIframeTitles17(argLabel);
-          }
-        }
-        if (idx === 17) {
-          setIsTabs18('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls18(argUrl);
-            setIframeTitles18(argLabel);
-          }
-        }
-        if (idx === 18) {
-          setIsTabs19('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls19(argUrl);
-            setIframeTitles19(argLabel);
-          }
-        }
-        if (idx === 19) {
-          setIsTabs20('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls20(argUrl);
-            setIframeTitles20(argLabel);
-          }
-        }
     }
 
     const procVisible_extern = (idx, argUrl, argLabel, argH0) => {
@@ -941,6 +797,9 @@ const App = () => {
         var tKey = tKey0.toString();
         var argS = 'no';
         var argH = '675px';
+
+        if (argLabel) argUrl += `?label=${encodeURI(argLabel)}`
+        console.log(argUrl, argLabel);
             
         if (idx === 0) {
           // setIsTabs1('show0');
@@ -1165,110 +1024,6 @@ const App = () => {
             localStorage.setItem('iframe-key', String(tKey));
           }
         }
-        if (idx === 12) {
-          setIsTabs13('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls13(argUrl);
-            setIframeTitles13(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey13(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
-        if (idx === 13) {
-          setIsTabs14('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls14(argUrl);
-            setIframeTitles14(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey14(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
-        if (idx === 14) {
-          setIsTabs15('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls15(argUrl);
-            setIframeTitles15(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey15(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
-        if (idx === 15) {
-          setIsTabs16('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls16(argUrl);
-            setIframeTitles16(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey16(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
-        if (idx === 16) {
-          setIsTabs17('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls17(argUrl);
-            setIframeTitles17(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey17(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
-        if (idx === 17) {
-          setIsTabs18('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls18(argUrl);
-            setIframeTitles18(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey18(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
-        if (idx === 18) {
-          setIsTabs19('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls19(argUrl);
-            setIframeTitles19(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey19(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
-        if (idx === 19) {
-          setIsTabs20('show0');
-          if (argUrl === "") {
-            ;
-          } else {
-            setIframeUrls20(argUrl);
-            setIframeTitles20(argLabel);
-
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
-            setIframeKey20(tObj);
-            localStorage.setItem('iframe-key', String(tObj));
-          }
-        }
     }
 
 
@@ -1291,24 +1046,17 @@ const App = () => {
     const findTabIndex1 = (event) => {
         // let _tArray = JSON.parse(localStorage.getItem('tabinfo'));
         let _tArray = JSON.parse(sessionStorage.getItem('tabinfo'));
-        console.log('findTabIndex1', event, _tArray);
         let _tIdx = 0;
         for (_tIdx = 0; _tIdx < _tArray.length; _tIdx ++) {
           let tOne = _tArray[_tIdx];
           if (tOne.label === event.label) {
-             console.log('findTabIndex1-ret', tOne);
              return (tOne);
           }
         }
         let _tObj = {};
         _tObj.idx = -1;
-        console.log('findTabIndex1-no find', _tObj);
         return (_tObj);
     }
-
-/*
-    const onMenuItemClick = (event) => {
-*/
 
     const onExternCall = (argValue) => {
         // console.log(event);
@@ -1381,8 +1129,6 @@ const App = () => {
     }
 
     const onMenuItemClick = (argValue) => {
-        console.log('onMenuItemClick=>' + argValue);
-
         var tFindObj = {};
         menuInfo.forEach((col, i) => {
             var tObj = { ...col };
@@ -1397,32 +1143,26 @@ const App = () => {
             var tObj = { ...col };
             if (col.key === argValue) tFindObj1 = tObj;
         });
-        console.log('onMenuItemClick1' ,tFindObj1);
 
         var item = tFindObj1;
 
         let _tabDatas = [];
         var _findObj0 = findTabIndex1(item);
-        console.log('onMenuItemClick2' , _findObj0);
 
         if (_findObj0.idx >= 0) { 
-          console.log('onMenuItemClick2-1' , _findObj0);
           onTabChangeProgram (_findObj0);
           return;
         }
         
         var _retObj0 = getTabIndex1();
-        console.log('onMenuItemClick3' , _retObj0);
         if (_retObj0.idx < 0) {
            alert('탭은 10개까지만 가능합니다. 탭을 하나 닫은후 클릭하세요');
            return;
         }
       
         var _retObj = procTabDatas(_retObj0.idx, item.url1, item.label);
-        console.log('onMenuItemClick4(procTabDatas)' , _retObj);
 
         procUnVisible(saveIndex2);
-        console.log('onMenuItemClick5(procUnVisible)' , saveIndex2);
 
         var tUrl = '';
         if (window.location.href.includes('webapp')) 
@@ -1435,10 +1175,8 @@ const App = () => {
         let _url1 = tUrl;
 
         procVisible(_retObj.idx, _url1, item.label);
-        console.log('onMennItemClick6(procVisible)', _retObj, _url1, item.label);
 
         setActiveIndex2(_retObj.tabidx);
-        console.log('onMennItemClick7(setActiveIndex2(tabidx, idx))', _retObj.tabidx, _retObj.idx);
         setSaveIndex2(_retObj.idx);
         localStorage.setItem('save_index2', String(_retObj.idx));
 
@@ -1450,10 +1188,7 @@ const App = () => {
 
     const procTabDatas = (argIdx, argUrl, argLabel) => {
         // let _globalTabDatas =  JSON.parse(localStorage.getItem('tabinfo'));
-        console.log("procTabDatas-1:", argIdx, argUrl, argLabel);
         let _globalTabDatas =  JSON.parse(sessionStorage.getItem('tabinfo'));
-        console.log("procTabDatas-2:", _globalTabDatas);
-
 
         var tRetIdx = 0;
         var _tArray = [];
@@ -1481,7 +1216,6 @@ const App = () => {
         setTabDatas(_tabDatas1);
         sessionStorage.setItem('tabinfo1', JSON.stringify(_tabDatas1, null, 4));
 
-        console.log("procTabDatas-4:", _tabDatas1);
         // return (_tabDatas1[_tabDatas1.length-1]);
         return (_tabDatas1[tRetIdx]);
 
@@ -1521,11 +1255,8 @@ const App = () => {
 
 
     const onTabChangeProgram = (argData) => {
-        console.log(argData.idx);
-
         // let _tArray = JSON.parse(localStorage.getItem('tabinfo1'));
         let _tArray = JSON.parse(sessionStorage.getItem('tabinfo1'));
-        console.log(_tArray);
 
         let _tOnes = _tArray.filter((el) => el.idx === argData.idx);
         let _tOne = _tOnes[0];
@@ -1535,8 +1266,6 @@ const App = () => {
 
         procUnVisible(_tOne1.idx);
         procVisible(_tOne.idx, "", "");
-
-        console.log("onTabChangeProgram:" + argData.idx + "," + _tOne.tabidx + "," + _tOne.idx);
 
         let _tFind = _tArray.filter((el) => el.idx === argData.idx);
         let _tabIdx = _tFind[0].tabidx;
@@ -1677,7 +1406,7 @@ const App = () => {
                 { label: 'Fac-Out조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0506_FACTORY_OUTPUT_LIST' },
                 { label: '생산종료', icon: 'pi pi-fw pi-user-edit', url1: 'S0508_PRODUCTION_COMPLETE' },
                 { label: '반납등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0509_RETURN_MATL' },
-                { label: '(*)Pendding Shipment', icon: 'pi pi-fw pi-user-edit', url1: '' },
+                { label: '(*)Pending Shipment', icon: 'pi pi-fw pi-user-edit', url1: '' },
                 { label: '자재재고등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0511_STOCK_RECORD' },
                 { label: '자재재고관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0512_STOCK_LIST' },
                 { label: '선적등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0513_SHIPPING_REGIST_BVT'},
@@ -1747,6 +1476,7 @@ const App = () => {
             key: '0', label: 'INFO',  width:'1365px', height:'675px', url1: '', icon: 'pi pi-fw pi-clone',
             children: [
                 { key: '0-1', label: 'Bank', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0110_KCD_BANK_QRY', children: [] },
+                { key: '0-2', label: 'User', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0111_KCD_USER', children: []},
                 { key: '0-3', label: 'Size', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0107_KCD_SIZEMST', children: []},
                 { key: '0-4', label: 'Buyer', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0113_KCD_BUYER', children: []},
                 { key: '0-5', label: 'Supplier', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0114_KCD_SUPPLIER', children: []},
@@ -1820,7 +1550,7 @@ const App = () => {
                 { key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S052001_FACOUT_LIST' },
                 { key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0508_CAPABOOK_LIST_BVT' },
                 { key: '5-9', label: 'Line Return', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0509_RETURN_MATL' },
-                { key: '5-10', label: 'Pendding Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
+                { key: '5-10', label: 'Pending Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
                 { key: '5-11', label: 'Stock Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0521_STOCK_RECORD_NEW' },
                 { key: '5-12', label: 'Stock Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0523_STOCK_MANAGER' },
             ]
@@ -1932,7 +1662,7 @@ const App = () => {
                 { key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S052001_FACOUT_LIST' },
                 { key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0508_CAPABOOK_LIST_BVT' },
                 { key: '5-9', label: 'Line Return', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0509_RETURN_MATL' },
-                { key: '5-10', label: 'Pendding Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
+                { key: '5-10', label: 'Pending Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
                 { key: '5-11', label: 'Stock Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0521_STOCK_RECORD_NEW' },
                 { key: '5-12', label: 'Stock Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0523_STOCK_MANAGER' },
             ]
@@ -2047,7 +1777,7 @@ const App = () => {
                 { key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S052001_FACOUT_LIST' },
                 { key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0508_CAPABOOK_LIST_BVT' },
                 { key: '5-9', label: 'Line Return', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0509_RETURN_MATL' },
-                { key: '5-10', label: 'Pendding Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
+                { key: '5-10', label: 'Pending Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
                 { key: '5-11', label: 'Stock Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0521_STOCK_RECORD_NEW' },
                 { key: '5-12', label: 'Stock Manager(#)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0512_STOCK_LIST' },
                 { key: '5-13', label: 'Stock I/O History', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0517_STOCK_HISTORY'},

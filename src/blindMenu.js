@@ -8,6 +8,7 @@ async function ajaxToRouter(method, url, data) {
             headers : {
                 "Content-Type" : "application/json",
             },
+            Accept: "application/json",
             dataType : 'text',
             data : JSON.stringify(data),
             success : function(result) {
@@ -21,31 +22,39 @@ async function ajaxToRouter(method, url, data) {
 }
   
 async function getAuthInfo(window, apolloOption, userId) {
-    /*
     return await ajaxToRouter(
         'post',
-        `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/mssql_query`, 
+        `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/auth`, 
         {
-            dbQuery: `select * from kcd_user where user_id='${userId}'`
+            userId: userId,
+            authCd: 0,
+            menuName: '',
         }
     );
-    */
-
-    let blindList = ['Purchase Manager', 'STSIN List'];
-
-    return blindList;
 }
 
-async function blindMenu(window, apolloOption, userId) {
-    let authInfo = await getAuthInfo(window, apolloOption, userId);
-    console.log(authInfo);
+async function blindMenu(window, apolloOption, userInfoForAuth) {
+    let userId = userInfoForAuth.userId;
 
+    if (userId === 'lih7912' || userId === 'won21kr' || userId === 'chibumy' || userId === 'lkj83' || userId.indexOf('test') >= 0) return;
     
+    userInfoForAuth.authMenuList = await getAuthInfo(window, apolloOption, userId);
 
-    let menuList = $('.p-treenode-label');
-    menuList.each( (index, menu) => {
-        console.log(menu);
-        //$(menu).closest('li').remove();
-    });
+    console.log(userInfoForAuth.authMenuList);
+
+    $('.p-tree-toggler').on('click', () => {
+        setTimeout( () => {
+            let menuList = $('.p-treenode-label');
+            menuList.each( (index, menu) => {
+                for (let blindMenu of userInfoForAuth.authMenuList) {
+                    if (blindMenu.MENU_NAME === $(menu).text()) {
+                        let li = $(menu).closest('li');
+                        li.children().remove();
+                        li.append(`<span class="disabled">${$(menu).text()}</span>`)
+                    }
+                }
+            });
+        }, 250);
+    })
 }
-export { blindMenu, getAuthInfo }
+export { blindMenu }
