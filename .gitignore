@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 src/save*
+
+erpshints_menu_src
+
