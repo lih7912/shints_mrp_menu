@@ -29,6 +29,19 @@ $( document ).ready( async function() {
   blindMenu(window, apolloOption, userInfoForAuth);
 });
 
+// 메시지를 수신하는 이벤트 리스너
+window.addEventListener('message', function(event) {
+  // 보낸 iframe의 출처(origin)을 확인
+  if (event.origin === 'http://localhost:3201') {
+      if (event.data === 'focusParent') {
+          window.focus(); // 부모 프레임에 포커스
+          console.log('Parent frame focused!');
+          $('.p-tabmenu').fadeOut(200).fadeIn(200);
+      }
+  }
+});
+
+
 const App = () => {
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
@@ -327,9 +340,9 @@ const App = () => {
         }
         
         return (
-           <div className={options.className}>
+           <div className={options.className} >
                 <span className={options.labelClassName} target={item.target} onClick={options.onClick}>{tLabel}</span>
-                <span className={classNames(options.iconClassName, 'pi pi-times')} onClick={(e) => onCloseClick(item.idx)}></span>
+                <span className={classNames(options.iconClassName, 'pi pi-times')} onClick={(e) => onCloseClick(item.idx)} accessKey='x'></span>
            </div>
         );
     }
@@ -633,12 +646,10 @@ const App = () => {
     }
 
     const procVisible = (idx, argUrl, argLabel) => {
-
         var argH = '677px';
         var argS = 'no';
 
         if (argLabel) argUrl += `?label=${encodeURI(argLabel)}`
-        console.log(argUrl, argLabel);
 
         if (idx === 0) {
           // setIsTabs1('show0');
