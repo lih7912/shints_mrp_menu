@@ -32,7 +32,7 @@ $( document ).ready( async function() {
 // 메시지를 수신하는 이벤트 리스너
 window.addEventListener('message', function(event) {
   // 보낸 iframe의 출처(origin)을 확인
-  if (event.origin === 'http://localhost:3201') {
+  if (event.origin === 'http://afroba.iptime.org:3201') {
       if (event.data === 'focusParent') {
           window.focus(); // 부모 프레임에 포커스
           console.log('Parent frame focused!');
