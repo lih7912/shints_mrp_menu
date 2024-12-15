@@ -36,7 +36,7 @@ async function getAuthInfo(window, apolloOption, userId) {
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
 
-    if (userId === 'lih7912' || userId === 'won21kr' || userId === 'chibumy' || userId === 'lkj83' || userId.indexOf('test') >= 0) return;
+    if (userId === 'lih7912' || userId === 'won21kr' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId.indexOf('test') >= 0) return;
     
     userInfoForAuth.authMenuList = await getAuthInfo(window, apolloOption, userId);
 
