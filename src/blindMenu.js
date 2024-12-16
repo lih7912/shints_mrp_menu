@@ -75,4 +75,5 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
 
     forceOpen(userId);
 }
+
 export { blindMenu }

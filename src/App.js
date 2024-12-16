@@ -27,6 +27,7 @@ import $ from 'jquery';
 let userInfoForAuth = {};
 $( document ).ready( async function() {
   blindMenu(window, apolloOption, userInfoForAuth);
+  showTestEnvLabel(window);
 });
 
 // 메시지를 수신하는 이벤트 리스너
@@ -40,6 +41,13 @@ window.addEventListener('message', function(event) {
       }
   }
 });
+
+function showTestEnvLabel(window) {
+  if (window.location.host.indexOf('erp.shints.com') < 0) {
+    $('.testEnvLabel').css('display','block');
+  }
+}
+
 
 
 const App = () => {
@@ -1950,7 +1958,7 @@ const App = () => {
                         </i>
                     </div>
                     */}
-                    <div style={{ float:'left', marginTop: '0rem', width: '9.5rem', height: '4rem' }}>
+                    <div style={{ float:'left', marginTop: '0rem', width: '7.5rem', height: '4rem' }}>
                         <span style={{ width: '9rem' }}>
                             <p style={{ width: '9rem', display: 'inline-block', color:'blue'}} >{userInfo.USER_ID} </p>
                         </span>
@@ -1958,20 +1966,28 @@ const App = () => {
                             <p style={{ width: '9rem', display: 'inline-block', color:'blue' }} >{userInfo.USER_NAME} </p>
                         </span>
                     </div>
+
+                    <div style={{ float:'left', marginTop: '0.6rem', width: '2.5rem', height: '2rem' }}>
+                        <i className="custom-target-icon pi pi-unlock p-text-secondary "
+                            onClick={ (e) => {} }
+                            style={{ fontSize: '1.5rem', cursor: 'pointer' }}>
+                        </i>
+                    </div>
                     <div style={{ float:'left', marginTop: '0.6rem', width: '3rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-refresh p-text-secondary "
                             data-pr-position="right"
                             data-pr-at="right+5 top"
                             data-pr-my="left center-2"
                             onClick={onClickIcon1}
-                            style={{ fontSize: '2rem', cursor: 'pointer'}}>
+                            style={{ fontSize: '1.5rem', cursor: 'pointer'}}>
                         </i>
                     </div>
                     
                 </div>
-                <div style={{ marginBottom: '0rem', width:'100%', padding:'0'}}>
+                <div style={{ marginBottom: '1.5rem', width:'100%', padding:'0'}}>
                       <button style={{ marginBottom: '0.5rem', width:'90%'}} onClick={ () => { window.location.href='/' }}>Log out</button>
-                      <button style={{ marginBottom: '1rem', width:'90%'}} onClick={ () => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
+                      <button style={{ marginBottom: '0.5rem', width:'90%'}} onClick={ () => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
+                      <div class="testEnvLabel blink" style={{ marginBottom: '1rem', width:'90%', backgroundColor:'red', borderRadius: '3px', color:'white', fontWeight: '700', textAlign:'center'}}>TEST 환경</div>
                 </div>
                 <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
             </div>
