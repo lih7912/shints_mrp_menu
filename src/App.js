@@ -1987,7 +1987,7 @@ const App = () => {
                 <div style={{ marginBottom: '1.5rem', width:'100%', padding:'0'}}>
                       <button style={{ marginBottom: '0.5rem', width:'90%'}} onClick={ () => { window.location.href='/' }}>Log out</button>
                       <button style={{ marginBottom: '0.5rem', width:'90%'}} onClick={ () => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
-                      <div class="testEnvLabel blink" style={{ marginBottom: '1rem', width:'90%', backgroundColor:'red', borderRadius: '3px', color:'white', fontWeight: '700', textAlign:'center'}}>TEST 환경</div>
+                      <div class="testEnvLabel blink" style={{ marginBottom: '1rem', width:'90%', backgroundColor:'purple', borderRadius: '3px', color:'white', fontWeight: '700', textAlign:'center'}}>TEST 환경</div>
                 </div>
                 <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
             </div>
