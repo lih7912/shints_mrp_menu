@@ -33,6 +33,19 @@ async function getAuthInfo(window, apolloOption, userId) {
     );
 }
 
+// 'Capa Record','Capa List' 강제로 대표아이디에게 열어주기
+function forceOpen(userId, menuName) {
+    if (userId != 'kr' && userId != 'mt' && userId != 'sales1' && userId != 'sales2' && userId != 'sales3' && userId != 'sales4' && userId != 'sales5') {
+        return false;
+    } else {
+        if (menuName === 'Capa Record' || menuName === 'Capa List') {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
 
@@ -46,15 +59,20 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
         setTimeout( () => {
             let menuList = $('.p-treenode-label');
             menuList.each( (index, menu) => {
+                let menuName = $(menu).text();
+                
                 for (let blindMenu of userInfoForAuth.authMenuList) {
-                    if (blindMenu.MENU_NAME === $(menu).text()) {
+
+                    if (blindMenu.MENU_NAME === menuName && !forceOpen(userId, menuName)) {
                         let li = $(menu).closest('li');
                         li.children().remove();
-                        li.append(`<span class="disabled">${$(menu).text()}</span>`)
+                        li.append(`<span class="disabled">${menuName}</span>`)
                     }
                 }
             });
         }, 250);
     })
+
+    forceOpen(userId);
 }
 export { blindMenu }
