@@ -133,3 +133,5 @@ src/save*
 
 erpshints_menu_src
 *.zip
+*.swp
+
