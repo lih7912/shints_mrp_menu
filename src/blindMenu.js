@@ -46,10 +46,16 @@ function forceOpen(userId, menuName) {
     return false;
 }
 
+function setBlind(menu, menuName) {
+    let li = $(menu).closest('li');
+    li.children().remove();
+    li.append(`<span class="disabled">${menuName}</span>`)
+}
+
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
 
-    if (userId === 'lih7912' || userId === 'won21kr' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId.indexOf('test') >= 0) return;
+    if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId.indexOf('test') >= 0) return;
     
     userInfoForAuth.authMenuList = await getAuthInfo(window, apolloOption, userId);
 
@@ -61,16 +67,17 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
             menuList.each( (index, menu) => {
                 let menuName = $(menu).text();
                 
-                for (let blindMenu of userInfoForAuth.authMenuList) {
+                if (menuName === 'Order Regist') {
+                    setBlind(menu, menuName);
+                }
 
+                for (let blindMenu of userInfoForAuth.authMenuList) {
                     if (blindMenu.MENU_NAME === menuName && !forceOpen(userId, menuName)) {
-                        let li = $(menu).closest('li');
-                        li.children().remove();
-                        li.append(`<span class="disabled">${menuName}</span>`)
+                        setBlind(menu, menuName);
                     }
                 }
             });
-        }, 250);
+        }, 100);
     })
 
     forceOpen(userId);
