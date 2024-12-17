@@ -67,10 +67,6 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
             menuList.each( (index, menu) => {
                 let menuName = $(menu).text();
                 
-                if (menuName === 'Order Regist') {
-                    setBlind(menu, menuName);
-                }
-
                 for (let blindMenu of userInfoForAuth.authMenuList) {
                     if (blindMenu.MENU_NAME === menuName && !forceOpen(userId, menuName)) {
                         setBlind(menu, menuName);
