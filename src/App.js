@@ -9,6 +9,10 @@ import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
 import { TabPanel } from 'primereact/tabview';
 import { TabMenu } from 'primereact/tabmenu';
+import { Dialog } from "primereact/dialog";
+import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
+import { Button } from "primereact/button";
 
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
@@ -22,12 +26,13 @@ import './TabViewDemo.css';
 import Iframe from 'react-iframe'
 import apolloOption from './assets/env_graphql';
 import { blindMenu } from './blindMenu'
+import { changePassword } from './changePassword'
 import $ from 'jquery';
 
 let userInfoForAuth = {};
 $( document ).ready( async function() {
-  blindMenu(window, apolloOption, userInfoForAuth);
-  showTestEnvLabel(window);
+	blindMenu(window, apolloOption, userInfoForAuth);
+	showTestEnvLabel(window);
 });
 
 // 메시지를 수신하는 이벤트 리스너
@@ -43,12 +48,10 @@ window.addEventListener('message', function(event) {
 });
 
 function showTestEnvLabel(window) {
-  if (window.location.host.indexOf('erp.shints.com') < 0) {
-    $('.testEnvLabel').css('display','block');
-  }
+	if (window.location.host.indexOf('erp.shints.com') < 0) {
+		$('.testEnvLabel').css('display','block');
+	}
 }
-
-
 
 const App = () => {
     const [userInfo, setUserInfo] = useState({});
@@ -1929,6 +1932,27 @@ const App = () => {
         }
     }
 
+	/* 패스워드 변경 */
+	const [passwordModalVisible, setPasswordModalVisible] = useState(false);
+	const [newPassword, setNewPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	  
+	const handleSave = async () => {
+		if (newPassword !== confirmPassword) {
+			alert("Passwords do not match!");
+			return;
+		}
+
+		await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword);
+
+		alert("Password changed successfully!");
+		setPasswordModalVisible(false);
+	};
+	  
+	const handleCancel = () => {
+		setPasswordModalVisible(false);
+	};
+
     return (
         <div className="wrapperClass9" onClick={onWrapperClick} >
             <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
@@ -1969,7 +1993,7 @@ const App = () => {
 
                     <div style={{ float:'left', marginTop: '0.6rem', width: '2.5rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary "
-                            onClick={ (e) => {} }
+                            onClick={ (e) => { setPasswordModalVisible(true); setNewPassword(''); setConfirmPassword(''); } }
                             style={{ fontSize: '1.5rem', cursor: 'pointer' }}>
                         </i>
                     </div>
@@ -2137,9 +2161,44 @@ const App = () => {
                 <div className="layout-mask p-component-overlay"></div>
             </CSSTransition>
 
+			<Dialog
+				header="Change Password"
+				visible={passwordModalVisible}
+				style={{ width: "400px" }}
+				modal
+				onHide={() => setPasswordModalVisible(false)}
+				footer={
+					<div>
+					<Button label="Cancel" icon="pi pi-times" onClick={handleCancel} />
+					<Button label="Save" icon="pi pi-check" onClick={handleSave} />
+					</div>
+				}>
+				<div className="p-fluid">
+					<div className="field">
+					<label htmlFor="newPassword">New Password</label>
+					<Password
+						id="newPassword"
+						value={newPassword}
+						onChange={(e) => setNewPassword(e.target.value)}
+						toggleMask
+					/>
+					</div>
+					<div className="field">
+					<label htmlFor="confirmPassword">Confirm New Password</label>
+					<Password
+						id="confirmPassword"
+						value={confirmPassword}
+						onChange={(e) => setConfirmPassword(e.target.value)}
+						toggleMask
+						feedback={false}
+					/>
+					</div>
+				</div>
+			</Dialog>
         </div>
     );
-
 }
+
+
 
 export default App;
