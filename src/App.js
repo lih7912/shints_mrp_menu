@@ -26,7 +26,7 @@ import './TabViewDemo.css';
 import Iframe from 'react-iframe'
 import apolloOption from './assets/env_graphql';
 import { blindMenu } from './blindMenu'
-import { changePassword } from './changePassword'
+import { changePassword, getPassword } from './changePassword'
 import $ from 'jquery';
 
 let userInfoForAuth = {};
@@ -1934,6 +1934,7 @@ const App = () => {
 
 	/* 패스워드 변경 */
 	const [passwordModalVisible, setPasswordModalVisible] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	  
@@ -1943,8 +1944,17 @@ const App = () => {
 			return;
 		}
 
-		await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword);
+    let result = (await getPassword(window, apolloOption, userInfoForAuth.userId))[0].passwd;
 
+    console.log(result);
+
+    if (currentPassword != result) {
+      alert("Wrong current password!");
+			return;
+    }
+
+		await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword, currentPassword);
+ 
 		alert("Password changed successfully!");
 		setPasswordModalVisible(false);
 	};
@@ -1993,7 +2003,7 @@ const App = () => {
 
                     <div style={{ float:'left', marginTop: '0.6rem', width: '2.5rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary "
-                            onClick={ (e) => { setPasswordModalVisible(true); setNewPassword(''); setConfirmPassword(''); } }
+                            onClick={ (e) => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); } }
                             style={{ fontSize: '1.5rem', cursor: 'pointer' }}>
                         </i>
                     </div>
@@ -2174,6 +2184,15 @@ const App = () => {
 					</div>
 				}>
 				<div className="p-fluid">
+        <div className="field">
+					<label htmlFor="currentPassword">Current Password</label>
+					<Password
+						id="currentPassword"
+						value={currentPassword}
+						onChange={(e) => setCurrentPassword(e.target.value)}
+						toggleMask
+					/>
+					</div>
 					<div className="field">
 					<label htmlFor="newPassword">New Password</label>
 					<Password

@@ -21,15 +21,25 @@ async function ajaxToRouter(method, url, data) {
     });
 }
   
-async function changePassword(window, apolloOption, userId, newPassword) {
+async function changePassword(window, apolloOption, userId, newPassword, currentPassword) {
     return await ajaxToRouter(
         'post',
         `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/change_password`, 
         {
             userId: userId,
-            newPassword: newPassword
+            newPassword: newPassword,
+            currentPassword: currentPassword, 
         }
     );
 }
 
-export { changePassword }
+async function getPassword(window, apolloOption, userId) {
+    return await ajaxToRouter(
+        'post',
+        `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/get_password`, 
+        {
+            userId: userId,
+        }
+    );
+}
+export { changePassword, getPassword }
