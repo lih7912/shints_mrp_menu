@@ -30,9 +30,12 @@ import { changePassword, getPassword } from './changePassword'
 import $ from 'jquery';
 
 let userInfoForAuth = {};
-$( document ).ready( async function() {
+$(async function() {
 	blindMenu(window, apolloOption, userInfoForAuth);
-	showTestEnvLabel(window);
+	
+  showTestEnvLabel(window);
+
+  console.log($('input'));
 });
 
 // 메시지를 수신하는 이벤트 리스너
@@ -419,7 +422,7 @@ const App = () => {
     } 
 
     useEffect(() => {
-        // document.documentElement.style.fontSize = '14.5px';
+       // document.documentElement.style.fontSize = '14.5px';
         document.documentElement.style.fontSize = '10.9px';
 
         var tUserId = '';
@@ -509,7 +512,11 @@ const App = () => {
               },
             false
         );
-
+        
+        $('input[type="text"]').on('focus', function () {
+          console.log('----------------focus');
+          $(this).select(); // 포커스된 input 요소의 내용을 전체 선택
+        });
     }, []);
 
     useEffect(() => {
@@ -1939,17 +1946,22 @@ const App = () => {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	  
 	const handleSave = async () => {
-		if (newPassword !== confirmPassword) {
-			alert("Passwords do not match!");
-			return;
-		}
-
     let result = (await getPassword(window, apolloOption, userInfoForAuth.userId))[0].passwd;
 
     console.log(result);
 
     if (currentPassword != result) {
       alert("Wrong current password!");
+			return;
+    }
+
+		if (newPassword !== confirmPassword) {
+			alert("Passwords do not match!");
+			return;
+		}
+
+    if (newPassword.length < 5) {
+      alert("Use a password of at least 5 digits.");
 			return;
     }
 
