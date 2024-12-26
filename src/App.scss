@@ -62,3 +62,17 @@ button {
     80%  { opacity: 0; }
     100% { opacity: 1; }
 }
+
+.p-tabmenu-nav li {
+    flex: 0 0 auto; /* 모든 탭의 너비를 동일하게 */
+    width: 133px; /* 원하는 고정 너비 설정 */
+}
+
+.p-tabmenu-nav li .p-menuitem-link {
+    justify-content: center; /* 중앙 정렬 */
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link  {
+    text-align: center;
+    
+}

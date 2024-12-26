@@ -182,29 +182,6 @@ const App = () => {
     const [isTabs19, setIsTabs19] = useState('hidden');
     const [isTabs20, setIsTabs20] = useState('hidden');
 
-/*
-    const [isTabs1, setIsTabs1] = useState('hidden');
-    const [isTabs2, setIsTabs2] = useState('hidden');
-    const [isTabs3, setIsTabs3] = useState('hidden');
-    const [isTabs4, setIsTabs4] = useState('hidden');
-    const [isTabs5, setIsTabs5] = useState('hidden');
-    const [isTabs6, setIsTabs6] = useState('hidden');
-    const [isTabs7, setIsTabs7] = useState('hidden');
-    const [isTabs8, setIsTabs8] = useState('hidden');
-    const [isTabs9, setIsTabs9] = useState('hidden');
-    const [isTabs10, setIsTabs10] = useState('hidden');
-    const [isTabs11, setIsTabs11] = useState('hidden');
-    const [isTabs12, setIsTabs12] = useState('hidden');
-    const [isTabs13, setIsTabs13] = useState('hidden');
-    const [isTabs14, setIsTabs14] = useState('hidden');
-    const [isTabs15, setIsTabs15] = useState('hidden');
-    const [isTabs16, setIsTabs16] = useState('hidden');
-    const [isTabs17, setIsTabs17] = useState('hidden');
-    const [isTabs18, setIsTabs18] = useState('hidden');
-    const [isTabs19, setIsTabs19] = useState('hidden');
-    const [isTabs20, setIsTabs20] = useState('hidden');
-*/
-
     const [tabViewDatas, setTabViewDatas] = useState([]);
     const [tabDatas, setTabDatas] = useState([]);
     const [tabDatas1, setTabDatas1] = useState([]);
@@ -258,40 +235,8 @@ const App = () => {
     // const [styleVal, setStyleVal] = useState({ width: '65vw' });
     // const [styleVal, setStyleVal] = useState({ position: 'fixed', marginLeft: '14rem' });
     const [styleVal, setStyleVal] = useState({ marginLeft: '14rem' });
-    const onCall = (e) => {
-        const rVal = {};
-        rVal.marginLeft = '0.5rem';
-        setStyleVal(rVal);
-        console.log(e);
-    }
-
-    const reloadTab = (argIdx) => {
-        // ref_iframe1.reload();
-        if (typeof ref_iframe1.current !== 'undefined') {
-           if (ref_iframe1.current !== null) { 
-              console.log('reload tab');
-              // console.log(ref_iframe1.current.src);
-              // ref_iframe1.current.src += '';
-              // ref_iframe1.current.contentWindow.location.reload();
-              var tSrc = ref_iframe1.current.src;
-              ref_iframe1.current.src = '';
-              ref_iframe1.current.src = tSrc;
-           }
-        }
-        // ref_iframe1.src += '';
-    } 
-
-    const findCloseTab = (argIdx) => {
-        // let _tabDatas0 =  JSON.parse(localStorage.getItem('tabinfo1'));
-        let _tabDatas0 =  JSON.parse(sessionStorage.getItem('tabinfo1'));
-        let _tOnes = _tabDatas0.filter((el) => el.idx === argIdx);
-        let _tOne = _tOnes[0];
-        return (_tOne);
-    }
 
     const unprocTabDatas = (argIdx) => {
-
-        // let _tabDatas0 =  JSON.parse(localStorage.getItem('tabinfo1'));
         let _tabDatas0 =  JSON.parse(sessionStorage.getItem('tabinfo1'));
 
         let _tOnes = _tabDatas0.filter((el) => el.idx === argIdx);
@@ -323,25 +268,21 @@ const App = () => {
         let _retObj = unprocTabDatas(argIdx);
         // if (argIdx === _retObj.src.idx) {
         console.log('onCloseClick:' + argIdx + ',' + saveIndex2 + ',' + _retObj.src.idx );
+
+        /*
+        let iframeId = `#id${argIdx+1}`;
+        let parentDiv = $(iframeId).closest('div');
+        $(parentDiv).children().remove();
+        $(parentDiv).append(`<iframe src="" frameborder="0" scrolling="no" height="" id="${iframeId}" class="myClassname"></iframe>`);
+        */
+
+
         procAllUnVisible();
-        if (argIdx === saveIndex2) {
-          if (typeof _retObj.tab === 'undefined') {
-             ;
-          } else {
-             procVisible(_retObj.tab.idx, "", "");
-             setActiveIndex2(_retObj.tab.tabidx);
-             setSaveIndex2(_retObj.tab.idx);
-             localStorage.setItem('save_index2', String(_retObj.tab.idx));
-          }
-        } else {
-          if (typeof _retObj.tab === 'undefined') {
-            ;
-          } else {
+        if (typeof _retObj.tab != 'undefined') {
             procVisible(_retObj.tab.idx, "", "");
             setActiveIndex2(_retObj.tab.tabidx);
             setSaveIndex2(_retObj.tab.idx);
-             localStorage.setItem('save_index2', String(_retObj.tab.idx));
-          }
+            localStorage.setItem('save_index2', String(_retObj.tab.idx));
         }
     }
 
@@ -381,46 +322,7 @@ const App = () => {
       // localStorage.setItem('tabinfo', JSON.stringify(_tArray, null, 4));
       sessionStorage.setItem('tabinfo', JSON.stringify(_tArray, null, 4));
     }
-
-    const [usedIndex, setUsedIndex] = useState([]);
-    const [unUsedIndex, setUnUsedIndex] = useState(Array.from({ length: 20 }, (_, i) => (
-        {  
-           idx: i 
-        }
-    )));
-
-
-    const getTabViews_0 = (tab) => {
-       let _url1 = `${window.location.protocol}//${window.location.hostname}:3101/#/` + tab.url1;
-       return (
-          <TabPanel key={tab.title} header={tab.content} closable >
-            <Iframe url={_url1}
-                    width="100%"
-                    height="677px"
-                    id="{tab.title}"
-                    className="myClassname"
-                    display="block"
-                    styles={{border: 0}}
-                    position="relative"/>
-           </TabPanel>
-       )
-    } 
-
-    const getTabViews_1 = (tab) => {
-       var _path = "/" + tab.url1;
-       var _component  = null;
-/*
-       if (tab.url1 === "mgrkcdbank") _component = MgrKcdBank;
-       if (tab.url1 === "mgrkcduser") _component = MgrKcdUser;
-       if (tab.url1 === "mgrkcdsizemst") _component = MgrKcdSizeMst;
-*/
-       return (
-          <TabPanel key={tab.title} header={tab.content} closable >
-               <Route path={_path} component={_component} />
-          </TabPanel>
-       )
-    } 
-
+    
     useEffect(() => {
        // document.documentElement.style.fontSize = '14.5px';
         document.documentElement.style.fontSize = '10.9px';
@@ -474,20 +376,6 @@ const App = () => {
         
         setUserInfo(tUserInfo);
 
-/*
-        function handleKeyDown(e) {
-           if (!ref.current || ref.current.contains(event.target)) {
-               return;
-           }
-           console.log("click =>" e);
-           onKeyDown(e);
-        }
-        document.addEventListener("keydown", handleKeyDown);
-        return function cleanup() {
-            document.removeEventListener("keydown", handleKeyDown);
-        };
-*/
-
         localStorage.setItem('iframe-key', '99999');
 
         window.addEventListener(
@@ -502,13 +390,6 @@ const App = () => {
                         // hideORDER_INFO();
                     }
                  }
-                    
-                 // hideORDER_INFO();
-                 /*
-                 if (e.origin === SERVER_URL && e.data.message) {
-                     ;
-                 }
-                 */
               },
             false
         );
@@ -533,29 +414,6 @@ const App = () => {
         copyTooltipRef && copyTooltipRef.current && copyTooltipRef.current.updateTargetEvents();
     }, [location]);
 
-    const onInputStyleChange = (inputStyle) => {
-        console.log("onInputStyleChange");
-        console.log(inputStyle);
-        setInputStyle(inputStyle);
-    }
-
-    const onRipple = (e) => {
-        console.log("onRipple");
-        console.log(e);
-        PrimeReact.ripple = e.value;
-        setRipple(e.value)
-    }
-
-    const onLayoutModeChange = (mode) => {
-        console.log("onLayoutModeChange");
-        setLayoutMode(mode)
-    }
-
-    const onColorModeChange = (mode) => {
-        console.log("onColorModeChange");
-        setLayoutColorMode(mode)
-    }
-
     const onWrapperClick = (event) => {
         if (!menuClick) {
             setOverlayMenuActive(false);
@@ -570,44 +428,8 @@ const App = () => {
         menuClick = false;
     }
 
-    const onToggleMenuClick = (event) => {
-        menuClick = true;
-
-        if (isDesktop()) {
-            if (layoutMode === 'overlay') {
-                if (mobileMenuActive === true) {
-                    setOverlayMenuActive(true);
-                }
-
-                setOverlayMenuActive((prevState) => !prevState);
-                setMobileMenuActive(false);
-            }
-            else if (layoutMode === 'static') {
-                setStaticMenuInactive((prevState) => !prevState);
-            }
-        }
-        else {
-            setMobileMenuActive((prevState) => !prevState);
-        }
-
-        event.preventDefault();
-    }
-
     const onSidebarClick = () => {
         menuClick = true;
-    }
-
-    const onMobileTopbarMenuClick = (event) => {
-        mobileTopbarMenuClick = true;
-
-        setMobileTopbarMenuActive((prevState) => !prevState);
-        event.preventDefault();
-    }
-
-    const onMobileSubTopbarMenuClick = (event) => {
-        mobileTopbarMenuClick = true;
-
-        event.preventDefault();
     }
 
     const procUnVisible = (idx) => {
@@ -1250,10 +1072,6 @@ const App = () => {
 
     }
 
-    const onClickClose = (event) => {
-        console.log("onClickClose:tabDatas=>" + tabDatas.length);
-    }
-
     const onTabChange1 = (event) => {
         console.log('onTabChange-1:' + event.value.idx);
 
@@ -1844,35 +1662,6 @@ const App = () => {
             element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
 
-    const wrapperClass = classNames('layout-wrapper', {
-        'layout-overlay': layoutMode === 'overlay',
-        'layout-static': layoutMode === 'static',
-        'layout-static-sidebar-inactive': staticMenuInactive && layoutMode === 'static',
-        'layout-overlay-sidebar-active': overlayMenuActive && layoutMode === 'overlay',
-        'layout-mobile-sidebar-active': mobileMenuActive,
-        'p-input-filled': inputStyle === 'filled',
-        'p-ripple-disabled': ripple === false,
-        'layout-theme-light': layoutColorMode === 'light'
-    });
-
-    const onClickIcon = (e) => {
-        console.log('onClickIcon');
-
-        if (styleMode === 0) {
-          setStyleMode(1);
-          
-          setStyleVal0({ width: '4rem' });
-          setStyleVal({ marginLeft: '4rem' });
-        } else {
-          setStyleMode(0);
-          
-          setStyleVal0({ width: '14rem' });
-          setStyleVal({ marginLeft: '14rem' });
-        }
-
-        // onToggleMenuClick(e);
-    }
-
     const onClickIcon1 = (e) => {
         console.log('onClickIcon');
         // onToggleMenuClick(e);
@@ -1979,31 +1768,8 @@ const App = () => {
         <div className="wrapperClass9" onClick={onWrapperClick} >
             <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
 
-            {/*
-            <AppTopbar onToggleMenuClick={onToggleMenuClick} layoutColorMode={layoutColorMode}
-                mobileTopbarMenuActive={mobileTopbarMenuActive} onMobileTopbarMenuClick={onMobileTopbarMenuClick} onMobileSubTopbarMenuClick={onMobileSubTopbarMenuClick} />
-             */}
-
             <div className="layout-sidebar" onClick={onSidebarClick} style={styleVal0}>
-                {/*
-                <AppMenu model={menu} onMenuItemClick={onMenuItemClick} layoutColorMode={layoutColorMode} />
-                */}
-                {/*
-                <Tree value={menuInfo} onSelectionChange={onMenuItemClick} />
-                */}
-
                 <div style={{ marginTop: '0rem', width: '13rem', height: '4rem',  marginBottom:'0rem' }}>
-                   {/*
-                    <div style={{ float:'left', marginTop: '0rem', width: '3.5rem', height: '4rem' }}>
-                        <i className="custom-target-icon pi pi-user p-text-secondary "
-                            data-pr-position="right"
-                            data-pr-at="right+5 top"
-                            data-pr-my="left center-2"
-                            onClick={onClickIcon}
-                            style={{ fontSize: '2.5rem', cursor: 'pointer' }}>
-                        </i>
-                    </div>
-                    */}
                     <div style={{ float:'left', marginTop: '0rem', width: '7.5rem', height: '4rem' }}>
                         <span style={{ width: '9rem' }}>
                             <p style={{ width: '9rem', display: 'inline-block', color:'blue'}} >{userInfo.USER_ID} </p>
@@ -2043,7 +1809,6 @@ const App = () => {
                     <TabMenu model={tabDatas} activeIndex={activeIndex2} onTabChange={onTabChange1} />
                     <div style={{ height:'62rem', position:'relative' }}>
                     <div className={isTabs1} style={styleVal1} >
-                       {/* <Button style={{ padding: '0rem' }} label="Reload" icon="pi pi-check" className="p-button-text" onClick={reloadTab(1)} /> */}
                        <iframe src={iframeUrls1}
                                key={iframeKey1}
                                frameBorder="0"
