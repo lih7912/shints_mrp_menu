@@ -1613,6 +1613,7 @@ const App = () => {
                 { key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0437_EXPORT_REGIST'},
                 { key: '4-3', label: '수입등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0438_IMPORT_REGIST'},
                 { key: '4-8', label: 'Garment Ship', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0513_SHIPPING_LIST'},
+                { key: '4-16', label: 'Shipping Regist', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S051301_SHIPPING_REGIST'},
                 { key: '4-7', label: 'Delay Report(#)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0450_DELAY_REPORT'},
                 { key: '5-1', label: '관리메인(#)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: '#' },
                 { key: '5-2', label: 'Clearance_Arrival(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=BVT' },
