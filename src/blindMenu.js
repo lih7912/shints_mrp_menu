@@ -1,3 +1,4 @@
+/* eslint-disable */
 import $ from 'jquery';
 
 async function ajaxToRouter(method, url, data) {
@@ -49,7 +50,7 @@ function forceOpen(userId, menuName) {
 function setBlind(menu, menuName) {
     let li = $(menu).closest('li');
     li.children().remove();
-    li.append(`<span class="disabled">${menuName}</span>`)
+    li.append(`<span className="disabled">${menuName}</span>`)
 }
 
 async function blindMenu(window, apolloOption, userInfoForAuth) {

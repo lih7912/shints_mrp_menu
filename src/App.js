@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Route, useHistory, useLocation } from 'react-router-dom';
@@ -34,8 +35,6 @@ $(async function() {
 	blindMenu(window, apolloOption, userInfoForAuth);
 	
   showTestEnvLabel(window);
-
-  console.log($('input'));
 });
 
 // 메시지를 수신하는 이벤트 리스너
@@ -268,14 +267,6 @@ const App = () => {
         let _retObj = unprocTabDatas(argIdx);
         // if (argIdx === _retObj.src.idx) {
         console.log('onCloseClick:' + argIdx + ',' + saveIndex2 + ',' + _retObj.src.idx );
-
-        /*
-        let iframeId = `#id${argIdx+1}`;
-        let parentDiv = $(iframeId).closest('div');
-        $(parentDiv).children().remove();
-        $(parentDiv).append(`<iframe src="" frameborder="0" scrolling="no" height="" id="${iframeId}" class="myClassname"></iframe>`);
-        */
-
 
         procAllUnVisible();
         if (typeof _retObj.tab != 'undefined') {
@@ -1799,7 +1790,7 @@ const App = () => {
                 <div style={{ marginBottom: '1.5rem', width:'100%', padding:'0'}}>
                       <button style={{ marginBottom: '0.5rem', width:'90%'}} onClick={ () => { window.location.href='/' }}>Log out</button>
                       <button style={{ marginBottom: '0.5rem', width:'90%'}} onClick={ () => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
-                      <div class="testEnvLabel blink" style={{ marginBottom: '1rem', width:'90%', backgroundColor:'purple', borderRadius: '3px', color:'white', fontWeight: '700', textAlign:'center'}}>TEST 환경</div>
+                      <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width:'90%', backgroundColor:'purple', borderRadius: '3px', color:'white', fontWeight: '700', textAlign:'center'}}>TEST 환경</div>
                 </div>
                 <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
             </div>
