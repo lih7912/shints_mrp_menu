@@ -33,8 +33,8 @@ import $ from 'jquery';
 let userInfoForAuth = {};
 $(async function() {
 	blindMenu(window, apolloOption, userInfoForAuth);
-	
-  showTestEnvLabel(window);
+    showTestEnvLabel(window);
+    $('iframe').attr('scrolling', 'no');
 });
 
 // 메시지를 수신하는 이벤트 리스너
@@ -1802,14 +1802,8 @@ const App = () => {
                     <div style={{ height:'62rem', position:'relative' }}>
                     <div className={isTabs1} style={styleVal1} >
                        <iframe src={iframeUrls1}
-                               key={iframeKey1}
                                frameBorder="0"
-                               scrolling={iframeS1}
-                               
                                height={iframeH1}
-                               ref={ref_iframe1}
-                               id="id1"
-                               className="myClassname"
                                />
                     </div>
                     <div className={isTabs2}  style={styleVal2} >
@@ -1986,7 +1980,5 @@ const App = () => {
         </div>
     );
 }
-
-
 
 export default App;
