@@ -53,23 +53,8 @@ function forceOpenCapa(userId, menuName) {
 function forceOpen(userId, menuName) {
     let ret = false;
 
-    // 공장 무역팀, GARMENT SHIP 열기
-    if (userId === 'lucky' ||
-        userId === 'jim' ||
-        userId === 'hoa-con' ||
-        userId === 'export1' ||
-        userId === 'maile' ||
-        userId === 'exim' ||
-        userId === 'etrade1' ||
-        userId === 'etrade2' ||
-        userId === 'etrade3' ||
-        userId === 'etrade4' ||
-        userId === 'etrade5' ||
-        userId === 'Beza' ||
-        userId === 'tigi' ||
-        userId === 'shintsetp66') {
-
-        if (menuName === 'Garment Ship')
+    if (userId === 'trade1' || userId === 'jim1') {
+        if (menuName.includes('Debit Note'))
             ret = true;
     }
 
@@ -102,13 +87,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                 if (menuName !== 'INFO' && menuName !== 'ORDER' && menuName !== 'MRP' && menuName !== 'PURCHASE' && menuName !== 'EXPORT/IMPORT' && menuName !== 'FACTORY IN-OUT' && menuName !== 'COST' && menuName !== 'RECEIVABLES') {
 
                     for (let blindMenu of userInfoForAuth.authMenuList) {
-                        if (blindMenu.MENU_NAME === menuName && !forceOpenCapa(userId, menuName)) {
-                            setBlind(menu, menuName);
-                        }
-                    }
-
-                    if (userInfoForAuth.authMenuList.length == 0) {
-                        if (!forceOpen(userId, menuName)) {
+                        if (blindMenu.MENU_NAME === menuName && !forceOpenCapa(userId, menuName) && !forceOpen(userId, menuName)) {
                             setBlind(menu, menuName);
                         }
                     }
@@ -116,8 +95,6 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
             });
         }, 100);
     })
-
-    forceOpenCapa(userId);
 }
 
 export { blindMenu }
