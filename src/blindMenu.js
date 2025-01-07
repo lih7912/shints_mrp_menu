@@ -35,22 +35,53 @@ async function getAuthInfo(window, apolloOption, userId) {
 }
 
 // 'Capa Record','Capa List' 강제로 대표아이디에게 열어주기
-function forceOpen(userId, menuName) {
+function forceOpenCapa(userId, menuName) {
+    let ret = false;
+
     if (userId != 'kr' && userId != 'mt' && userId != 'sales1' && userId != 'sales2' && userId != 'sales3' && userId != 'sales4' && userId != 'sales5') {
-        return false;
+        ret = false;
     } else {
         if (menuName === 'Capa Record' || menuName === 'Capa List') {
-            return true;
+            ret = true;
         }
     }
 
-    return false;
+    return ret;
+}
+
+// 무조건 강제열기
+function forceOpen(userId, menuName) {
+    let ret = false;
+
+    // 공장 무역팀, GARMENT SHIP 열기
+    if (userId === 'lucky' ||
+        userId === 'jim' ||
+        userId === 'hoa-con' ||
+        userId === 'export1' ||
+        userId === 'maile' ||
+        userId === 'exim' ||
+        userId === 'etrade1' ||
+        userId === 'etrade2' ||
+        userId === 'etrade3' ||
+        userId === 'etrade4' ||
+        userId === 'etrade5' ||
+        userId === 'Beza' ||
+        userId === 'tigi' ||
+        userId === 'shintsetp66') {
+
+        if (menuName === 'Garment Ship')
+            ret = true;
+    }
+
+    console.log(userId, menuName, ret);
+
+    return ret;
 }
 
 function setBlind(menu, menuName) {
     let li = $(menu).closest('li');
     li.children().remove();
-    li.append(`<span className="disabled">${menuName}</span>`)
+    li.append(`<span class="disabled">${menuName}</span>`)
 }
 
 async function blindMenu(window, apolloOption, userInfoForAuth) {
@@ -67,17 +98,26 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
             let menuList = $('.p-treenode-label');
             menuList.each( (index, menu) => {
                 let menuName = $(menu).text();
-                
-                for (let blindMenu of userInfoForAuth.authMenuList) {
-                    if (blindMenu.MENU_NAME === menuName && !forceOpen(userId, menuName)) {
-                        setBlind(menu, menuName);
+
+                if (menuName !== 'INFO' && menuName !== 'ORDER' && menuName !== 'MRP' && menuName !== 'PURCHASE' && menuName !== 'EXPORT/IMPORT' && menuName !== 'FACTORY IN-OUT' && menuName !== 'COST' && menuName !== 'RECEIVABLES') {
+
+                    for (let blindMenu of userInfoForAuth.authMenuList) {
+                        if (blindMenu.MENU_NAME === menuName && !forceOpenCapa(userId, menuName)) {
+                            setBlind(menu, menuName);
+                        }
+                    }
+
+                    if (userInfoForAuth.authMenuList.length == 0) {
+                        if (!forceOpen(userId, menuName)) {
+                            setBlind(menu, menuName);
+                        }
                     }
                 }
             });
         }, 100);
     })
 
-    forceOpen(userId);
+    forceOpenCapa(userId);
 }
 
 export { blindMenu }
