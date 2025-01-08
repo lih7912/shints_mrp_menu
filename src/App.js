@@ -1582,7 +1582,7 @@ const App = () => {
                 { key: '2-13', label: 'Make MRP(F)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030512_PO_MAKE_MRP_FIRST'},
                 { key: '2-14', label: 'PO History2', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030511_PO_HISTORY2'},
                 { key: '2-5', label: 'MRP Record(Order)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0306_MRP_BY_ORDER'},
-                { key: '2-24', label: 'Copy Style', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030602_MRP_BY_ORDER_STYLE'},
+                { key: '2-24', label: 'Style MRP Search(Order)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S030602_MRP_BY_ORDER_STYLE'},
                 { key: '3-1', label: 'Purchase Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0401_PURCHASING_MANAGER' },
                 { key: '3-12', label: 'Purchase Monitor', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S040100_PUR_MONITOR' },
                 { key: '3-10', label: 'Purchase Reg', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S040101_PURCHASER_REG' },
