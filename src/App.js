@@ -34,6 +34,7 @@ let userInfoForAuth = {};
 $(async function() {
 	blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
+    showMenuCodeToolTip(window);
     $('iframe').attr('scrolling', 'no');
 });
 
@@ -52,6 +53,12 @@ window.addEventListener('message', function(event) {
 function showTestEnvLabel(window) {
 	if (window.location.host.indexOf('erp.shints.com') < 0) {
 		$('.testEnvLabel').css('display','block');
+	}
+}
+
+function showMenuCodeToolTip(window) {
+	if (window.location.host.indexOf('erp.shints.com') < 0) {
+		$('.menuCodeTooltip').css('display','block');
 	}
 }
 
@@ -286,10 +293,11 @@ const App = () => {
         }
         
         return (
-           <div className={options.className} >
-                <span className={options.labelClassName} target={item.target} onClick={options.onClick}>{tLabel}</span>
-                <span className={classNames(options.iconClassName, 'pi pi-times')} onClick={(e) => onCloseClick(item.idx)} accessKey='x'></span>
-           </div>
+            <div className={options.className}>
+              <Tooltip className="menuCodeTooltip" target={`#tab_${item.idx}`} content={`${item.url1}`} position="bottom" />
+              <span className={classNames(options.labelClassName)} target={item.target} onClick={options.onClick} id={`tab_${item.idx}`}>{tLabel}</span>
+              <span className={classNames(options.iconClassName, 'pi pi-times')} onClick={(e) => onCloseClick(item.idx)} accessKey='x'></span>
+            </div>
         );
     }
   
@@ -1800,131 +1808,131 @@ const App = () => {
                 <div className="layout-main9">
                     <TabMenu model={tabDatas} activeIndex={activeIndex2} onTabChange={onTabChange1} />
                     <div style={{ height:'62rem', position:'relative' }}>
-                    <div className={isTabs1} style={styleVal1} >
-                       <iframe src={iframeUrls1}
-                               frameBorder="0"
-                               height={iframeH1}
-                               />
-                    </div>
-                    <div className={isTabs2}  style={styleVal2} >
-                       <iframe src={iframeUrls2}
-                               key={iframeKey2}
-                               ref={ref_iframe2}
-                               frameBorder="0"
-                               scrolling={iframeS2}
-                               
-                               height={iframeH2}
-                               id="id2"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs3}   style={styleVal3} >
-                       <iframe src={iframeUrls3}
-                               key={iframeKey3}
-                               ref={ref_iframe3}
-                               frameBorder="0"
-                               scrolling={iframeS3}
-                               
-                               height={iframeH3}
-                               id="id3"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs4}   style={styleVal4}  >
-                       <iframe src={iframeUrls4}
-                               key={iframeKey4}
-                               ref={ref_iframe4}
-                               frameBorder="0"
-                               scrolling={iframeS4}
-                               
-                               height={iframeH4}
-                               id="id4"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs5}   style={styleVal5} >
-                       <iframe src={iframeUrls5}
-                               key={iframeKey5}
-                               ref={ref_iframe5}
-                               frameBorder="0"
-                               scrolling={iframeS5}
-                               
-                               height={iframeH5}
-                               id="id5"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs6}   style={styleVal6} >
-                       <iframe src={iframeUrls6}
-                               key={iframeKey6}
-                               ref={ref_iframe6}
-                               frameBorder="0"
-                               scrolling={iframeS6}
-                               
-                               height={iframeH6}
-                               id="id6"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs7}   style={styleVal7} >
-                       <iframe src={iframeUrls7}
-                               key={iframeKey7}
-                               ref={ref_iframe7}
-                               frameBorder="0"
-                               scrolling={iframeS7}
-                               
-                               height={iframeH7}
-                               id="id7"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs8}   style={styleVal8} >
-                       <iframe src={iframeUrls8}
-                               key={iframeKey8}
-                               ref={ref_iframe8}
-                               frameBorder="0"
-                               scrolling={iframeS8}
-                               
-                               height={iframeH8}
-                               id="id8"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs9}   style={styleVal9} >
-                       <iframe src={iframeUrls9}
-                               key={iframeKey9}
-                               ref={ref_iframe9}
-                               frameBorder="0"
-                               scrolling={iframeS9}
-                               
-                               height={iframeH9}
-                               id="id9"
-                               className="myClassname"
-                               />
-                    </div>
-                    <div className={isTabs10}   style={styleVal10} >
-                       <iframe src={iframeUrls10}
-                               key={iframeKey10}
-                               ref={ref_iframe10}
-                               frameBorder="0"
-                               scrolling={iframeS10}
-                               
-                               height={iframeH10}
-                               id="id10"
-                               className="myClassname"
-                               />
-                    </div>
+                      <div className={isTabs1} style={styleVal1} >
+                        <iframe src={iframeUrls1}
+                                frameBorder="0"
+                                height={iframeH1}
+                                />
+                      </div>
+                      <div className={isTabs2}  style={styleVal2} >
+                        <iframe src={iframeUrls2}
+                                key={iframeKey2}
+                                ref={ref_iframe2}
+                                frameBorder="0"
+                                scrolling={iframeS2}
+                                
+                                height={iframeH2}
+                                id="id2"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs3}   style={styleVal3} >
+                        <iframe src={iframeUrls3}
+                                key={iframeKey3}
+                                ref={ref_iframe3}
+                                frameBorder="0"
+                                scrolling={iframeS3}
+                                
+                                height={iframeH3}
+                                id="id3"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs4}   style={styleVal4}  >
+                        <iframe src={iframeUrls4}
+                                key={iframeKey4}
+                                ref={ref_iframe4}
+                                frameBorder="0"
+                                scrolling={iframeS4}
+                                
+                                height={iframeH4}
+                                id="id4"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs5}   style={styleVal5} >
+                        <iframe src={iframeUrls5}
+                                key={iframeKey5}
+                                ref={ref_iframe5}
+                                frameBorder="0"
+                                scrolling={iframeS5}
+                                
+                                height={iframeH5}
+                                id="id5"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs6}   style={styleVal6} >
+                        <iframe src={iframeUrls6}
+                                key={iframeKey6}
+                                ref={ref_iframe6}
+                                frameBorder="0"
+                                scrolling={iframeS6}
+                                
+                                height={iframeH6}
+                                id="id6"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs7}   style={styleVal7} >
+                        <iframe src={iframeUrls7}
+                                key={iframeKey7}
+                                ref={ref_iframe7}
+                                frameBorder="0"
+                                scrolling={iframeS7}
+                                
+                                height={iframeH7}
+                                id="id7"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs8}   style={styleVal8} >
+                        <iframe src={iframeUrls8}
+                                key={iframeKey8}
+                                ref={ref_iframe8}
+                                frameBorder="0"
+                                scrolling={iframeS8}
+                                
+                                height={iframeH8}
+                                id="id8"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs9}   style={styleVal9} >
+                        <iframe src={iframeUrls9}
+                                key={iframeKey9}
+                                ref={ref_iframe9}
+                                frameBorder="0"
+                                scrolling={iframeS9}
+                                
+                                height={iframeH9}
+                                id="id9"
+                                className="myClassname"
+                                />
+                      </div>
+                      <div className={isTabs10}   style={styleVal10} >
+                        <iframe src={iframeUrls10}
+                                key={iframeKey10}
+                                ref={ref_iframe10}
+                                frameBorder="0"
+                                scrolling={iframeS10}
+                                
+                                height={iframeH10}
+                                id="id10"
+                                className="myClassname"
+                                />
+                      </div>
 
-                    <div className={isTabs11}   style={styleVal11} >
-                       <iframe src={iframeUrls11}
-                               key={iframeKey11}
-                               ref={ref_iframe11}
-                               frameBorder="0"
-                               scrolling={iframeS11}
-                               id="id11"
-                               className="cover"
-                               />
-                    </div>
+                      <div className={isTabs11}   style={styleVal11} >
+                        <iframe src={iframeUrls11}
+                                key={iframeKey11}
+                                ref={ref_iframe11}
+                                frameBorder="0"
+                                scrolling={iframeS11}
+                                id="id11"
+                                className="cover"
+                                />
+                      </div>
                     
                     </div>
                 </div>
