@@ -292,8 +292,7 @@ const App = () => {
            tLabel = item.label + tSpace.substring(0, 12-item.label.length);
         }
         
-        let showTooltip = !window.location.host.includes('erp.shints.com');
-        console.log(showTooltip);
+        let showTooltip = window.location.host.includes('erp.shints.com') ? 'none' : 'block';
 
         return (
             <div className={options.className}>
