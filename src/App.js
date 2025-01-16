@@ -293,6 +293,7 @@ const App = () => {
         }
         
         let showTooltip = !window.location.host.includes('erp.shints.com');
+        console.log(showTooltip);
 
         return (
             <div className={options.className}>
