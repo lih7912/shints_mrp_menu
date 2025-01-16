@@ -57,8 +57,8 @@ function showTestEnvLabel(window) {
 }
 
 function showMenuCodeToolTip(window) {
-	if (window.location.host.includes('erp.shints.com')) {
-		$('.p-tooltip').removeClass('p-tooltip');
+	if (!window.location.host.includes('erp.shints.com')) {
+		
 	}
 }
 
@@ -292,9 +292,11 @@ const App = () => {
            tLabel = item.label + tSpace.substring(0, 12-item.label.length);
         }
         
+        let showTooltip = !window.location.host.includes('erp.shints.com');
+
         return (
             <div className={options.className}>
-              <Tooltip className="menuCodeTooltip" target={`#tab_${item.idx}`} content={`${item.url1}`} position="bottom" />
+              <Tooltip className="menuCodeTooltip" target={`#tab_${item.idx}`} content={`${item.url1}`} position="bottom" style={{ display: { showTooltip }} }/>
               <span className={classNames(options.labelClassName)} target={item.target} onClick={options.onClick} id={`tab_${item.idx}`}>{tLabel}</span>
               <span className={classNames(options.iconClassName, 'pi pi-times')} onClick={(e) => onCloseClick(item.idx)} accessKey='x'></span>
             </div>
