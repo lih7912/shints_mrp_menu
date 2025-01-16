@@ -58,7 +58,7 @@ function showTestEnvLabel(window) {
 
 function showMenuCodeToolTip(window) {
 	if (window.location.host.indexOf('erp.shints.com') < 0) {
-		$('.menuCodeTooltip').css('display','block');
+		$('.menuCodeTooltip').remove();
 	}
 }
 
