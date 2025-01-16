@@ -33,9 +33,9 @@ import $ from 'jquery';
 let userInfoForAuth = {};
 $(async function() {
 	blindMenu(window, apolloOption, userInfoForAuth);
-    showTestEnvLabel(window);
-    showMenuCodeToolTip(window);
-    $('iframe').attr('scrolling', 'no');
+  showTestEnvLabel(window);
+  showMenuCodeToolTip(window);
+  $('iframe').attr('scrolling', 'no');
 });
 
 // 메시지를 수신하는 이벤트 리스너
@@ -51,7 +51,7 @@ window.addEventListener('message', function(event) {
 });
 
 function showTestEnvLabel(window) {
-	if (window.location.host.indexOf('erp.shints.com') < 0) {
+	if (!window.location.host.includes('erp.shints.com')) {
 		$('.testEnvLabel').css('display','block');
 	}
 }
