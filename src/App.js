@@ -296,7 +296,7 @@ const App = () => {
 
         return (
             <div className={options.className}>
-              <Tooltip className="menuCodeTooltip" target={`#tab_${item.idx}`} content={`${item.url1}`} position="bottom" style={{ display: { showTooltip }} }/>
+              <Tooltip className="menuCodeTooltip" target={`#tab_${item.idx}`} content={`${item.url1}`} position="bottom" style={{ display: showTooltip }}/>
               <span className={classNames(options.labelClassName)} target={item.target} onClick={options.onClick} id={`tab_${item.idx}`}>{tLabel}</span>
               <span className={classNames(options.iconClassName, 'pi pi-times')} onClick={(e) => onCloseClick(item.idx)} accessKey='x'></span>
             </div>
