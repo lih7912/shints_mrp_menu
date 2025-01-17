@@ -1,4 +1,20 @@
-body { overflow-y:hidden; background-color: #e5e5e5 !important;}
+/* 전체 애플리케이션에 Roboto 폰트 적용 */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* PrimeReact 기본 컴포넌트 폰트 설정 */
+.p-component {
+    font-family: 'Roboto', sans-serif;
+}
+
+body { 
+    overflow-y:hidden; 
+    background-color: #e5e5e5 !important;
+    transform-origin: top left; /* 확대/축소 기준점 */
+    transition: transform 0.5s ease; /* 부드러운 전환 효과 */
+    overflow: hidden; /* 스크롤 방지 */
+}
 .hidden { display:none; }
 .show0 { z-index:1; display:block; }
 .wrapperClass9 { position:'fixed'; padding: 0rem 0rem 0rem 0rem; top:0rem; left: 0rem; height:67.3rem; width:139.0rem;  }
