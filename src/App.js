@@ -646,12 +646,17 @@ const App = () => {
 
     const procVisible_extern = (idx, argUrl, argLabel, argH0) => {
         var tKey0 = new Date();
-        var tKey = tKey0.toString();
+        // var tKey1 = tKey0.toString();
+        var tKey = tKey0.getTime();
         var argS = 'no';
         var argH = '675px';
 
-        if (argLabel) argUrl += `?label=${encodeURI(argLabel)}`
-        console.log(argUrl, argLabel);
+        if (argUrl.includes('?')) {
+           if (argLabel) argUrl += `&label=${encodeURI(argLabel)}&key=${tKey}`
+        } else {
+           if (argLabel) argUrl += `?label=${encodeURI(argLabel)}&key=${tKey}`
+        }
+        console.log(idx, tKey, argUrl, argLabel);
             
         if (idx === 0) {
           // setIsTabs1('show0');
@@ -667,8 +672,12 @@ const App = () => {
             }
             setIframeS1(argS);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = iframeKey1;
+            // setIframeKey1(tObj+1);
+
             setIframeKey1(tKey);
+
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             localStorage.setItem('iframe-key', tKey);
           }
         }
@@ -686,7 +695,10 @@ const App = () => {
             }
             setIframeS2(argS);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = iframeKey2;
+            // setIframeKey2(tObj+1);
+
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey2(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -705,7 +717,10 @@ const App = () => {
             }
             setIframeS3(argS);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = iframeKey3;
+            // setIframeKey3(tObj+1);
+
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey3(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -724,7 +739,10 @@ const App = () => {
             }
             setIframeS4(argS);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = iframeKey4;
+            // setIframeKey4(tObj+1);
+
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey4(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -743,7 +761,10 @@ const App = () => {
             }
             setIframeS5(argS);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = iframeKey5;
+            // setIframeKey5(tObj+1);
+
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey5(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -761,8 +782,10 @@ const App = () => {
                argS = 'yes';
             }
             setIframeS6(argS);
+            // var tObj = iframeKey6;
+            // setIframeKey6(tObj+1);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey6(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -780,8 +803,10 @@ const App = () => {
                argS = 'yes';
             }
             setIframeS7(argS);
+            // var tObj = iframeKey7;
+            // setIframeKey7(tObj+1);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey7(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -799,10 +824,11 @@ const App = () => {
                argS = 'yes';
             }
             setIframeS8(argS);
+            // var tObj = iframeKey8;
+            // setIframeKey8(tObj+1);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey8(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -820,8 +846,10 @@ const App = () => {
                argS = 'yes';
             }
             setIframeS9(argS);
+            // var tObj = iframeKey9;
+            // setIframeKey9(tObj+1);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey9(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -839,8 +867,10 @@ const App = () => {
                argS = 'yes';
             }
             setIframeS10(argS);
+            // var tObj = iframeKey10;
+            // setIframeKey10(tObj+1);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey10(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -857,8 +887,10 @@ const App = () => {
                argS = 'yes';
             }
             setIframeS11(argS);
+            // var tObj = iframeKey11;
+            // setIframeKey11(tObj+1);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey11(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -871,7 +903,10 @@ const App = () => {
             setIframeUrls12(argUrl);
             setIframeTitles12(argLabel);
 
-            var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
+            // var tObj = iframeKey12;
+            // setIframeKey12(tObj+1);
+
+            // var tObj = parseInt(localStorage.getItem('iframe-key'))+ 1;
             setIframeKey12(tKey);
             localStorage.setItem('iframe-key', String(tKey));
           }
@@ -1346,8 +1381,8 @@ const App = () => {
                 { key: '1-19', label: 'Order Regist', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S020602_ORDER_REG'},
                 { key: '1-6', label: 'PO Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S020701_PO_MANAGER'},
                 { key: '1-8', label: 'PI Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0205_PI_MANAGER'},
-                { key: '1-9', label: 'Capa Booking Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0208_CAPABOOK_RECORD_BVT'},
-                { key: '1-10', label: 'Capa Booking List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0209_CAPABOOK_LIST_BVT'},
+                { key: '1-9', label: 'Capa Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0208_CAPABOOK_RECORD_BVT'},
+                { key: '1-10', label: 'Capa List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0209_CAPABOOK_LIST_BVT'},
                 { key: '1-14', label: '손익현황', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0213_ORDER_REPORT'},
                 { key: '1-15', label: 'Order Status', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0214_ORDER_STATUS_BEFORE_AFTER_CHECK'},
                 { key: '1-16', label: 'Over/Shortage', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0215_ORDER_STATUS_SHORTAGE'},
@@ -1458,8 +1493,8 @@ const App = () => {
                 { key: '1-19', label: 'Order Regist', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S020602_ORDER_REG'},
                 { key: '1-6', label: 'PO Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S020701_PO_MANAGER'},
                 { key: '1-8', label: 'PI Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0205_PI_MANAGER'},
-                { key: '1-9', label: 'Capa Booking Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0208_CAPABOOK_RECORD_BVT'},
-                { key: '1-10', label: 'Capa Booking List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0209_CAPABOOK_LIST_BVT'},
+                { key: '1-9', label: 'Capa Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0208_CAPABOOK_RECORD_BVT'},
+                { key: '1-10', label: 'Capa List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0209_CAPABOOK_LIST_BVT'},
                 { key: '1-14', label: '손익현황', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0213_ORDER_REPORT'},
                 { key: '1-15', label: 'Order Status', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0214_ORDER_STATUS_BEFORE_AFTER_CHECK'},
                 { key: '1-16', label: 'Over/Shortage', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0215_ORDER_STATUS_SHORTAGE'},
@@ -1564,8 +1599,8 @@ const App = () => {
                 { key: '1-20', label: 'Order Info', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'800px', url1: 'S020602_ORDER_REG'},
                 { key: '1-6', label: 'PO Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S020701_PO_MANAGER'},
                 { key: '1-8', label: 'PI Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0205_PI_MANAGER'},
-                { key: '1-9', label: 'Capa Booking Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0208_CAPABOOK_RECORD_BVT'},
-                { key: '1-10', label: 'Capa Booking List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0209_CAPABOOK_LIST_BVT'},
+                { key: '1-9', label: 'Capa Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0208_CAPABOOK_RECORD_BVT'},
+                { key: '1-10', label: 'Capa List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0209_CAPABOOK_LIST_BVT'},
                 { key: '1-13', label: 'CMPT Confirmation', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0212_NEGO_CMPT'},
                 { key: '1-14', label: '손익현황', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0213_ORDER_REPORT'},
                 { key: '1-15', label: 'Order Status', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0214_ORDER_STATUS_BEFORE_AFTER_CHECK'},
@@ -1665,7 +1700,7 @@ const App = () => {
     }
 
     const onClickIcon1 = (e) => {
-        console.log('onClickIcon');
+        console.log(`onClickIcon: ${activeIndex2}`);
         // onToggleMenuClick(e);
         // reloadTab(1);
         if (activeIndex2 === 0) { 
