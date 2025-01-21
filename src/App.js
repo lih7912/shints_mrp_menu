@@ -36,6 +36,22 @@ $(async function() {
   showTestEnvLabel(window);
   showMenuCodeToolTip(window);
   $('iframe').attr('scrolling', 'no');
+
+  function adjustScale() {
+    const width = $(window).width();
+    
+    // 1920px일 때 1.25배 SCALE 적용
+    let scale = 1.26 * width / 1920
+
+    // `transform: scale` 적용
+    $("body").css("transform", `scale(${scale})`);
+  }
+
+  // 초기 스케일 설정
+  adjustScale();
+
+  // 창 크기 변경 시 스케일 조정
+  $(window).resize(adjustScale);
 });
 
 // 메시지를 수신하는 이벤트 리스너
