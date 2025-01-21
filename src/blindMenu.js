@@ -65,18 +65,25 @@ function forceOpen(userId, menuName) {
 
 function setBlind(menu, menuName) {
     let li = $(menu).closest('li');
-    li.children().remove();
-    li.append(`<span class="disabled">${menuName}</span>`)
+    li.children().css('display','none');
+    li.append(`<span class="menu_blind disabled">${menuName}</span>`)
+}
+
+function setShow(menu) {
+    let li = $(menu).closest('li');
+    li.children().css('display','block');
+    li.find('.menu_blind').remove();
+
 }
 
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
 
     if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr' || userId.indexOf('test') >= 0) return;
-    
-    userInfoForAuth.authMenuList = await getAuthInfo(window, apolloOption, userId);
 
-    console.log(userInfoForAuth.authMenuList);
+    let authInfoList = await getAuthInfo(window, apolloOption, userId);
+    userInfoForAuth.authMenuList = authInfoList.afAuthPart;
+    userInfoForAuth.authMenuListUser = authInfoList.afAuthUser;
 
     $('.p-tree-toggler').on('click', () => {
         setTimeout( () => {
@@ -89,6 +96,13 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                     for (let blindMenu of userInfoForAuth.authMenuList) {
                         if (blindMenu.MENU_NAME === menuName && !forceOpenCapa(userId, menuName) && !forceOpen(userId, menuName)) {
                             setBlind(menu, menuName);
+                        }
+                    }
+
+                    for (let blindMenu of userInfoForAuth.authMenuListUser) {
+                        console.log(blindMenu);
+                        if (blindMenu.MENU_NAME == menuName && blindMenu.AUTH_CD > 0) {
+                            setShow(menu);
                         }
                     }
                 }
