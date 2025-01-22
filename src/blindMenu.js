@@ -78,11 +78,11 @@ function setShow(menu) {
 
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
-    $('#btnAuth').remove();
+    
     if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr' || userId.indexOf('test') >= 0) {
         return;
     } else {
-        
+        $('#btnAuth').remove();    
     }
 
     let authInfoList = await getAuthInfo(window, apolloOption, userId);
@@ -104,12 +104,9 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                     }
 
                     for (let blindMenu of userInfoForAuth.authMenuListUser) {
-                        
                         if (blindMenu.MENU_NAME == menuName && blindMenu.AUTH_CD > 0) {
                             setShow(menu);
-                        } else {
-                            setBlind(menu, menuName);
-                        }
+                        } 
                     }
                 }
             });
