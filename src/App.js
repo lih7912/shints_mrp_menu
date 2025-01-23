@@ -26,8 +26,10 @@ import './App.scss';
 import './TabViewDemo.css';
 import Iframe from 'react-iframe'
 import apolloOption from './assets/env_graphql';
-import { blindMenu } from './blindMenu'
-import { changePassword, getPassword } from './changePassword'
+import { blindMenu } from './blindMenu';
+import { getMrpWorkingStatus } from './getMrpWorkingStatus';
+import { changePassword, getPassword } from './changePassword';``
+
 import $ from 'jquery';
 
 let userInfoForAuth = {};
@@ -52,6 +54,7 @@ $(async function() {
 
   // 창 크기 변경 시 스케일 조정
   $(window).resize(adjustScale);
+
 });
 
 // 메시지를 수신하는 이벤트 리스너
@@ -62,6 +65,12 @@ window.addEventListener('message', function(event) {
           window.focus(); // 부모 프레임에 포커스
           console.log('Parent frame focused!');
           $('.p-tabmenu').fadeOut(200).fadeIn(200);
+      }
+
+      if (event.data === 'WorkingMrp') {
+        console.log('Working MrpEVENT 수신');
+        
+        getMrpWorkingStatus(window, apolloOption, userInfoForAuth);
       }
   }
 });
@@ -2040,7 +2049,26 @@ const App = () => {
 					</div>
 				</div>
 			</Dialog>
-        </div>
+
+      <div className="workingMrpIcon">
+        <dotlottie-player 
+          src="https://lottie.host/8bad9105-8a45-4862-a1bc-ff9efaa5a99b/hiboDpMUKL.lottie" 
+          background="transparent" 
+          speed="1" 
+          style={{ width:'30px', height: '30px'}} 
+          direction="1" 
+          playMode="normal" 
+          loop autoplay></dotlottie-player>
+        <span class="">WORKING MRPLIST...</span>
+      </div>
+        
+
+
+      
+      </div>
+
+
+
     );
 }
 

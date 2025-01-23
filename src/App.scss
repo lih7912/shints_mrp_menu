@@ -113,3 +113,33 @@ button {
     justify-content: center !important;
     z-index: 1000; /* 필요에 따라 조정 */
 }
+
+.workingMrpIcon {
+    display:none;
+}
+
+.workingMrpIcon dotlottie-player {
+    position: absolute;
+    top: 35%;            /* 세로 중앙 */
+    left: 50%;           /* 가로 중앙 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 배치 */
+    z-index: 1000;
+}
+
+.workingMrpIcon span {
+    position: absolute;
+    top:  38%;            /* 세로 중앙 */
+    left: 50%;           /* 가로 중앙 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 배치 */
+    z-index: 1000;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.draggable {
+    cursor: grab;
+}
+
+.draggable.active {
+    cursor: grabbing;
+}
