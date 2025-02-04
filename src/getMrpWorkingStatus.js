@@ -35,22 +35,21 @@ async function getStatus(window, apolloOption, userId) {
 let intervalId = new Array();
 
 async function getMrpWorkingStatus(window, apolloOption, userInfoForAuth) {
-    /*
     let userId = userInfoForAuth.userId;
 
-    $('.workingMrpIcon').show();
+    $('.workingMrpIcon').css('display','flex');
+
     intervalId.push(setInterval(async () => {
         try {
           const result = await getStatus(window, apolloOption, userId);
           if (result == false) {
             intervalId.forEach( interval => clearInterval(interval) ) // Interval 중지
-            $('.workingMrpIcon').hide();
+            $('.workingMrpIcon').css('display','none');
           }
         } catch (error) {
           console.error("Error fetching status:", error);
         }
     }, 10000)); // 10초마다 실행
-    */
    return;
 }
 

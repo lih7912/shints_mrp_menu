@@ -116,26 +116,20 @@ button {
 
 .workingMrpIcon {
     display:none;
+    margin-left: 10px;
 }
 
 .workingMrpIcon dotlottie-player {
-    position: absolute;
-    top: 33%;            /* 세로 중앙 */
-    left: 50%;           /* 가로 중앙 */
-    transform: translate(-50%, -50%); /* 정확한 중앙 배치 */
-    z-index: 1000;
 }
 
 .workingMrpIcon span {
-    position: absolute;
-    top:  35%;            /* 세로 중앙 */
-    left: 50%;           /* 가로 중앙 */
-    transform: translate(-50%, -50%); /* 정확한 중앙 배치 */
-    z-index: 1000;
     font-size: 0.8rem;
     font-weight: 600;
+    vertical-align: middle;
+    margin-top:6px;
+    margin-left:5px;
+    color:rgb(196, 10, 10);
 }
-
 
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
     padding: 13px 10px ;
