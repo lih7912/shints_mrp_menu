@@ -33,6 +33,8 @@ import { changePassword, getPassword } from './changePassword';``
 import $ from 'jquery';
 
 let userInfoForAuth = {};
+let screenScale = 1.0;
+
 $(async function() {
 	blindMenu(window, apolloOption, userInfoForAuth);
   showTestEnvLabel(window);
@@ -43,10 +45,10 @@ $(async function() {
     const width = $(window).width();
     
     // 1920px일 때 1.26배 SCALE 적용
-    let scale = 1.26 * width / 1920
+    screenScale = 1.26 * width / 1920
 
     // `transform: scale` 적용
-    $("body").css("transform", `scale(${scale})`);
+    $("body").css("transform", `scale(${screenScale})`);
   }
 
   // 초기 스케일 설정
@@ -55,7 +57,39 @@ $(async function() {
   // 창 크기 변경 시 스케일 조정
   $(window).resize(adjustScale);
 
+  function adjustTooltipPosition() {
+    // 현재 body의 transform: scale 값 가져오기
+    let bodyScale = $('body').css('transform');
+    let scaleFactor = 1;
+
+    if (bodyScale !== 'none') {
+        let values = bodyScale.match(/matrix\(([\d., -]+)\)/);
+        if (values) {
+            scaleFactor = parseFloat(values[1].split(', ')[0]); // Scale 값 추출
+        }
+    }
+
+    // 툴팁 위치 보정
+    $('.menuCodeTooltip').each(function () {
+        let $tooltip = $(this);
+        let offset = $tooltip.offset(); // 현재 위치 가져오기
+        let newLeft = offset.left / scaleFactor;
+        let newTop = offset.top / scaleFactor;
+
+        $tooltip.css({
+            'transform': `scale(${1 / scaleFactor})`,
+            'left': (newLeft / scaleFactor)+ 'px',
+            'top': newTop + 'px'
+        });
+    });
+  }
+  // 툴팁이 나타날 때 위치 조정
+  $(document).on('mouseenter', '[id^="tab_"]', function () {
+    setTimeout(adjustTooltipPosition, 10); // 툴팁이 나타난 후 위치 조정
+  });
+
 });
+
 
 // 메시지를 수신하는 이벤트 리스너
 window.addEventListener('message', function(event) {
@@ -309,6 +343,8 @@ const App = () => {
         }
     }
 
+    
+
     const headerTemplate = (item, options) => {
         var tLabel = '';
         if (item.label.length > 16) tLabel = item.label.substring(0, 16);
@@ -317,11 +353,13 @@ const App = () => {
            tLabel = item.label + tSpace.substring(0, 15-item.label.length);
         }
         
-        let showTooltip = window.location.host.includes('erp.shints.com') ? 'none' : 'block';
+        //let showTooltip = window.location.host.includes('erp.shints.com') ? 'none' : 'block';
+        let showTooltip = 'block'
+        let tooltipLabel = window.location.host.includes('erp.shints.com') ? item.label : `${item.label} - ${item.url1}`;
 
         return (
             <div className={options.className}>
-              <Tooltip className="menuCodeTooltip" target={`#tab_${item.idx}`} content={`${item.url1}`} position="bottom" style={{ display: showTooltip }}/>
+              <Tooltip className="menuCodeTooltip" target={`#tab_${item.idx}`} content={`${tooltipLabel}`} position="bottom" style={{ display: showTooltip }}/>
               <span className={classNames(options.labelClassName)} target={item.target} onClick={options.onClick} id={`tab_${item.idx}`}>{tLabel}</span>
               <span className={classNames(options.iconClassName, 'pi pi-times')} onClick={(e) => onCloseClick(item.idx)} accessKey='x'></span>
             </div>
