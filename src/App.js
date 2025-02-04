@@ -42,7 +42,7 @@ $(async function() {
   function adjustScale() {
     const width = $(window).width();
     
-    // 1920px일 때 1.25배 SCALE 적용
+    // 1920px일 때 1.26배 SCALE 적용
     let scale = 1.26 * width / 1920
 
     // `transform: scale` 적용
@@ -311,10 +311,10 @@ const App = () => {
 
     const headerTemplate = (item, options) => {
         var tLabel = '';
-        if (item.label.length > 13) tLabel = item.label.substring(0, 13);
+        if (item.label.length > 16) tLabel = item.label.substring(0, 16);
         else {
            var tSpace = '             ';
-           tLabel = item.label + tSpace.substring(0, 12-item.label.length);
+           tLabel = item.label + tSpace.substring(0, 15-item.label.length);
         }
         
         let showTooltip = window.location.host.includes('erp.shints.com') ? 'none' : 'block';
@@ -2059,12 +2059,9 @@ const App = () => {
           direction="1" 
           playMode="normal" 
           loop autoplay></dotlottie-player>
-        <span class="">WORKING MRPLIST...</span>
+        <span>WORKING MRPLIST...</span>
       </div>
-        
 
-
-      
       </div>
 
 
