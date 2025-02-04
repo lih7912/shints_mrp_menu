@@ -35,6 +35,7 @@ async function getStatus(window, apolloOption, userId) {
 let intervalId = new Array();
 
 async function getMrpWorkingStatus(window, apolloOption, userInfoForAuth) {
+    /*
     let userId = userInfoForAuth.userId;
 
     $('.workingMrpIcon').show();
@@ -49,6 +50,8 @@ async function getMrpWorkingStatus(window, apolloOption, userInfoForAuth) {
           console.error("Error fetching status:", error);
         }
     }, 10000)); // 10초마다 실행
+    */
+   return;
 }
 
 export { getMrpWorkingStatus }
