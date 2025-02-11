@@ -1366,7 +1366,7 @@ const App = () => {
                 { label: 'CMPT Payment', icon: 'pi pi-fw pi-user-edit', url1: 'S0705_CMPT_PAYMENT' },
                 { label: 'Credit Note', icon: 'pi pi-fw pi-user-edit', url1: 'S0701_CREDIT_NOTE'},
                 { label: 'Debit Note', icon: 'pi pi-fw pi-user-edit', url1: 'S0702_DEBIT_NOTE'},
-                { label: 'Debit Note(B)', icon: 'pi pi-fw pi-user-edit', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
+                { label: 'Debit Note(BVT)', icon: 'pi pi-fw pi-user-edit', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
                 { label: '자재금액결제', icon: 'pi pi-fw pi-user-edit', url1: 'S0704_PAYMENT_MATL_AMT'},
                 { label: '수입업체결제', icon: 'pi pi-fw pi-user-edit', url1: 'S0706_PAYMENT_IMPORT_VENDOR'}
             ]
@@ -1463,6 +1463,7 @@ const App = () => {
                 { key: '2-6', label: 'MRP Record(Order)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0306_MRP_BY_ORDER'}
             ]
         },
+        /* ---
         {
             key: '3', label: 'PURCHASE', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
@@ -1474,6 +1475,7 @@ const App = () => {
                 { key: '3-8', label: 'Bill Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0423_TAXBILL'}
             ]
         },
+        */
         {
             key: '4', label: 'EXPORT/IMPORT', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
@@ -1487,16 +1489,17 @@ const App = () => {
         {
             key: '5', label: 'FACTORY IN-OUT', icon: 'pi pi-fw pi-clone', width:'1365px', height:'675px', url1: '',
             children: [
-                { key: '5-2', label: 'Clearance_Arrival(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=BVT' },
-                { key: '5-17', label: 'Clearance_Arrival(ETP)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=ETP' },
-                { key: '5-3', label: 'FAC-IN(Inspection)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0519_INSPECT_REPORT' },
-                { key: '5-4', label: 'FAC-IN List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S051901_FACIN_LIST' },
+                // ---
+                //{ key: '5-2', label: 'Clearance_Arrival(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=BVT' },
+                //{ key: '5-17', label: 'Clearance_Arrival(ETP)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=ETP' },
+                //{ key: '5-3', label: 'FAC-IN(Inspection)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0519_INSPECT_REPORT' },
+                //{ key: '5-4', label: 'FAC-IN List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S051901_FACIN_LIST' },
                 { key: '5-5', label: 'Stock Confirm', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0516_STOCK_USE_CONFIRM' },
-                { key: '5-6', label: 'Fac-Out Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0520_FACOUT_RECORD' },
-                { key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S052001_FACOUT_LIST' },
-                { key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0508_CAPABOOK_LIST_BVT' },
-                { key: '5-9', label: 'Line Return', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0509_RETURN_MATL' },
-                { key: '5-10', label: 'Pending Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
+                //{ key: '5-6', label: 'Fac-Out Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0520_FACOUT_RECORD' },
+                //{ key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S052001_FACOUT_LIST' },
+                //{ key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0508_CAPABOOK_LIST_BVT' },
+                //{ key: '5-9', label: 'Line Return', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0509_RETURN_MATL' },
+                //{ key: '5-10', label: 'Pending Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
                 { key: '5-11', label: 'Stock Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0521_STOCK_RECORD_NEW' },
                 { key: '5-12', label: 'Stock Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0523_STOCK_MANAGER' },
             ]
@@ -1508,7 +1511,7 @@ const App = () => {
                 { key: '6-2', label: 'CMPT Payment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0705_CMPT_PAYMENT' },
                 { key: '6-3', label: 'Credit Note', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0701_CREDIT_NOTE'},
                 { key: '6-4', label: 'Debit Note', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0702_DEBIT_NOTE'},
-                { key: '6-5', label: 'Debit Note(B)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
+                { key: '6-5', label: 'Debit Note(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
                 { key: '6-7', label: 'Debit Note(E)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S070301_DEBIT_NOTE_FACTORY_ETP'},
                 { key: '6-8', label: 'Sample Cost', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0203_SAMPLE_COST' },
                 { key: '6-9', label: 'CMPT Confirmation', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0212_NEGO_CMPT'},
@@ -1589,7 +1592,8 @@ const App = () => {
         {
             key: '4', label: 'EXPORT/IMPORT', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
-                { key: '4-1', label: 'Shipment Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0434_SHIPMENT_MANAGER' },
+                // ---
+                // { key: '4-1', label: 'Shipment Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0434_SHIPMENT_MANAGER' },
                 /*{ key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0437_EXPORT_REGIST'},*/
                 { key: '4-3', label: '수입등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0438_IMPORT_REGIST'},
                 { key: '4-8', label: 'Garment Ship', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0513_SHIPPING_LIST'},
@@ -1620,7 +1624,7 @@ const App = () => {
                 { key: '6-2', label: 'CMPT Payment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0705_CMPT_PAYMENT' },
                 { key: '6-3', label: 'Credit Note', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0701_CREDIT_NOTE'},
                 { key: '6-4', label: 'Debit Note', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0702_DEBIT_NOTE'},
-                { key: '6-5', label: 'Debit Note(B)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
+                { key: '6-5', label: 'Debit Note(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
                 { key: '6-7', label: 'Debit Note(E)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S070301_DEBIT_NOTE_FACTORY_ETP'},
                 { key: '6-8', label: 'Sample Cost', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0203_SAMPLE_COST' },
                 { key: '6-9', label: 'CMPT Confirmation', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0212_NEGO_CMPT'},
@@ -1732,7 +1736,7 @@ const App = () => {
                 { key: '6-2', label: 'CMPT Payment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0705_CMPT_PAYMENT' },
                 { key: '6-3', label: 'Credit Note', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0701_CREDIT_NOTE'},
                 { key: '6-4', label: 'Debit Note', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0702_DEBIT_NOTE'},
-                { key: '6-5', label: 'Debit Note(B)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
+                { key: '6-5', label: 'Debit Note(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
                 { key: '6-7', label: 'Debit Note(E)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S070301_DEBIT_NOTE_FACTORY_ETP'},
                 { key: '6-8', label: 'Sample Cost', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0203_SAMPLE_COST' },
                 { key: '6-9', label: 'CMPT Confirmation', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0212_NEGO_CMPT'},
