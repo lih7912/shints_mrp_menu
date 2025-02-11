@@ -1463,7 +1463,6 @@ const App = () => {
                 { key: '2-6', label: 'MRP Record(Order)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0306_MRP_BY_ORDER'}
             ]
         },
-        /* ---
         {
             key: '3', label: 'PURCHASE', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
@@ -1475,7 +1474,6 @@ const App = () => {
                 { key: '3-8', label: 'Bill Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0423_TAXBILL'}
             ]
         },
-        */
         {
             key: '4', label: 'EXPORT/IMPORT', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
@@ -1489,17 +1487,16 @@ const App = () => {
         {
             key: '5', label: 'FACTORY IN-OUT', icon: 'pi pi-fw pi-clone', width:'1365px', height:'675px', url1: '',
             children: [
-                // ---
-                //{ key: '5-2', label: 'Clearance_Arrival(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=BVT' },
-                //{ key: '5-17', label: 'Clearance_Arrival(ETP)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=ETP' },
-                //{ key: '5-3', label: 'FAC-IN(Inspection)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0519_INSPECT_REPORT' },
-                //{ key: '5-4', label: 'FAC-IN List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S051901_FACIN_LIST' },
+                { key: '5-2', label: 'Clearance_Arrival(BVT)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=BVT' },
+                { key: '5-17', label: 'Clearance_Arrival(ETP)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0518_FACTORY_ARRIVAL?FACTORY=ETP' },
+                { key: '5-3', label: 'FAC-IN(Inspection)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0519_INSPECT_REPORT' },
+                { key: '5-4', label: 'FAC-IN List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S051901_FACIN_LIST' },
                 { key: '5-5', label: 'Stock Confirm', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0516_STOCK_USE_CONFIRM' },
-                //{ key: '5-6', label: 'Fac-Out Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0520_FACOUT_RECORD' },
-                //{ key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S052001_FACOUT_LIST' },
-                //{ key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0508_CAPABOOK_LIST_BVT' },
-                //{ key: '5-9', label: 'Line Return', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0509_RETURN_MATL' },
-                //{ key: '5-10', label: 'Pending Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
+                { key: '5-6', label: 'Fac-Out Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0520_FACOUT_RECORD' },
+                { key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S052001_FACOUT_LIST' },
+                { key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0508_CAPABOOK_LIST_BVT' },
+                { key: '5-9', label: 'Line Return', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0509_RETURN_MATL' },
+                { key: '5-10', label: 'Pending Shipment', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0531_PENDDING_SHIPMENT' },
                 { key: '5-11', label: 'Stock Record', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0521_STOCK_RECORD_NEW' },
                 { key: '5-12', label: 'Stock Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0523_STOCK_MANAGER' },
             ]
@@ -1592,8 +1589,7 @@ const App = () => {
         {
             key: '4', label: 'EXPORT/IMPORT', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
-                // ---
-                // { key: '4-1', label: 'Shipment Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0434_SHIPMENT_MANAGER' },
+                { key: '4-1', label: 'Shipment Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0434_SHIPMENT_MANAGER' },
                 /*{ key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0437_EXPORT_REGIST'},*/
                 { key: '4-3', label: '수입등록(국내)', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0438_IMPORT_REGIST'},
                 { key: '4-8', label: 'Garment Ship', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0513_SHIPPING_LIST'},

@@ -96,7 +96,6 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                 let menuName = $(menu).text();
 
                 if (menuName !== 'INFO' && menuName !== 'ORDER' && menuName !== 'MRP' && menuName !== 'PURCHASE' && menuName !== 'EXPORT/IMPORT' && menuName !== 'FACTORY IN-OUT' && menuName !== 'COST' && menuName !== 'RECEIVABLES') {
-
                     for (let blindMenu of userInfoForAuth.authMenuList) {
                         if (blindMenu.MENU_NAME === menuName && !forceOpenCapa(userId, menuName) && !forceOpen(userId, menuName)) {
                             setBlind(menu, menuName);
@@ -109,6 +108,26 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                         } 
                     }
                 }
+
+                if (menuName == 'Purchase Manager' ||
+                    menuName == 'STSIN List' ||
+                    menuName == 'STSOUT List' ||
+                    menuName == 'Deposit & L/C Manager' ||
+                    menuName == 'Bill Regist' ||
+                    menuName == 'Bill Manager' ||
+                    menuName == 'Clearance_Arrival(BVT)' ||
+                    menuName == 'Clearance_Arrival(ETP)' ||
+                    menuName == 'FAC-IN(Inspection)' ||
+                    menuName == 'FAC-IN List' ||
+                    menuName == 'Fac-Out Record' ||
+                    menuName == 'Fac-Out List' ||
+                    menuName == 'Production Finish' ||
+                    menuName == 'Line Return' ||
+                    menuName == 'Pending Shipment' ||
+                    menuName == 'Shipment Manager') {
+                        setBlind(menu, menuName);
+                    }
+                 
             });
         }, 100);
     })
