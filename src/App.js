@@ -1467,6 +1467,7 @@ const App = () => {
             key: '3', label: 'PURCHASE', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
                 { key: '3-1', label: 'Purchase Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0401_PURCHASING_MANAGER' },
+                { key: '3-2', label: 'Purchase Reg', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S040101_PURCHASER_REG' },
                 { key: '3-4', label: 'STSIN List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S043001_STSIN_LIST'},
                 { key: '3-6', label: 'STSOUT List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S043101_STSOUT_LIST'},
                 { key: '3-3', label: 'Deposit & L/C Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0439_LC_DEPOSIT'},
@@ -1579,6 +1580,7 @@ const App = () => {
             key: '3', label: 'PURCHASE', icon: 'pi pi-fw pi-clone',  width:'1365px', height:'675px', url1: '',
             children: [
                 { key: '3-1', label: 'Purchase Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0401_PURCHASING_MANAGER' },
+                { key: '3-2', label: 'Purchase Reg', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S040101_PURCHASER_REG' },
                 { key: '3-4', label: 'STSIN List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S043001_STSIN_LIST'},
                 { key: '3-6', label: 'STSOUT List', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S043101_STSOUT_LIST'},
                 { key: '3-3', label: 'Deposit & L/C Manager', icon: 'pi pi-fw pi-user-edit',  width:'1365px', height:'675px', url1: 'S0439_LC_DEPOSIT'},
