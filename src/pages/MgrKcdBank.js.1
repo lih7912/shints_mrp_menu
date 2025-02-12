@@ -4,6 +4,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { FileUpload } from 'primereact/fileupload';
 import { Rating } from 'primereact/rating';
 import { Toolbar } from 'primereact/toolbar';
@@ -378,7 +379,8 @@ const MgrKcdBank = () => {
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => onQrySearchStringChange(e)} placeholder="Search..." />
                 <Dropdown id="id_qry_status" value={qryStatus} onChange={(e) => onQryStatusChange(e)} options={datasKCD_CODE_STATUS_CD} optionLabel="CD_NAME" placeholder="Select One"></Dropdown>
-                <Button label="Search"  accessKey='S'  icon="pi pi-search" className="p-button-text" onClick={searchKCD_BANK} />
+			<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
+                <Button label="Search"  accessKey='S' id="btnSearch" icon="pi pi-search" className="p-button-text" onClick={searchKCD_BANK} />
             </span>
         </div>
     );

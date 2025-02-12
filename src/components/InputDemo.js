@@ -18,6 +18,7 @@ import { MultiSelect } from 'primereact/multiselect';
 import { TreeSelect } from 'primereact/treeselect';
 import { SelectButton } from 'primereact/selectbutton';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { InputNumber } from 'primereact/inputnumber';
 import { CountryService } from '../service/CountryService';
 import { NodeService } from '../service/NodeService';
@@ -327,7 +328,8 @@ export const InputDemo = () => {
 
                         <div className="col-12 md:col-6">
                             <div className="p-inputgroup">
-                                <Button label="Search"  accessKey='S'  />
+	                    		<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
+                                <Button label="Search"  accessKey='S' id="btnSearch" />
                                 <InputText placeholder="Keyword" />
                             </div>
                         </div>

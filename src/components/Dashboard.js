@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu } from 'primereact/menu';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { Chart } from 'primereact/chart';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';

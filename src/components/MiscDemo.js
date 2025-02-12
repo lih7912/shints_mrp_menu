@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ProgressBar } from 'primereact/progressbar';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { Badge } from 'primereact/badge';
 import { Tag } from 'primereact/tag';
 import { Avatar } from 'primereact/avatar';

@@ -4,6 +4,7 @@ import { Messages } from 'primereact/messages';
 import { Message } from 'primereact/message';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 
 const MessagesDemo = () => {
     const [username, setUsername] = useState('');

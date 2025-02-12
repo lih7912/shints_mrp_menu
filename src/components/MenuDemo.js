@@ -7,6 +7,7 @@ import { TabMenu } from 'primereact/tabmenu';
 import { TieredMenu } from 'primereact/tieredmenu';
 import { Menu } from 'primereact/menu';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { ContextMenu } from 'primereact/contextmenu';
 import { MegaMenu } from 'primereact/megamenu';
 import { PanelMenu } from 'primereact/panelmenu';

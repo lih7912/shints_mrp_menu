@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { SplitButton } from 'primereact/splitbutton';
 
 const ButtonDemo = () => {
@@ -180,10 +181,13 @@ const ButtonDemo = () => {
 
                 <div className="card">
                     <h5>Loading</h5>
-                    <Button className="mr-2 mb-2" label="Search"  accessKey='S'  icon="pi pi-search" loading={loading1} onClick={onLoadingClick1} />
-                    <Button className="mr-2 mb-2" label="Search"  accessKey='S'  icon="pi pi-search" iconPos="right" loading={loading2} onClick={onLoadingClick2} />
+			<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
+                    <Button className="mr-2 mb-2" label="Search"  accessKey='S' id="btnSearch" icon="pi pi-search" loading={loading1} onClick={onLoadingClick1} />
+			<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
+                    <Button className="mr-2 mb-2" label="Search"  accessKey='S' id="btnSearch" icon="pi pi-search" iconPos="right" loading={loading2} onClick={onLoadingClick2} />
                     <Button className="mr-2 mb-2" icon="pi pi-search" loading={loading3} onClick={onLoadingClick3} />
-                    <Button className="mr-2 mb-2" label="Search"  accessKey='S'  loading={loading4} onClick={onLoadingClick4} />
+			<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
+                    <Button className="mr-2 mb-2" label="Search"  accessKey='S' id="btnSearch" loading={loading4} onClick={onLoadingClick4} />
                 </div>
             </div>
         </div>

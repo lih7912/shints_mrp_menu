@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { Chip } from 'primereact/chip';
 import { InputText } from 'primereact/inputtext';
 import { Checkbox } from 'primereact/checkbox';

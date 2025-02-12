@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { Card } from 'primereact/card';
 import { Timeline } from 'primereact/timeline';
 import classNames from 'classnames';

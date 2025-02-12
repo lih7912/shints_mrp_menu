@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import { Toolbar } from 'primereact/toolbar';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { SplitButton } from 'primereact/splitbutton';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { TabView, TabPanel } from 'primereact/tabview';

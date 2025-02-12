@@ -8,6 +8,7 @@ import { AppFooter } from './AppFooter';
 import { AppMenu } from './AppMenu';
 import { AppConfig } from './AppConfig';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { Tree } from 'primereact/tree';
 
 import PrimeReact from 'primereact/api';

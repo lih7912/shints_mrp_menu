@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Carousel } from 'primereact/carousel';
 import { Galleria } from 'primereact/galleria';
 import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 import { Image } from "primereact/image";
 import { ProductService } from '../service/ProductService';
 import { PhotoService } from '../service/PhotoService';
