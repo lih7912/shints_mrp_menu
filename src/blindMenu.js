@@ -122,9 +122,10 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                     menuName == 'Fac-Out Record' ||
                     menuName == 'Fac-Out List' ||
                     menuName == 'Production Finish' ||
-                    menuName == 'Line Return' ||
-                    menuName == 'Pending Shipment' ||
-                    menuName == 'Shipment Manager') {
+                    menuName == 'Line Return' 
+                    //menuName == 'Pending Shipment' ||
+                    //menuName == 'Shipment Manager'
+                    ) {
                         setBlind(menu, menuName);
                     }
                  
