@@ -81,6 +81,15 @@ button {
     animation: fadein 2s infinite;
 }
 
+.p-tree-container {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
 @keyframes fadein {
     0%   { opacity: 1; }
     80%  { opacity: 0; }
