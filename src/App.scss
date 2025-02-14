@@ -151,3 +151,10 @@ button {
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
     padding: 13px 10px ;
 }
+
+.close-button {
+  position:relative;
+  right: -43px;  /* 원하는 위치 조정 */
+  cursor: pointer;
+  z-index: 10; /* 다른 요소 위에 표시 */
+}

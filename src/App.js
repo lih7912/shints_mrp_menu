@@ -75,7 +75,6 @@ const observer = new MutationObserver((mutationsList) => {
             if ($(node).hasClass('p-toast')) {
                 if (!origToastOffset) {
                   origToastOffset = $('.p-toast').offset();
-                  console.log(origToastOffset);
                 }
                 adjustToastPosition(screenScale);
             }
@@ -128,14 +127,10 @@ function adjustToastPosition(scaleFactor) {
   $('.p-toast').each(function () {
       let $toast = $(this);
       
-      console.log(scaleFactor);
       // 현재 위치 (좌표)
       let offset = $toast.offset();
       let newLeft = offset.left / scaleFactor;
       let newTop = offset.top / scaleFactor;
-
-      console.log(offset);
-      console.log(newLeft);
 
       $toast.css({
           'transform': `scale(${1 / scaleFactor})`,
@@ -314,8 +309,8 @@ const App = () => {
     const [overlayMenuActive, setOverlayMenuActive] = useState(false);
     const [mobileMenuActive, setMobileMenuActive] = useState(false);
     const [mobileTopbarMenuActive, setMobileTopbarMenuActive] = useState(false);
-    const [activeIndex2, setActiveIndex2] = useState(0);
-    const [saveIndex2, setSaveIndex2] = useState(-1);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [saveIndex, setSaveIndex] = useState(-1);
 
     const [styleMode, setStyleMode] = useState(0);
     const [styleVal0, setStyleVal0] = useState({ width: '14rem' });
@@ -390,14 +385,14 @@ const App = () => {
     const onCloseClick = (argIdx) => {
         let _retObj = unprocTabDatas(argIdx);
         // if (argIdx === _retObj.src.idx) {
-        console.log('onCloseClick:' + argIdx + ',' + saveIndex2 + ',' + _retObj.src.idx );
+        console.log('onCloseClick:' + argIdx + ',' + saveIndex + ',' + _retObj.src.idx );
 
         procAllUnVisible();
         if (typeof _retObj.tab != 'undefined') {
             procVisible(_retObj.tab.idx, "", "");
-            setActiveIndex2(_retObj.tab.tabidx);
-            setSaveIndex2(_retObj.tab.idx);
-            localStorage.setItem('save_index2', String(_retObj.tab.idx));
+            setActiveIndex(_retObj.tab.tabidx);
+            setSaveIndex(_retObj.tab.idx);
+            localStorage.setItem('save_Index', String(_retObj.tab.idx));
         }
     }
 
@@ -503,7 +498,7 @@ const App = () => {
               (e) => {
                  if (e.data.func) {
                     if (e.data.func === 'call_url') {
-                        console.log('window message=>' + e.data.message + ',' + saveIndex2 );
+                        console.log('window message=>' + e.data.message + ',' + saveIndex );
                         console.log(e.data.message);
                         var argData = e.data.message;
                         onExternCall(argData);
@@ -1102,12 +1097,12 @@ const App = () => {
       
         var _retObj = procTabDatas(_retObj0.idx, item.url1, item.label);
 
-        var tSaveIndex2 = saveIndex2;
-        if (tSaveIndex2 < 0) {
-           tSaveIndex2 = parseInt(localStorage.getItem('save_index2'));
+        var tSaveIndex = saveIndex;
+        if (tSaveIndex < 0) {
+           tSaveIndex = parseInt(localStorage.getItem('save_Index'));
         }
 
-        procUnVisible(tSaveIndex2);
+        procUnVisible(tSaveIndex);
 
         var tUrl = '';
         if (window.location.href.includes('webapp')) 
@@ -1121,12 +1116,12 @@ const App = () => {
         procVisible_extern (_retObj.idx, _url1, item.label, item.height);
         // procVisible(_retObj.idx, _url1, item.label);
 
-        console.log('onMennItem(extern call):' + saveIndex2 + ',' + _retObj.idx + ',' + tSaveIndex2);
+        console.log('onMennItem(extern call):' + saveIndex + ',' + _retObj.idx + ',' + tSaveIndex);
 
-        setActiveIndex2(_retObj.tabidx);
-        setSaveIndex2(_retObj.idx);
-        localStorage.setItem('save_index2', String(_retObj.idx));
-        console.log('onMennItem(extern call-1):' + saveIndex2 + ',' + _retObj.idx + ',' + tSaveIndex2);
+        setActiveIndex(_retObj.tabidx);
+        setSaveIndex(_retObj.idx);
+        localStorage.setItem('save_Index', String(_retObj.idx));
+        console.log('onMennItem(extern call-1):' + saveIndex + ',' + _retObj.idx + ',' + tSaveIndex);
 
         if (!item.children) {
             setOverlayMenuActive(false);
@@ -1168,7 +1163,7 @@ const App = () => {
       
         var _retObj = procTabDatas(_retObj0.idx, item.url1, item.label);
 
-        procUnVisible(saveIndex2);
+        procUnVisible(saveIndex);
 
         var tUrl = '';
         if (window.location.href.includes('webapp')) 
@@ -1182,9 +1177,9 @@ const App = () => {
 
         procVisible(_retObj.idx, _url1, item.label);
 
-        setActiveIndex2(_retObj.tabidx);
-        setSaveIndex2(_retObj.idx);
-        localStorage.setItem('save_index2', String(_retObj.idx));
+        setActiveIndex(_retObj.tabidx);
+        setSaveIndex(_retObj.idx);
+        localStorage.setItem('save_Index', String(_retObj.idx));
 
         if (!item.children) {
             setOverlayMenuActive(false);
@@ -1227,7 +1222,7 @@ const App = () => {
 
     }
 
-    const onTabChange1 = (event) => {
+    const onTabChange = (event) => {
         console.log('onTabChange-1:' + event.value.idx);
 
         // let _tArray = JSON.parse(localStorage.getItem('tabinfo1'));
@@ -1237,7 +1232,7 @@ const App = () => {
         let _tOnes = _tArray.filter((el) => el.idx === event.value.idx);
         let _tOne = _tOnes[0];
 
-        let _tOne1s = _tArray.filter((el) => el.idx === saveIndex2);
+        let _tOne1s = _tArray.filter((el) => el.idx === saveIndex);
         let _tOne1 = _tOne1s[0];
 
         procUnVisible(_tOne1.idx);
@@ -1250,9 +1245,9 @@ const App = () => {
         let _tabIdx = _tFind[0].tabidx;
         console.log("onTabChange-5:" + _tabIdx );
 
-        setActiveIndex2(_tabIdx);
-        setSaveIndex2(_tOne.idx);
-        localStorage.setItem('save_index2', String(_tOne.idx));
+        setActiveIndex(_tabIdx);
+        setSaveIndex(_tOne.idx);
+        localStorage.setItem('save_Index', String(_tOne.idx));
     }
 
 
@@ -1263,7 +1258,7 @@ const App = () => {
         let _tOnes = _tArray.filter((el) => el.idx === argData.idx);
         let _tOne = _tOnes[0];
 
-        let _tOne1s = _tArray.filter((el) => el.idx === saveIndex2);
+        let _tOne1s = _tArray.filter((el) => el.idx === saveIndex);
         let _tOne1 = _tOne1s[0];
 
         procUnVisible(_tOne1.idx);
@@ -1272,9 +1267,9 @@ const App = () => {
         let _tFind = _tArray.filter((el) => el.idx === argData.idx);
         let _tabIdx = _tFind[0].tabidx;
 
-        setActiveIndex2(_tabIdx);
-        setSaveIndex2(_tOne.idx);
-        localStorage.setItem('save_index2', String(_tOne.idx));
+        setActiveIndex(_tabIdx);
+        setSaveIndex(_tOne.idx);
+        localStorage.setItem('save_Index', String(_tOne.idx));
     }
 
 
@@ -1289,10 +1284,10 @@ const App = () => {
         let _tOnes = _tArray.filter((el) => el.idx === argData.idx);
         let _tOne = _tOnes[0];
 
-        var tSaveIndex2 = saveIndex2; 
-        if (tSaveIndex2 < 0) tSaveIndex2 = parseInt(localStorage.getItem('save_index2'));
+        var tSaveIndex = saveIndex; 
+        if (tSaveIndex < 0) tSaveIndex = parseInt(localStorage.getItem('save_Index'));
 
-        let _tOne1s = _tArray.filter((el) => el.idx === tSaveIndex2);
+        let _tOne1s = _tArray.filter((el) => el.idx === tSaveIndex);
         let _tOne1 = _tOne1s[0];
 
         procUnVisible(_tOne1.idx);
@@ -1315,9 +1310,9 @@ const App = () => {
         let _tFind = _tArray.filter((el) => el.idx === argData.idx);
         let _tabIdx = _tFind[0].tabidx;
 
-        setActiveIndex2(_tabIdx);
-        setSaveIndex2(_tOne.idx);
-        localStorage.setItem('save_index2', String(_tOne.idx));
+        setActiveIndex(_tabIdx);
+        setSaveIndex(_tOne.idx);
+        localStorage.setItem('save_Index', String(_tOne.idx));
     }
 
     const isDesktop = () => {
@@ -1821,66 +1816,66 @@ const App = () => {
     }
 
     const onClickIcon1 = (e) => {
-        console.log(`onClickIcon: ${activeIndex2}`);
+        console.log(`onClickIcon: ${activeIndex}`);
         // onToggleMenuClick(e);
         // reloadTab(1);
-        if (activeIndex2 === 0) { 
+        if (activeIndex === 0) { 
            var tObj = iframeKey1;
            setIframeKey1(tObj+1);
         }
-        if (activeIndex2 === 1) { 
+        if (activeIndex === 1) { 
            var tObj = iframeKey2;
            setIframeKey2(tObj+1);
         }
-        if (activeIndex2 === 2) { 
+        if (activeIndex === 2) { 
            var tObj = iframeKey3;
            setIframeKey3(tObj+1);
         }
-        if (activeIndex2 === 3) { 
+        if (activeIndex === 3) { 
            var tObj = iframeKey4;
            setIframeKey4(tObj+1);
         }
-        if (activeIndex2 === 4) { 
+        if (activeIndex === 4) { 
            var tObj = iframeKey5;
            setIframeKey5(tObj+1);
         }
-        if (activeIndex2 === 5) { 
+        if (activeIndex === 5) { 
            var tObj = iframeKey6;
            setIframeKey6(tObj+1);
         }
-        if (activeIndex2 === 6) { 
+        if (activeIndex === 6) { 
            var tObj = iframeKey7;
            setIframeKey7(tObj+1);
         }
-        if (activeIndex2 === 7) { 
+        if (activeIndex === 7) { 
            var tObj = iframeKey8;
            setIframeKey8(tObj+1);
         }
-        if (activeIndex2 === 8) { 
+        if (activeIndex === 8) { 
            var tObj = iframeKey9;
            setIframeKey9(tObj+1);
         }
-        if (activeIndex2 === 9) { 
+        if (activeIndex === 9) { 
            var tObj = iframeKey10;
            setIframeKey10(tObj+1);
         }
-        if (activeIndex2 === 10) { 
+        if (activeIndex === 10) { 
            var tObj = iframeKey11;
            setIframeKey11(tObj+1);
         }
-        if (activeIndex2 === 11) { 
+        if (activeIndex === 11) { 
            var tObj = iframeKey12;
            setIframeKey12(tObj+1);
         }
-        if (activeIndex2 === 12) { 
+        if (activeIndex === 12) { 
            var tObj = iframeKey13;
            setIframeKey13(tObj+1);
         }
-        if (activeIndex2 === 13) { 
+        if (activeIndex === 13) { 
            var tObj = iframeKey14;
            setIframeKey14(tObj+1);
         }
-        if (activeIndex2 === 14) { 
+        if (activeIndex === 14) { 
            var tObj = iframeKey15;
            setIframeKey15(tObj+1);
         }
@@ -1889,281 +1884,281 @@ const App = () => {
 	/* 패스워드 변경 */
 	const [passwordModalVisible, setPasswordModalVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
-	const [newPassword, setNewPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	  
-	const handleSave = async () => {
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+        
+    const handleSave = async () => {
     let result = (await getPassword(window, apolloOption, userInfoForAuth.userId))[0].passwd;
 
     console.log(result);
 
     if (currentPassword != result) {
-      alert("Wrong current password!");
-			return;
+        alert("Wrong current password!");
+            return;
     }
 
-		if (newPassword !== confirmPassword) {
-			alert("Passwords do not match!");
-			return;
-		}
+        if (newPassword !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
 
     if (newPassword.length < 5) {
-      alert("Use a password of at least 5 digits.");
-			return;
+        alert("Use a password of at least 5 digits.");
+            return;
     }
 
-		await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword, currentPassword);
- 
-		alert("Password changed successfully!");
-		setPasswordModalVisible(false);
-	};
-	  
-	const handleCancel = () => {
-		setPasswordModalVisible(false);
-	};
+        await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword, currentPassword);
+
+        alert("Password changed successfully!");
+        setPasswordModalVisible(false);
+    };
+        
+    const handleCancel = () => {
+        setPasswordModalVisible(false);
+    };
 
     return (
-        <div className="wrapperClass9" onClick={onWrapperClick} >
-            <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
-            <Toast ref={toast} />
+      <div className="wrapperClass9" onClick={onWrapperClick} >
+          <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
+          <Toast ref={toast} />
 
-            <div className="layout-sidebar" onClick={onSidebarClick} style={styleVal0}>
-                <div style={{ marginTop: '0rem', width: '13rem', height: '4rem',  marginBottom:'0rem' }}>
-                    <div style={{ float:'left', marginTop: '0rem', width: '7.5rem', height: '4rem' }}>
-                        <span style={{ width: '9rem' }}>
-                            <p style={{ width: '9rem', display: 'inline-block', color:'blue'}} >{userInfo.USER_ID} </p>
-                        </span>
-                        <span style={{ width: '9rem' }}>
-                            <p style={{ width: '9rem', display: 'inline-block', color:'blue' }} >{userInfo.USER_NAME} </p>
-                        </span>
-                    </div>
+          <div className="layout-sidebar" onClick={onSidebarClick} style={styleVal0}>
+              <div style={{ marginTop: '0rem', width: '13rem', height: '4rem',  marginBottom:'0rem' }}>
+                  <div style={{ float:'left', marginTop: '0rem', width: '7.5rem', height: '4rem' }}>
+                      <span style={{ width: '9rem' }}>
+                          <p style={{ width: '9rem', display: 'inline-block', color:'blue'}} >{userInfo.USER_ID} </p>
+                      </span>
+                      <span style={{ width: '9rem' }}>
+                          <p style={{ width: '9rem', display: 'inline-block', color:'blue' }} >{userInfo.USER_NAME} </p>
+                      </span>
+                  </div>
 
-                    <div style={{ float:'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="custom-target-icon pi pi-unlock p-text-secondary "
-                            onClick={ (e) => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); } }
-                            style={{ fontSize: '1.5rem', cursor: 'pointer' }}>
-                        </i>
-                    </div>
-                    <div style={{ float:'left', marginTop: '0.6rem', width: '3rem', height: '2rem' }}>
-                        <i className="custom-target-icon pi pi-refresh p-text-secondary "
-                            data-pr-position="right"
-                            data-pr-at="right+5 top"
-                            data-pr-my="left center-2"
-                            onClick={onClickIcon1}
-                            style={{ fontSize: '1.5rem', cursor: 'pointer'}}>
-                        </i>
+                  <div style={{ float:'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                      <i className="custom-target-icon pi pi-unlock p-text-secondary "
+                          onClick={ (e) => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); } }
+                          style={{ fontSize: '1.5rem', cursor: 'pointer' }}>
+                      </i>
+                  </div>
+                  <div style={{ float:'left', marginTop: '0.6rem', width: '3rem', height: '2rem' }}>
+                      <i className="custom-target-icon pi pi-refresh p-text-secondary "
+                          data-pr-position="right"
+                          data-pr-at="right+5 top"
+                          data-pr-my="left center-2"
+                          onClick={onClickIcon1}
+                          style={{ fontSize: '1.5rem', cursor: 'pointer'}}>
+                      </i>
+                  </div>
+                  
+              </div>
+              <div style={{ marginBottom: '1.5rem', width:'100%', padding:'0'}}>
+                    <button style={{ marginBottom: '0.5rem', width:'90%', height:'20px' }} onClick={ () => { window.location.href='/' }}>Log out</button>
+                    <button style={{ marginBottom: '0.5rem', width:'90%', height:'20px'}} onClick={ () => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
+                    <button id='btnAuth' style={{ marginBottom: '0.5rem', width:'90%', height:'20px'}} onClick={ () => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
+                    <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width:'90%', height:'20px', backgroundColor:'purple', borderRadius: '3px', color:'white', fontWeight: '700', textAlign:'center'}}>TEST 환경</div>
+                    <div className="workingMrpIcon">
+                      <dotlottie-player 
+                        src="https://lottie.host/8bad9105-8a45-4862-a1bc-ff9efaa5a99b/hiboDpMUKL.lottie" 
+                        background="transparent" 
+                        speed="1" 
+                        style={{ width:'20px', height: '20px'}} 
+                        direction="1" 
+                        playMode="normal" 
+                        loop autoplay></dotlottie-player>
+                      <span>WORKING MRPLIST…</span>
                     </div>
                     
-                </div>
-                <div style={{ marginBottom: '1.5rem', width:'100%', padding:'0'}}>
-                      <button style={{ marginBottom: '0.5rem', width:'90%', height:'20px' }} onClick={ () => { window.location.href='/' }}>Log out</button>
-                      <button style={{ marginBottom: '0.5rem', width:'90%', height:'20px'}} onClick={ () => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
-                      <button id='btnAuth' style={{ marginBottom: '0.5rem', width:'90%', height:'20px'}} onClick={ () => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
-                      <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width:'90%', height:'20px', backgroundColor:'purple', borderRadius: '3px', color:'white', fontWeight: '700', textAlign:'center'}}>TEST 환경</div>
-                      <div className="workingMrpIcon">
-                        <dotlottie-player 
-                          src="https://lottie.host/8bad9105-8a45-4862-a1bc-ff9efaa5a99b/hiboDpMUKL.lottie" 
-                          background="transparent" 
-                          speed="1" 
-                          style={{ width:'20px', height: '20px'}} 
-                          direction="1" 
-                          playMode="normal" 
-                          loop autoplay></dotlottie-player>
-                        <span>WORKING MRPLIST…</span>
-                      </div>
-                      
-                </div>
-                <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
-            </div>
+              </div>
+              <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
+          </div>
 
-            <div className="layout-main-container9" style={styleVal}>
-                <div className="layout-main9">
-                    <TabMenu model={tabDatas} activeIndex={activeIndex2} onTabChange={onTabChange1} />
-                    <div style={{ height:'62rem', position:'relative' }}>
-                      <div className={isTabs1} style={styleVal1} >
-                        <iframe src={iframeUrls1}
-                                frameBorder="0"
-                                height={iframeH1}
-                                />
-                      </div>
-                      <div className={isTabs2}  style={styleVal2} >
-                        <iframe src={iframeUrls2}
-                                key={iframeKey2}
-                                ref={ref_iframe2}
-                                frameBorder="0"
-                                scrolling={iframeS2}
-                                
-                                height={iframeH2}
-                                id="id2"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs3}   style={styleVal3} >
-                        <iframe src={iframeUrls3}
-                                key={iframeKey3}
-                                ref={ref_iframe3}
-                                frameBorder="0"
-                                scrolling={iframeS3}
-                                
-                                height={iframeH3}
-                                id="id3"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs4}   style={styleVal4}  >
-                        <iframe src={iframeUrls4}
-                                key={iframeKey4}
-                                ref={ref_iframe4}
-                                frameBorder="0"
-                                scrolling={iframeS4}
-                                
-                                height={iframeH4}
-                                id="id4"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs5}   style={styleVal5} >
-                        <iframe src={iframeUrls5}
-                                key={iframeKey5}
-                                ref={ref_iframe5}
-                                frameBorder="0"
-                                scrolling={iframeS5}
-                                
-                                height={iframeH5}
-                                id="id5"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs6}   style={styleVal6} >
-                        <iframe src={iframeUrls6}
-                                key={iframeKey6}
-                                ref={ref_iframe6}
-                                frameBorder="0"
-                                scrolling={iframeS6}
-                                
-                                height={iframeH6}
-                                id="id6"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs7}   style={styleVal7} >
-                        <iframe src={iframeUrls7}
-                                key={iframeKey7}
-                                ref={ref_iframe7}
-                                frameBorder="0"
-                                scrolling={iframeS7}
-                                
-                                height={iframeH7}
-                                id="id7"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs8}   style={styleVal8} >
-                        <iframe src={iframeUrls8}
-                                key={iframeKey8}
-                                ref={ref_iframe8}
-                                frameBorder="0"
-                                scrolling={iframeS8}
-                                
-                                height={iframeH8}
-                                id="id8"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs9}   style={styleVal9} >
-                        <iframe src={iframeUrls9}
-                                key={iframeKey9}
-                                ref={ref_iframe9}
-                                frameBorder="0"
-                                scrolling={iframeS9}
-                                
-                                height={iframeH9}
-                                id="id9"
-                                className="myClassname"
-                                />
-                      </div>
-                      <div className={isTabs10}   style={styleVal10} >
-                        <iframe src={iframeUrls10}
-                                key={iframeKey10}
-                                ref={ref_iframe10}
-                                frameBorder="0"
-                                scrolling={iframeS10}
-                                
-                                height={iframeH10}
-                                id="id10"
-                                className="myClassname"
-                                />
-                      </div>
-
-                      <div className={isTabs11}   style={styleVal11} >
-                        <iframe src={iframeUrls11}
-                                key={iframeKey11}
-                                ref={ref_iframe11}
-                                frameBorder="0"
-                                scrolling={iframeS11}
-                                id="id11"
-                                className="cover"
-                                />
-                      </div>
-                    
+          <div className="layout-main-container9" style={styleVal}>
+              <div className="layout-main9">
+                  <TabMenu model={tabDatas} activeIndex={activeIndex} onTabChange={onTabChange} />
+                  <div style={{ height:'62rem', position:'relative' }}>
+                    <div className={isTabs1} style={styleVal1} >
+                      <iframe src={iframeUrls1}
+                              frameBorder="0"
+                              height={iframeH1}
+                              />
                     </div>
-                </div>
-            </div>
+                    <div className={isTabs2}  style={styleVal2} >
+                      <iframe src={iframeUrls2}
+                              key={iframeKey2}
+                              ref={ref_iframe2}
+                              frameBorder="0"
+                              scrolling={iframeS2}
+                              
+                              height={iframeH2}
+                              id="id2"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs3}   style={styleVal3} >
+                      <iframe src={iframeUrls3}
+                              key={iframeKey3}
+                              ref={ref_iframe3}
+                              frameBorder="0"
+                              scrolling={iframeS3}
+                              
+                              height={iframeH3}
+                              id="id3"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs4}   style={styleVal4}  >
+                      <iframe src={iframeUrls4}
+                              key={iframeKey4}
+                              ref={ref_iframe4}
+                              frameBorder="0"
+                              scrolling={iframeS4}
+                              
+                              height={iframeH4}
+                              id="id4"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs5}   style={styleVal5} >
+                      <iframe src={iframeUrls5}
+                              key={iframeKey5}
+                              ref={ref_iframe5}
+                              frameBorder="0"
+                              scrolling={iframeS5}
+                              
+                              height={iframeH5}
+                              id="id5"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs6}   style={styleVal6} >
+                      <iframe src={iframeUrls6}
+                              key={iframeKey6}
+                              ref={ref_iframe6}
+                              frameBorder="0"
+                              scrolling={iframeS6}
+                              
+                              height={iframeH6}
+                              id="id6"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs7}   style={styleVal7} >
+                      <iframe src={iframeUrls7}
+                              key={iframeKey7}
+                              ref={ref_iframe7}
+                              frameBorder="0"
+                              scrolling={iframeS7}
+                              
+                              height={iframeH7}
+                              id="id7"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs8}   style={styleVal8} >
+                      <iframe src={iframeUrls8}
+                              key={iframeKey8}
+                              ref={ref_iframe8}
+                              frameBorder="0"
+                              scrolling={iframeS8}
+                              
+                              height={iframeH8}
+                              id="id8"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs9}   style={styleVal9} >
+                      <iframe src={iframeUrls9}
+                              key={iframeKey9}
+                              ref={ref_iframe9}
+                              frameBorder="0"
+                              scrolling={iframeS9}
+                              
+                              height={iframeH9}
+                              id="id9"
+                              className="myClassname"
+                              />
+                    </div>
+                    <div className={isTabs10}   style={styleVal10} >
+                      <iframe src={iframeUrls10}
+                              key={iframeKey10}
+                              ref={ref_iframe10}
+                              frameBorder="0"
+                              scrolling={iframeS10}
+                              
+                              height={iframeH10}
+                              id="id10"
+                              className="myClassname"
+                              />
+                    </div>
 
-            <CSSTransition classNames="layout-mask" timeout={{ enter: 200, exit: 200 }} in={mobileMenuActive} unmountOnExit>
-                <div className="layout-mask p-component-overlay"></div>
-            </CSSTransition>
+                    <div className={isTabs11}   style={styleVal11} >
+                      <iframe src={iframeUrls11}
+                              key={iframeKey11}
+                              ref={ref_iframe11}
+                              frameBorder="0"
+                              scrolling={iframeS11}
+                              id="id11"
+                              className="cover"
+                              />
+                    </div>
+                  
+                  </div>
+              </div>
+          </div>
 
-			<Dialog
-				header="Change Password"
-				visible={passwordModalVisible}
-				style={{ width: "400px" }}
-				modal
-				onHide={() => setPasswordModalVisible(false)}
-				footer={
-					<div>
-					<Button label="Cancel" icon="pi pi-times" onClick={handleCancel} />
-					<Button label="Save" icon="pi pi-check" onClick={handleSave} />
-					</div>
-				}>
-				<div className="p-fluid">
+          <CSSTransition classNames="layout-mask" timeout={{ enter: 200, exit: 200 }} in={mobileMenuActive} unmountOnExit>
+              <div className="layout-mask p-component-overlay"></div>
+          </CSSTransition>
+
+    <Dialog
+      header="Change Password"
+      visible={passwordModalVisible}
+      style={{ width: "400px" }}
+      modal
+      onHide={() => setPasswordModalVisible(false)}
+      footer={
+        <div>
+        <Button label="Cancel" icon="pi pi-times" onClick={handleCancel} />
+        <Button label="Save" icon="pi pi-check" onClick={handleSave} />
+        </div>
+      }>
+      <div className="p-fluid">
+      <div className="field">
+        <label htmlFor="currentPassword">Current Password</label>
+        <Password
+          id="currentPassword"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          toggleMask
+        />
+        </div>
         <div className="field">
-					<label htmlFor="currentPassword">Current Password</label>
-					<Password
-						id="currentPassword"
-						value={currentPassword}
-						onChange={(e) => setCurrentPassword(e.target.value)}
-						toggleMask
-					/>
-					</div>
-					<div className="field">
-					<label htmlFor="newPassword">New Password</label>
-					<Password
-						id="newPassword"
-						value={newPassword}
-						onChange={(e) => setNewPassword(e.target.value)}
-						toggleMask
-					/>
-					</div>
-					<div className="field">
-					<label htmlFor="confirmPassword">Confirm New Password</label>
-					<Password
-						id="confirmPassword"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						toggleMask
-						feedback={false}
-					/>
-					</div>
-				</div>
-			</Dialog>
-
-
+        <label htmlFor="newPassword">New Password</label>
+        <Password
+          id="newPassword"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          toggleMask
+        />
+        </div>
+        <div className="field">
+        <label htmlFor="confirmPassword">Confirm New Password</label>
+        <Password
+          id="confirmPassword"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          toggleMask
+          feedback={false}
+        />
+        </div>
       </div>
+    </Dialog>
+
+
+    </div>
 
 
 
-    );
+  );
 }
 
 export default App;
