@@ -14,6 +14,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
+import { Toast } from 'primereact/toast';
 
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
@@ -34,62 +35,116 @@ import $ from 'jquery';
 
 let userInfoForAuth = {};
 let screenScale = 1.0;
-
+let origToastOffset = null
+      
 $(async function() {
 	blindMenu(window, apolloOption, userInfoForAuth);
   showTestEnvLabel(window);
   showMenuCodeToolTip(window);
+  
   $('iframe').attr('scrolling', 'no');
-
-  function adjustScale() {
-    const width = $(window).width();
-    
-    // 1920px일 때 1.26배 SCALE 적용
-    screenScale = 1.26 * width / 1920
-
-    // `transform: scale` 적용
-    $("body").css("transform", `scale(${screenScale})`);
-  }
 
   // 초기 스케일 설정
   adjustScale();
 
-  // 창 크기 변경 시 스케일 조정
-  $(window).resize(adjustScale);
+  // 창 크기 변경 시 스케일 조정 및 토스트 위치 조정
+  $(window).resize(() => {
+    adjustScale();
+  });
 
-  function adjustTooltipPosition() {
-    // 현재 body의 transform: scale 값 가져오기
-    let bodyScale = $('body').css('transform');
-    let scaleFactor = 1;
+  // Toast 위치 보정
+  adjustToastPosition(screenScale);
 
-    if (bodyScale !== 'none') {
-        let values = bodyScale.match(/matrix\(([\d., -]+)\)/);
-        if (values) {
-            scaleFactor = parseFloat(values[1].split(', ')[0]); // Scale 값 추출
-        }
-    }
-
-    // 툴팁 위치 보정
-    $('.menuCodeTooltip').each(function () {
-        let $tooltip = $(this);
-        let offset = $tooltip.offset(); // 현재 위치 가져오기
-        let newLeft = offset.left / scaleFactor;
-        let newTop = offset.top / scaleFactor;
-
-        $tooltip.css({
-            'transform': `scale(${1 / scaleFactor})`,
-            'left': (newLeft / scaleFactor)+ 'px',
-            'top': newTop + 'px'
-        });
-    });
-  }
   // 툴팁이 나타날 때 위치 조정
   $(document).on('mouseenter', '[id^="tab_"]', function () {
     setTimeout(adjustTooltipPosition, 10); // 툴팁이 나타난 후 위치 조정
   });
 
+  const toastContainer = document.body; // body 전체를 감지하거나 특정 부모 요소를 지정
+  observer.observe(toastContainer, { childList: true, subtree: true });
 });
 
+// **MutationObserver 사용하여 Toast DOM 변화 감지**
+const observer = new MutationObserver((mutationsList) => {
+  const width = $(window).width();
+  const screenScale = 1.26 * width / 1920;
+
+  for (let mutation of mutationsList) {
+    if (mutation.addedNodes.length) {
+        mutation.addedNodes.forEach(node => {
+            if ($(node).hasClass('p-toast')) {
+                if (!origToastOffset) {
+                  origToastOffset = $('.p-toast').offset();
+                  console.log(origToastOffset);
+                }
+                adjustToastPosition(screenScale);
+            }
+        });
+    }
+  }
+});
+
+function adjustScale() {
+  const width = $(window).width();
+  
+  // 1920px일 때 1.26배 SCALE 적용
+  screenScale = 1.26 * width / 1920
+
+  // `transform: scale` 적용
+  $("body").css("transform", `scale(${screenScale})`);
+
+  // 토스트 위치 보정
+   $("body").css("transform-origin", "top left"); // transform 기준점 설정
+}
+
+function adjustTooltipPosition() {
+  // 현재 body의 transform: scale 값 가져오기
+  let bodyScale = $('body').css('transform');
+  let scaleFactor = 1;
+
+  if (bodyScale !== 'none') {
+      let values = bodyScale.match(/matrix\(([\d., -]+)\)/);
+      if (values) {
+          scaleFactor = parseFloat(values[1].split(', ')[0]); // Scale 값 추출
+      }
+  }
+
+  // 툴팁 위치 보정
+  $('.menuCodeTooltip').each(function () {
+      let $tooltip = $(this);
+      let offset = $tooltip.offset(); // 현재 위치 가져오기
+      let newLeft = offset.left / scaleFactor;
+      let newTop = offset.top / scaleFactor;
+
+      $tooltip.css({
+          'transform': `scale(${1 / scaleFactor})`,
+          'left': (newLeft / scaleFactor)+ 'px',
+          'top': newTop + 'px'
+      });
+  });
+}
+
+function adjustToastPosition(scaleFactor) {
+  $('.p-toast').each(function () {
+      let $toast = $(this);
+      
+      console.log(scaleFactor);
+      // 현재 위치 (좌표)
+      let offset = $toast.offset();
+      let newLeft = offset.left / scaleFactor;
+      let newTop = offset.top / scaleFactor;
+
+      console.log(offset);
+      console.log(newLeft);
+
+      $toast.css({
+          'transform': `scale(${1 / scaleFactor})`,
+          'transform-origin': 'top left',
+          'left': (newLeft)+ 'px',
+          'top': newTop | 'px'
+      });
+  });
+}
 
 // 메시지를 수신하는 이벤트 리스너
 window.addEventListener('message', function(event) {
@@ -265,6 +320,8 @@ const App = () => {
     const [styleMode, setStyleMode] = useState(0);
     const [styleVal0, setStyleVal0] = useState({ width: '14rem' });
 
+    const toast = useRef(null);
+
     const copyTooltipRef = useRef();
     const location = useLocation();
     const history = useHistory();
@@ -300,6 +357,7 @@ const App = () => {
     // const [styleVal, setStyleVal] = useState({ width: '65vw' });
     // const [styleVal, setStyleVal] = useState({ position: 'fixed', marginLeft: '14rem' });
     const [styleVal, setStyleVal] = useState({ marginLeft: '14rem' });
+
 
     const unprocTabDatas = (argIdx) => {
         let _tabDatas0 =  JSON.parse(sessionStorage.getItem('tabinfo1'));
@@ -343,8 +401,6 @@ const App = () => {
         }
     }
 
-    
-
     const headerTemplate = (item, options) => {
         var tLabel = '';
         if (item.label.length > 16) tLabel = item.label.substring(0, 16);
@@ -368,7 +424,7 @@ const App = () => {
   
     const makeInits = (argStr) => {
       let _tArray = [];
-      let tIdx = 0;   // Tab 갯수 조정 :10 
+      let tIdx = 0;   // 탭 갯수 조정 :10 
       for (tIdx = 0; tIdx < 10; tIdx ++) {
 
         let tObj = {};
@@ -1040,7 +1096,7 @@ const App = () => {
         
         var _retObj0 = getTabIndex1();
         if (_retObj0.idx < 0) {
-           alert('탭은 10개까지만 가능합니다. 탭을 하나 닫은후 클릭하세요');
+          toast.current.show({ severity: 'error', summary: '탭 갯수 초과', detail: '탭은 10개까지만 가능합니다. 탭을 하나 닫은후 클릭하세요.', life: 5000 });
            return;
         }
       
@@ -1106,7 +1162,7 @@ const App = () => {
         
         var _retObj0 = getTabIndex1();
         if (_retObj0.idx < 0) {
-           alert('탭은 10개까지만 가능합니다. 탭을 하나 닫은후 클릭하세요');
+          toast.current.show({ severity: 'error', summary: '탭 갯수 초과', detail: '탭은 10개까지만 가능합니다. 탭을 하나 닫은후 클릭하세요.', life: 5000 });
            return;
         }
       
@@ -1869,6 +1925,7 @@ const App = () => {
     return (
         <div className="wrapperClass9" onClick={onWrapperClick} >
             <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
+            <Toast ref={toast} />
 
             <div className="layout-sidebar" onClick={onSidebarClick} style={styleVal0}>
                 <div style={{ marginTop: '0rem', width: '13rem', height: '4rem',  marginBottom:'0rem' }}>
@@ -2100,6 +2157,7 @@ const App = () => {
 					</div>
 				</div>
 			</Dialog>
+
 
       </div>
 
