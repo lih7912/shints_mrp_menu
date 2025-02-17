@@ -1091,7 +1091,7 @@ const App = () => {
         
         var _retObj0 = getTabIndex1();
         if (_retObj0.idx < 0) {
-          toast.current.show({ severity: 'error', summary: '탭 갯수 초과', detail: '탭은 10개까지만 가능합니다. 탭을 하나 닫은후 클릭하세요.', life: 5000 });
+          toast.current.show({ severity: 'error', summary: '탭 갯수 초과', detail: '탭은 10개까지만 가능합니다. 탭을 하나 닫은후(Alt+X) 클릭하세요.', life: 5000 });
            return;
         }
       
@@ -1157,7 +1157,7 @@ const App = () => {
         
         var _retObj0 = getTabIndex1();
         if (_retObj0.idx < 0) {
-          toast.current.show({ severity: 'error', summary: '탭 갯수 초과', detail: '탭은 10개까지만 가능합니다. 탭을 하나 닫은후 클릭하세요.', life: 5000 });
+          toast.current.show({ severity: 'error', summary: '탭 갯수 초과', detail: '탭은 10개까지만 가능합니다. 탭을 하나 닫은후(Alt+X) 클릭하세요.', life: 5000 });
            return;
         }
       
