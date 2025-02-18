@@ -85,9 +85,15 @@ const observer = new MutationObserver((mutationsList) => {
 
 function adjustScale() {
   const width = $(window).width();
-  
+  console.log(screenScale);
   // 1920px일 때 1.26배 SCALE 적용
   screenScale = 1.26 * width / 1920
+
+  if (screenScale > 1.45)
+    screenScale = 1.45;
+
+  if (screenScale < 0.9)
+    screenScale = 0.9;
 
   // `transform: scale` 적용
   $("body").css("transform", `scale(${screenScale})`);
