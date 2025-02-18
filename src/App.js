@@ -92,8 +92,8 @@ function adjustScale() {
   if (screenScale > 1.45)
     screenScale = 1.45;
 
-  if (screenScale < 0.9)
-    screenScale = 0.9;
+  if (screenScale < 1)
+    screenScale = 1;
 
   // `transform: scale` 적용
   $("body").css("transform", `scale(${screenScale})`);
@@ -410,8 +410,8 @@ const App = () => {
            tLabel = item.label + tSpace.substring(0, 15-item.label.length);
         }
         
-        let showTooltip = window.location.host.includes('erp.shints.com') ? 'none' : 'block';
-        //let showTooltip = 'block'
+        //let showTooltip = window.location.host.includes('erp.shints.com') ? 'none' : 'block';
+        let showTooltip = 'block'
         let tooltipLabel = window.location.host.includes('erp.shints.com') ? item.label : `${item.label} - ${item.url1}`;
 
         return (
