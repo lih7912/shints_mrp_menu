@@ -151,3 +151,11 @@ button {
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
     padding: 13px 10px ;
 }
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+    color:#495057;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler {
+    color:#495057;
+}

@@ -85,9 +85,8 @@ const observer = new MutationObserver((mutationsList) => {
 
 function adjustScale() {
   const width = $(window).width();
-  console.log(screenScale);
-  // 1920px일 때 1.26배 SCALE 적용
-  screenScale = 1.26 * width / 1920
+  // 1920px일 때 1.235배 SCALE 적용
+  screenScale = 1.235 * width / 1920
 
   /*
   if (screenScale > 1.45)
@@ -321,7 +320,7 @@ const App = () => {
     const [saveIndex, setSaveIndex] = useState(-1);
 
     const [styleMode, setStyleMode] = useState(0);
-    const [styleVal0, setStyleVal0] = useState({ width: '14rem' });
+    const [styleVal0, setStyleVal0] = useState({ width: '17rem' });
 
     const toast = useRef(null);
 
@@ -359,7 +358,7 @@ const App = () => {
 
     // const [styleVal, setStyleVal] = useState({ width: '65vw' });
     // const [styleVal, setStyleVal] = useState({ position: 'fixed', marginLeft: '14rem' });
-    const [styleVal, setStyleVal] = useState({ marginLeft: '14rem' });
+    const [styleVal, setStyleVal] = useState({ marginLeft: '17rem' });
 
 
     const unprocTabDatas = (argIdx) => {
@@ -1137,7 +1136,10 @@ const App = () => {
         }
     }
 
-    const onMenuItemClick = (argValue) => {
+    const onMenuItemClick = (event) => {
+        setSelectedKey(event.value);
+        console.log(event.value);
+        let argValue = event.value;
         var tFindObj = {};
         menuInfo.forEach((col, i) => {
             var tObj = { ...col };
@@ -1925,13 +1927,39 @@ const App = () => {
         setPasswordModalVisible(false);
     };
 
+    const [expandedKeys, setExpandedKeys] = useState({});
+
+    const onToggleNode = (node) => {
+      setExpandedKeys((prevExpandedKeys) => {
+          const newExpandedKeys = { ...prevExpandedKeys };
+          if (newExpandedKeys[node.key]) {
+              delete newExpandedKeys[node.key]; // 이미 확장되어 있다면 닫기
+          } else {
+              newExpandedKeys[node.key] = true; // 닫혀 있다면 열기
+          }
+          return newExpandedKeys;
+      });
+  };
+
+    const nodeTemplate = (node, options) => {
+        return (
+            <div 
+                className="tree-node-custom" 
+                onClick={() => onToggleNode(node)} 
+                style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            >
+                <span style={{ marginLeft: "2px" }}>{node.label}</span>
+            </div>
+        );
+    };
+
     return (
       <div className="wrapperClass9" onClick={onWrapperClick} >
           <Tooltip ref={copyTooltipRef} target=".block-action-copy" position="bottom" content="Copied to clipboard" event="focus" />
           <Toast ref={toast} />
 
           <div className="layout-sidebar" onClick={onSidebarClick} style={styleVal0}>
-              <div style={{ marginTop: '0rem', width: '13rem', height: '4rem',  marginBottom:'0rem' }}>
+              <div style={{ marginTop: '0rem', width: '100%', height: '4rem',  marginBottom:'0rem' }}>
                   <div style={{ float:'left', marginTop: '0rem', width: '7.5rem', height: '4rem' }}>
                       <span style={{ width: '9rem' }}>
                           <p style={{ width: '9rem', display: 'inline-block', color:'blue'}} >{userInfo.USER_ID} </p>
@@ -1941,7 +1969,7 @@ const App = () => {
                       </span>
                   </div>
 
-                  <div style={{ float:'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                  <div style={{ float:'left', marginLeft: '23px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                       <i className="custom-target-icon pi pi-unlock p-text-secondary "
                           onClick={ (e) => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); } }
                           style={{ fontSize: '1.5rem', cursor: 'pointer' }}>
@@ -1976,7 +2004,18 @@ const App = () => {
                     </div>
                     
               </div>
-              <Tree value={menuInfo} selectionMode="single" selectionKeys={selectedKey} onSelectionChange={(e) => onMenuItemClick(e.value)} />
+              <Tree 
+                value={menuInfo.map((item, index) => ({ 
+                  ...item, 
+                  key: item.key || `node-${index}`  // key가 없을 경우 자동 생성
+                }))}
+                selectionMode="single"
+                selectionKeys={selectedKey}
+                onSelectionChange={onMenuItemClick}
+                expandedKeys={expandedKeys} // 상태 적용
+                onToggle={(e) => setExpandedKeys(e.value)} // 트리 내부 토글도 지원
+                nodeTemplate={nodeTemplate}
+              />
           </div>
 
           <div className="layout-main-container9" style={styleVal}>
