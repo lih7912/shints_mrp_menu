@@ -71,7 +71,7 @@ const InvalidStateDemo = () => {
                             </div>
                             <div className="field">
                                 <label htmlFor="calendar">Calendar</label>
-                                <Calendar inputId="calendar" value={value6} onChange={(e) => setValue6(e.value)} className="p-invalid" showIcon/>
+                                <Calendar showButtonBar inputId="calendar" value={value6} onChange={(e) => setValue6(e.value)} className="p-invalid" showIcon/>
                             </div>
                             <div className="field">
                                 <label htmlFor="chips">Chips</label>

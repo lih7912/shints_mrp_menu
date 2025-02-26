@@ -71,7 +71,7 @@ const FloatLabelDemo = () => {
                 </div>
                 <div className="field col-12 md:col-4">
                     <span className="p-float-label">
-                        <Calendar inputId="calendar" value={value7} onChange={(e) => setValue7(e.value)}></Calendar>
+                        <Calendar showButtonBar inputId="calendar" value={value7} onChange={(e) => setValue7(e.value)}></Calendar>
                         <label htmlFor="calendar">Calendar</label>
                     </span>
                 </div>
