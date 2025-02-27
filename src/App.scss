@@ -137,6 +137,7 @@ button {
 }
 
 .workingMrpIcon dotlottie-player {
+
 }
 
 .workingMrpIcon span {
@@ -158,4 +159,15 @@ button {
 
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler {
     color:#495057;
+}
+
+div:where(.swal2-container).swal2-top, div:where(.swal2-container).swal2-center, div:where(.swal2-container).swal2-bottom {
+    z-index: 1102;
+}
+
+div:where(.swal2-container).swal2-center>.swal2-popup {
+    position: fixed !important;
+    top: 33% !important;
+    left: 38% !important;
+    transform: translate(-50%, -50%) !important;
 }

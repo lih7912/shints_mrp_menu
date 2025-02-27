@@ -5,7 +5,6 @@ import { Route, useHistory, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import { Tree } from 'primereact/tree';
-
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
 import { TabPanel } from 'primereact/tabview';
@@ -15,6 +14,7 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from "primereact/button";
 import { Toast } from 'primereact/toast';
+import Swal from 'sweetalert2';
 
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
@@ -1891,54 +1891,77 @@ const App = () => {
         }
     }
 
-	/* 패스워드 변경 */
-	const [passwordModalVisible, setPasswordModalVisible] = useState(false);
+  /* 패스워드 변경 */
+  const [passwordModalVisible, setPasswordModalVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
         
-    const handleSave = async () => {
+
+  const validatePassword = (password) => {
+    const lengthCheck = password.length >= 8;
+    const complexityCheck = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password);
+    const hasNoSequential = !/(1111|0123|1234|2345|3456|4567|5678|6789|7890|abcd|bcde|cdef|defg|efgh|fghi|ghij|hijk|ijkl|jklm|klmn|lmno|mnop|nopq|opqr|pqrs|qrst|rstu|stuv|tuvw|uvwx|vwxy|wxyz|aaaa|bbbb|cccc|dddd|eeee|ffff|gggg|hhhh|iiii|jjjj|kkkk|llll|mmmm|nnnn|oooo|pppp|qqqq|rrrr|ssss|tttt|uuuu|vvvv|wwww|xxxx|yyyy|zzzz)/i.test(password);
+
+    return lengthCheck && complexityCheck && hasNoSequential;
+  };
+
+  const handleSave = async () => {
     let result = (await getPassword(window, apolloOption, userInfoForAuth.userId))[0].passwd;
 
     console.log(result);
-
+    
     if (currentPassword != result) {
-        alert("Wrong current password!");
-            return;
-    }
-
-        if (newPassword !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
-
-    if (newPassword.length < 5) {
-        alert("Use a password of at least 5 digits.");
-            return;
-    }
-
-        await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword, currentPassword);
-
-        alert("Password changed successfully!");
-        setPasswordModalVisible(false);
-    };
-        
-    const handleCancel = () => {
-        setPasswordModalVisible(false);
-    };
-
-    const [expandedKeys, setExpandedKeys] = useState({});
-
-    const onToggleNode = (node) => {
-      setExpandedKeys((prevExpandedKeys) => {
-          const newExpandedKeys = { ...prevExpandedKeys };
-          if (newExpandedKeys[node.key]) {
-              delete newExpandedKeys[node.key]; // 이미 확장되어 있다면 닫기
-          } else {
-              newExpandedKeys[node.key] = true; // 닫혀 있다면 열기
-          }
-          return newExpandedKeys;
+      Swal.fire({
+        html: "Wrong current password!",
+        icon: "error",
       });
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      Swal.fire({
+        title: "Confirm new password",
+        html: "Passwords do not match!",
+      });
+      return;
+    }
+
+    if (!validatePassword(newPassword)) {
+      Swal.fire({
+        title: "Confirm new password",
+        html: "Password must be at least 8 characters, include letters, numbers, and special characters, and must not contain 4 consecutive characters.<br><br>비밀번호는 최소 8자 이상이어야 하며, 영문자, 숫자, 특수문자를 포함해야 합니다. 또한, 4자리 이상의 연속된 문자를 포함할 수 없습니다.",
+        icon: "error",
+      });
+      
+      return;
+    }
+
+    await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword, currentPassword);
+
+    Swal.fire({
+      html: "Password changed successfully!",
+      icon: "success",
+    });
+    setPasswordModalVisible(false);
+  };
+      
+  const handleCancel = () => {
+      setPasswordModalVisible(false);
+  };
+
+  const [expandedKeys, setExpandedKeys] = useState({});
+
+  const onToggleNode = (node) => {
+    setExpandedKeys((prevExpandedKeys) => {
+        const newExpandedKeys = { ...prevExpandedKeys };
+        if (newExpandedKeys[node.key]) {
+            delete newExpandedKeys[node.key]; // 이미 확장되어 있다면 닫기
+        } else {
+            newExpandedKeys[node.key] = true; // 닫혀 있다면 열기
+        }
+        return newExpandedKeys;
+    });
   };
 
     const nodeTemplate = (node, options) => {
@@ -2197,6 +2220,9 @@ const App = () => {
           feedback={false}
         />
         </div>
+        <p style={{ color:'#BF0000' }}>Password must be at least 8 characters, include letters, numbers, and special characters, and must not contain 4 consecutive characters.
+          <br/><br/>비밀번호는 최소 8자 이상이어야 하며, 영문자, 숫자, 특수문자를 포함해야 합니다. 또한, 4자리 이상의 연속된 문자를 포함할 수 없습니다.
+        </p>
       </div>
     </Dialog>
 
