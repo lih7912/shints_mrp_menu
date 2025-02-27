@@ -89,7 +89,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
     userInfoForAuth.authMenuList = authInfoList.afAuthPart;
     userInfoForAuth.authMenuListUser = authInfoList.afAuthUser;
    
-    $('.p-tree-toggler').on('click', () => {
+    $('.p-treenode').on('click', () => {
         setTimeout( () => {
             let menuList = $('.p-treenode-label');
             menuList.each( (index, menu) => {

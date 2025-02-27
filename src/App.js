@@ -1967,7 +1967,7 @@ const App = () => {
     const nodeTemplate = (node, options) => {
         return (
             <div 
-                className="tree-node-custom" 
+                className="tree-node-custom p-treenode-label" 
                 onClick={() => onToggleNode(node)} 
                 style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             >
@@ -2036,8 +2036,8 @@ const App = () => {
                 selectionKeys={selectedKey}
                 onSelectionChange={onMenuItemClick}
                 expandedKeys={expandedKeys} // 상태 적용
-                //onToggle={(e) => setExpandedKeys(e.value)} // 트리 내부 토글도 지원
-                //nodeTemplate={nodeTemplate}
+                onToggle={(e) => setExpandedKeys(e.value)} // 트리 내부 토글도 지원
+                nodeTemplate={nodeTemplate}
               />
           </div>
 
