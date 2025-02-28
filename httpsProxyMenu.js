@@ -16,7 +16,8 @@ const options = {
 
 // HTTP -> HTTPS 리디렉션
 httpApp.use((req, res, next) => {
-  const httpsUrl = `https://${req.hostname}:3211${req.url}`;
+  const host = req.headers.host.split(":")[0]; // 도메인만 추출 (포트 제거)
+  const httpsUrl = `https://${host}:3211${req.url}`;
   res.redirect(301, httpsUrl);
 });
 
