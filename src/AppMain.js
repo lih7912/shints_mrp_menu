@@ -291,7 +291,7 @@ const AppMain = () => {
        // let _url1 = `${process.env.APP_URL}` + tab.url1;
 
        // let _url1 = "http://localhost:3288/webapp/mrpapp/index.html#/" + tab.url1;
-       let _url1 = "http://localhost:3101/#/" + tab.url1;
+       let _url1 = "https://localhost:3101/#/" + tab.url1;
        return (
           <TabPanel key={tab.title} header={tab.content} closable >
             <Iframe url={_url1}
