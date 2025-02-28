@@ -14,6 +14,16 @@ const options = {
   cert: fs.readFileSync(process.env.CERT)
 };
 
+// HTTP -> HTTPS 리디렉션
+httpApp.use((req, res, next) => {
+  const httpsUrl = `https://${req.hostname}:3211${req.url}`;
+  res.redirect(301, httpsUrl);
+});
+
+// HTTP 서버 실행 (포트 3210에서 HTTPS 3211로 리디렉션)
+http.createServer(httpApp).listen(3210, () => {
+  console.log("🔄 HTTP Server running on port 3210 and redirecting to HTTPS 3211");
+});
 
 // HTTPS 프록시 서버 설정
 app.use(
