@@ -79,7 +79,7 @@ function setShow(menu) {
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
     
-    if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr' || userId.indexOf('test') >= 0) {
+    if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr') {
         return;
     } else {
         $('#btnAuth').remove();
