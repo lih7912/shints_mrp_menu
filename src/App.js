@@ -46,10 +46,12 @@ $(async function() {
 
   // 초기 스케일 설정
   adjustScale();
+  resizeIframe();
 
   // 창 크기 변경 시 스케일 조정 및 토스트 위치 조정
   $(window).resize(() => {
     adjustScale();
+    resizeIframe();
   });
 
   // Toast 위치 보정
@@ -82,6 +84,14 @@ const observer = new MutationObserver((mutationsList) => {
     }
   }
 });
+
+function resizeIframe() {
+  let windowHeight = $(window).height();
+  let remInPx = parseFloat($("html").css("font-size")); // 1rem을 px 단위로 변환
+  let newHeight = windowHeight - remInPx - 50; // 최종 높이 계산
+
+  $("iframe").css("height", newHeight + "px");
+}
 
 function adjustScale() {
   const width = $(window).width();
@@ -608,7 +618,7 @@ const App = () => {
     }
 
     const procVisible = (idx, argUrl, argLabel) => {
-        var argH = '677px';
+        var argH = '78vh';
         var argS = 'no';
 
         if (argLabel) argUrl += `?label=${encodeURI(argLabel)}`
@@ -770,7 +780,7 @@ const App = () => {
         // var tKey1 = tKey0.toString();
         var tKey = tKey0.getTime();
         var argS = 'no';
-        var argH = '675px';
+        var argH = '78vh';
 
         if (argUrl.includes('?')) {
            if (argLabel) argUrl += `&label=${encodeURI(argLabel)}&key=${tKey}`
@@ -2010,7 +2020,7 @@ const App = () => {
                   
               </div>
               <div style={{ marginBottom: '1.5rem', width:'100%', padding:'0'}}>
-                    <button style={{ marginBottom: '0.5rem', width:'90%', height:'20px' }} onClick={ () => { window.location.href='/' }}>Log out</button>
+                    <button style={{ marginBottom: '0.5rem', width:'90%', height:'20px' }} onClick={ () => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); window.location.href='/' }}>Log out</button>
                     <button style={{ marginBottom: '0.5rem', width:'90%', height:'20px'}} onClick={ () => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width:'90%', height:'20px'}} onClick={ () => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
                     <button id='btnTrLog' style={{ marginBottom: '0.5rem', width:'90%', height:'20px'}} onClick={ () => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
