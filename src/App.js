@@ -197,6 +197,11 @@ const App = () => {
         const userName= urlParams.get("user_name");
         userInfoForAuth.userId = userId;
         setUserInfo({ USER_ID: userId, USER_NAME: userName });
+       
+        if (!userId) {
+            window.location.href = `${window.location.protocol}//${window.location.hostname}:${apolloOption.client_port}/#/login`;
+            return;
+        }
 
         const transformMenuUrls = (menu) => {
             return menu.map(item => ({
