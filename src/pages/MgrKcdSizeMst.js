@@ -479,7 +479,7 @@ const MgrKcdSizeMst = () => {
                 <InputText type="search" onInput={(e) => onQrySizeGroupChange(e)} placeholder="Search..." />
                 <InputText type="search" onInput={(e) => onQrySizeMemberChange(e)} placeholder="Search..." />
 	    		<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
-                <Button label="Search"  accessKey='S' id="btnSearch" icon="pi pi-search" className="p-button-text" onClick={searchKCD_SIZE_MST} />
+                <Button label={<span>Search(<u>S</u>)</span>}  accessKey='S' id="btnSearch" icon="pi pi-search" className="p-button-text" onClick={searchKCD_SIZE_MST} />
                 <Button label="Reload" icon="pi pi-refresh" className="p-button-text" onClick={searchRefresh} />
             </span>
         </div>

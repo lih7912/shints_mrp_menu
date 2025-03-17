@@ -182,12 +182,12 @@ const ButtonDemo = () => {
                 <div className="card">
                     <h5>Loading</h5>
 			<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
-                    <Button className="mr-2 mb-2" label="Search"  accessKey='S' id="btnSearch" icon="pi pi-search" loading={loading1} onClick={onLoadingClick1} />
+                    <Button className="mr-2 mb-2" label={<span>Search(<u>S</u>)</span>}  accessKey='S' id="btnSearch" icon="pi pi-search" loading={loading1} onClick={onLoadingClick1} />
 			<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
-                    <Button className="mr-2 mb-2" label="Search"  accessKey='S' id="btnSearch" icon="pi pi-search" iconPos="right" loading={loading2} onClick={onLoadingClick2} />
+                    <Button className="mr-2 mb-2" label={<span>Search(<u>S</u>)</span>}  accessKey='S' id="btnSearch" icon="pi pi-search" iconPos="right" loading={loading2} onClick={onLoadingClick2} />
                     <Button className="mr-2 mb-2" icon="pi pi-search" loading={loading3} onClick={onLoadingClick3} />
 			<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
-                    <Button className="mr-2 mb-2" label="Search"  accessKey='S' id="btnSearch" loading={loading4} onClick={onLoadingClick4} />
+                    <Button className="mr-2 mb-2" label={<span>Search(<u>S</u>)</span>}  accessKey='S' id="btnSearch" loading={loading4} onClick={onLoadingClick4} />
                 </div>
             </div>
         </div>

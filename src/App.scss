@@ -172,3 +172,89 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
     left: 38% !important;
     transform: translate(-50%, -50%) !important;
 }
+
+.p-tabview .p-tabview-panels {
+    padding: 0 !important;
+    background: #e5e5e5;
+}
+
+.p-tabview-nav li .p-button-sm {
+    padding: 0;
+    margin-right: 12px;
+    font-size: 0.9rem;
+}
+
+.p-tabview-panels {
+    padding: 0px;
+    background: #fff;
+}
+
+.p-treenode-children li {
+    height: 20px !important;
+    margin-left: 10px;
+}
+
+.p-treenode-children .p-treenode-content button {
+    display: none;
+}
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content {
+    padding: 0 !important;
+}
+
+.p-tree-container {
+    height: 60vh;
+    max-height: fit-content;
+    background-color: rgb(248, 249, 250);
+}
+
+.sidebar {
+    height: 100vh;
+}
+
+.tab-container {
+    padding: 0 !important;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border-top: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    margin-top: 6px;
+    border-bottom-width: thick;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-top: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    margin-top: 6px;
+    border-bottom-width: thick;
+}
+
+
+iframe {
+    overflow-x:hidden;
+    overflow-y:auto;
+    height: 85vh;
+}
+
+.p-tabview-ink-bar {
+    display: none !important;
+}
+
+.p-tabview .p-tabview-nav {
+    width: 1341px;
+    margin-top:0px;
+}
+
+.p-tabview-nav li {
+    width: 130px !important;
+    height: 42px !important;
+    margin-right: 1.5px !important;
+    margin-left:1.5px !important
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    padding: 8px 3px 8px 3px;
+}

@@ -329,7 +329,7 @@ export const InputDemo = () => {
                         <div className="col-12 md:col-6">
                             <div className="p-inputgroup">
 	                    		<Tooltip className="menuCodeTooltip" target={`#btnSearch`} content={`Alt+S`} position="bottom" />
-                                <Button label="Search"  accessKey='S' id="btnSearch" />
+                                <Button label={<span>Search(<u>S</u>)</span>}  accessKey='S' id="btnSearch" />
                                 <InputText placeholder="Keyword" />
                             </div>
                         </div>
