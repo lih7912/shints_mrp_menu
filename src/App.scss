@@ -24,12 +24,6 @@ body {
 .p-tree-content { margin: 0rem; padding: 0rem; }
 .p-treenode .p-treenode-leaf { padding: 3px 0 3px 0 !important; }
 
-iframe {
-    background-color: transparent !important;
-    width: 1360px;
-    height: 78vh;
-}
-
 #id11 {
     height: 680px;
     background-color: #e5e5e5 !important;
@@ -236,7 +230,11 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 iframe {
     overflow-x:hidden;
     overflow-y:auto;
-    height: 85vh;
+    background-color: transparent !important;
+    width: 1360px;
+    height: 702px;
+    overflow-y: auto;
+    padding-right: 20px; /* 패딩으로 스크롤바가 컨텐츠 내부처럼 보이게 조정 */
 }
 
 .p-tabview-ink-bar {

@@ -27,6 +27,7 @@ import './App.scss';
 ``
 let userInfoForAuth = {};
 let screenScale = 1.0;
+let screenScaleCons = 1.245;
 let origToastOffset = null;
 
 $(async function() {
@@ -61,7 +62,7 @@ $(async function() {
 // **MutationObserver 사용하여 Toast DOM 변화 감지**
 const observer = new MutationObserver((mutationsList) => {
     const width = $(window).width();
-    const screenScale = 1.25 * width / 1920;
+    const screenScale = screenScaleCons * width / 1920;
 
     for (let mutation of mutationsList) {
         if (mutation.addedNodes.length) {
@@ -87,8 +88,7 @@ function resizeIframe() {
 
 function adjustScale() {
     const width = $(window).width();
-    // 1920px일 때 1.245배 SCALE 적용
-    screenScale = 1.245 * width / 1920;
+    screenScale = screenScaleCons * width / 1920;
 
     /*
     if (screenScale > 1.45)
@@ -108,7 +108,7 @@ function adjustScale() {
 function adjustTooltipPosition() {
     // 현재 body의 transform: scale 값 가져오기
     let bodyScale = $('body').css('transform');
-    let scaleFactor = 1.245;
+    let scaleFactor = screenScaleCons;
   
     if (bodyScale !== 'none') {
         let values = bodyScale.match(/matrix\(([\d., -]+)\)/);
