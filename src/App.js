@@ -96,8 +96,8 @@ function adjustScale() {
         screenScale = 1.45;
     */
 
-    if (screenScale < 0.85)
-        screenScale = 0.85;
+    //if (screenScale < 0.85)
+        //screenScale = 0.85;
 
     // `transform: scale` 적용
     $("body").css("transform", `scale(${screenScale})`);
