@@ -495,8 +495,6 @@ const App = () => {
                                 <iframe
                                     key={tab.key}
                                     src={tab.url}
-                                    width="100%"
-                                    height="500px"
                                     style={{ border: "none", marginTop:'-5px' }}
                                 />
                             </TabPanel>
