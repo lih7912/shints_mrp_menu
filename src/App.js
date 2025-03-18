@@ -375,15 +375,8 @@ const App = () => {
     const handleCancel = () => {
         setPasswordModalVisible(false);
     };
-
-    const onCloseClick = (idx) => {
-        const tabIndex = tabs.findIndex(tab => tab.idx === idx);
-        if (tabIndex !== -1) {
-            removeTab(tabIndex);
-        }
-    }
-
     /***************************************/
+    
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh" }}>
@@ -411,10 +404,17 @@ const App = () => {
                             data-pr-my="left center-2"
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
                             onClick={() => {
-                                setIframeRefreshKeys(prev => ({
-                                    ...prev,
-                                    [activeIndex]: (prev[activeIndex] || 0) + 1
-                                }));
+                                setTabs((prevTabs) => 
+                                    prevTabs.map((tab, index) => {
+                                        if (index === activeIndex) {
+                                            return { 
+                                                ...tab, 
+                                                key: `${tab.idx}-key-${new Date().getTime()}` // key 변경하여 iframe 리프레시
+                                            };
+                                        }
+                                        return tab;
+                                    })
+                                );
                             }}>    
                         </i>
                     </div>
@@ -461,7 +461,6 @@ const App = () => {
                                 header={
                                     <span 
                                         className="tab-header"
-                                        data-pr-tooltip="ㅁㅁㅁㅁㅁ" // URL 툴팁 설정
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -495,6 +494,7 @@ const App = () => {
                                 <iframe
                                     key={tab.key}
                                     src={tab.url}
+                                    width="100%"
                                     style={{ border: "none", marginTop:'-5px' }}
                                 />
                             </TabPanel>
