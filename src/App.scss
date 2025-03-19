@@ -9,11 +9,10 @@ body {
 }
 
 body { 
-    overflow-y:hidden; 
     background-color: #e5e5e5 !important;
     transform-origin: top left; /* 확대/축소 기준점 */
     transition: transform 0.5s ease; /* 부드러운 전환 효과 */
-    overflow: hidden; /* 스크롤 방지 */
+    overflow: auto;
 }
 .hidden { display:none; }
 .show0 { z-index:1; display:block; }
@@ -192,13 +191,12 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 }
 
 .p-tree-container {
-    height: 76vh;
-    max-height: fit-content;
+    height: 530px;
     background-color: rgb(248, 249, 250);
 }
 
 .sidebar {
-    height: 100vh;
+    height: 715px;
 }
 
 .tab-container {
@@ -223,13 +221,10 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 
 
 iframe {
-    overflow-x:hidden;
-    overflow-y:auto;
     background-color: transparent !important;
     width: 1360px;
-    height: 75vh;
-    overflow-y: auto;
-    padding-right: 20px; /* 패딩으로 스크롤바가 컨텐츠 내부처럼 보이게 조정 */
+    height: 690px;
+    overflow:auto;
 }
 
 .p-tabview-ink-bar {

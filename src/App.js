@@ -34,8 +34,8 @@ let origToastOffset = null;
 $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
-    showMenuCodeToolTip(window);
-  
+
+    /*
     $('iframe').attr('scrolling', 'no');
 
     // 초기 스케일 설정
@@ -55,10 +55,21 @@ $(async function() {
     $(document).on('mouseenter', '[id^="tab_"]', function () {
         setTimeout(adjustTooltipPosition, 10); // 툴팁이 나타난 후 위치 조정
     });
+    */
 
     const toastContainer = document.body; // body 전체를 감지하거나 특정 부모 요소를 지정
     observer.observe(toastContainer, { childList: true, subtree: true });
+
+    for (let i=0; i<100; i++) {
+        history.pushState({}, "", generateUUID());
+    }
 });
+ 
+function generateUUID() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+      (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
+    );
+}
 
 // **MutationObserver 사용하여 Toast DOM 변화 감지**
 const observer = new MutationObserver((mutationsList) => {
@@ -174,12 +185,6 @@ function showTestEnvLabel(window) {
     }
 }
   
-function showMenuCodeToolTip(window) {
-    if (!window.location.host.includes('erp.shints.com')) {
-        // 툴팁 관련 로직이 필요하면 이곳에 추가
-    }
-}
-
 const App = () => {
     const [tabs, setTabs] = useState([]);
     const [userInfo, setUserInfo] = useState({});
