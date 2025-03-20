@@ -232,6 +232,14 @@ const App = () => {
             $(this).select(); // 포커스된 input 요소의 내용을 전체 선택
         });
 
+        const handleKeyDown = (event) => {
+            if (event.key === "F5") {
+                event.preventDefault();
+                setTabs([]);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
     }, []);
 
     // 메뉴 클릭 시 탭 추가
@@ -396,10 +404,18 @@ const App = () => {
                             <p style={{ width: '9rem', display: 'inline-block', color: 'blue' }}>{userInfo.USER_NAME}</p>
                         </span>
                     </div>
-                    <div style={{ float: 'left', marginLeft: '37px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                    <div style={{ float: 'left', marginLeft: '8px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary"
                             onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
-                            style={{ fontSize: '1.5rem', cursor: "pointer" }}>
+                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                            title="Change password">
+                        </i>
+                    </div>
+                    <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                        <i className="custom-target-icon pi pi-times p-text-secondary"
+                            onClick={() => { setTabs([]); }}
+                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                            title="Close all tabs">
                         </i>
                     </div>
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '3rem', height: '2rem' }}>
@@ -420,7 +436,8 @@ const App = () => {
                                         return tab;
                                     })
                                 );
-                            }}>    
+                            }}
+                            title="Reload current tab">    
                         </i>
                     </div>
                 </div>
