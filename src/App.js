@@ -406,10 +406,10 @@ const App = () => {
                 <div style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
                     <div style={{ float: 'left', marginTop: '0rem', width: '7.5rem', height: '4rem', marginLeft: '15px' }}>
                         <span style={{ width: '9rem' }}>
-                            <p style={{ width: '9rem', display: 'inline-block', color: 'blue' }}>{userInfo.USER_ID}</p>
+                            <p class="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_ID}</p>
                         </span>
                         <span style={{ width: '9rem' }}>
-                            <p style={{ width: '9rem', display: 'inline-block', color: 'blue' }}>{userInfo.USER_NAME}</p>
+                            <p class="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
                         </span>
                          
                     </div>
