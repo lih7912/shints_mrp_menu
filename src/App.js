@@ -219,7 +219,6 @@ const App = () => {
         let userInfoFromLogin = JSON.parse(getCookie('AF_ERP_USERINFO'));
 
         if (userInfoFromLogin) {
-            console.log(userInfoFromLogin);
             userInfoForAuth.userId = userInfoFromLogin.USER_ID;
             userInfoForAuth.userName = userInfoFromLogin.USER_NAME;
             setUserInfo(userInfoFromLogin);
