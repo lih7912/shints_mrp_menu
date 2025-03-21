@@ -25,7 +25,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import './assets/layout/layout.scss';
 import './App.scss';
-``
+
 let userInfoForAuth = {};
 let screenScale = 1.0;
 let screenScaleCons = 1.245;
@@ -60,9 +60,11 @@ $(async function() {
     const toastContainer = document.body; // body 전체를 감지하거나 특정 부모 요소를 지정
     observer.observe(toastContainer, { childList: true, subtree: true });
 
+    /*
     for (let i=0; i<100; i++) {
         history.pushState({}, "", generateUUID());
     }
+    */
 });
  
 function generateUUID() {
@@ -193,18 +195,35 @@ const App = () => {
     const [iframeRefreshKeys, setIframeRefreshKeys] = useState({});
     const [tooltipContent, setTooltipContent] = useState("기본 툴팁 내용");
     const toast = useRef(null); 
-    
 
     const BASE_URL = `https://${window.location.hostname}:3201/#/`;
 
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        
+        for (let cookie of cookies) {
+            const [key, value] = cookie.split("=");
+            if (key === name) {
+                return decodeURIComponent(value); // 쿠키 값이 인코딩된 경우 해제
+            }
+        }
+        return null; // 해당 쿠키가 없으면 null 반환
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.hash.split("?")[1]);
-        const userId = urlParams.get("user_id");
-        const userName= urlParams.get("user_name");
-        userInfoForAuth.userId = userId;
-        setUserInfo({ USER_ID: userId, USER_NAME: userName });
-       
-        if (!userId) {
+        // 쿠키에서 사용자 정보 가져오기
+        let userInfoFromLogin = JSON.parse(getCookie('AF_ERP_USERINFO'));
+
+        if (userInfoFromLogin) {
+            console.log(userInfoFromLogin);
+            userInfoForAuth.userId = userInfoFromLogin.USER_ID;
+            userInfoForAuth.userName = userInfoFromLogin.USER_NAME;
+            setUserInfo(userInfoFromLogin);
+        } else {
             window.location.href = `${window.location.protocol}//${window.location.hostname}:${apolloOption.client_port}/#/login`;
             return;
         }
@@ -220,7 +239,6 @@ const App = () => {
         const updatedMenu1 = transformMenuUrls(menu1);
         setMenuInfo(updatedMenu1);
 
-
         window.addEventListener("message", (e) => {
             if (e.data.func && e.data.func === 'call_url') {
                 console.log(e.data.message);
@@ -231,15 +249,6 @@ const App = () => {
         $('input[type="text"]').on('focus', function () {
             $(this).select(); // 포커스된 input 요소의 내용을 전체 선택
         });
-
-        const handleKeyDown = (event) => {
-            if (event.key === "F5") {
-                event.preventDefault();
-                setTabs([]);
-            }
-        };
-
-        window.addEventListener("keydown", handleKeyDown);
     }, []);
 
     // 메뉴 클릭 시 탭 추가
@@ -403,6 +412,7 @@ const App = () => {
                         <span style={{ width: '9rem' }}>
                             <p style={{ width: '9rem', display: 'inline-block', color: 'blue' }}>{userInfo.USER_NAME}</p>
                         </span>
+                         
                     </div>
                     <div style={{ float: 'left', marginLeft: '8px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary"
@@ -442,7 +452,7 @@ const App = () => {
                     </div>
                 </div>
                 <div style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px' }}>
-                    <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); window.location.href = `${BASE_URL}login`; }}>Log out</button>
+                    <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie('AF_ERP_USERINFO');window.location.href = `${BASE_URL}login`; }}>Log out</button>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
                     <button id='btnTrLog' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
