@@ -28,7 +28,7 @@ import './App.scss';
 
 let userInfoForAuth = {};
 let screenScale = 1.0;
-let screenScaleCons = 1.245;
+let screenScaleConst = 1.245;
 let origToastOffset = null;
 
 $(async function() {
@@ -56,40 +56,12 @@ $(async function() {
         setTimeout(adjustTooltipPosition, 10); // 툴팁이 나타난 후 위치 조정
     });
     */
-
-    const toastContainer = document.body; // body 전체를 감지하거나 특정 부모 요소를 지정
-    observer.observe(toastContainer, { childList: true, subtree: true });
-
-    /*
-    for (let i=0; i<100; i++) {
-        history.pushState({}, "", generateUUID());
-    }
-    */
-});
- 
-function generateUUID() {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-      (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
-    );
-}
-
-// **MutationObserver 사용하여 Toast DOM 변화 감지**
-const observer = new MutationObserver((mutationsList) => {
-    const width = $(window).width();
-    const screenScale = screenScaleCons * width / 1920;
-
-    for (let mutation of mutationsList) {
-        if (mutation.addedNodes.length) {
-            mutation.addedNodes.forEach(node => {
-                if ($(node).hasClass('p-toast')) {
-                    if (!origToastOffset) {
-                        origToastOffset = $('.p-toast').offset();
-                    }
-                    adjustToastPosition(screenScale);
-                }
-            });
-        }
-    }
+    $('#userInfoWrapper').on('click', function () {
+        $('body').attr('scrolling', 'no');
+        $('body').css('overflow', 'hidden');
+        adjustScale();
+        resizeIframe();
+    });
 });
 
 function resizeIframe() {
@@ -102,7 +74,7 @@ function resizeIframe() {
 
 function adjustScale() {
     const width = $(window).width();
-    screenScale = screenScaleCons * width / 1920;
+    screenScale = screenScaleConst * width / 1920;
 
     /*
     if (screenScale > 1.45)
@@ -113,57 +85,11 @@ function adjustScale() {
         //screenScale = 0.85;
 
     // `transform: scale` 적용
+    console.log(screenScale);
     $("body").css("transform", `scale(${screenScale})`);
-
-    // 토스트 위치 보정
     $("body").css("transform-origin", "top left"); // transform 기준점 설정
 }
-
-function adjustTooltipPosition() {
-    // 현재 body의 transform: scale 값 가져오기
-    let bodyScale = $('body').css('transform');
-    let scaleFactor = screenScaleCons;
-  
-    if (bodyScale !== 'none') {
-        let values = bodyScale.match(/matrix\(([\d., -]+)\)/);
-        if (values) {
-            scaleFactor = parseFloat(values[1].split(', ')[0]); // Scale 값 추출
-        }
-    }
-  
-    // 툴팁 위치 보정
-    $('.menuCodeTooltip').each(function () {
-        let $tooltip = $(this);
-        let offset = $tooltip.offset(); // 현재 위치 가져오기
-        let newLeft = offset.left / scaleFactor;
-        let newTop = offset.top / scaleFactor;
-  
-        $tooltip.css({
-            'transform': `scale(${1 / scaleFactor})`,
-            'left': (newLeft / scaleFactor) + 'px',
-            'top': newTop + 'px'
-        });
-    });
-}
-  
-function adjustToastPosition(scaleFactor) {
-    $('.p-toast').each(function () {
-        let $toast = $(this);
-        
-        // 현재 위치 (좌표)
-        let offset = $toast.offset();
-        let newLeft = offset.left / scaleFactor;
-        let newTop = offset.top / scaleFactor;
-  
-        $toast.css({
-            'transform': `scale(${1 / scaleFactor})`,
-            'transform-origin': 'top left',
-            'left': newLeft + 'px',
-            'top': newTop + 'px'
-        });
-    });
-}
-  
+    
 // 메시지를 수신하는 이벤트 리스너
 window.addEventListener('message', function(event) {
     // 보낸 iframe의 출처(origin)을 확인
@@ -192,8 +118,6 @@ const App = () => {
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [iframeRefreshKeys, setIframeRefreshKeys] = useState({});
-    const [tooltipContent, setTooltipContent] = useState("기본 툴팁 내용");
     const toast = useRef(null); 
 
     const BASE_URL = `https://${window.location.hostname}:3201/#/`;
@@ -289,9 +213,7 @@ const App = () => {
         });
     };
 
-    
-
-    // 🔹 탭 닫기 (iframe도 삭제)
+    // 탭 닫기 (iframe도 삭제)
     const removeTab = (index) => {
         // 현재 탭 목록에서 해당 인덱스의 탭 제거
         const newTabs = tabs.filter((_, i) => i !== index);
@@ -404,7 +326,7 @@ const App = () => {
             <Toast ref={toast} />
             <div className="sidebar" style={{ width: "200px", minWidth: "200px", background: "#f8f9fa", padding: "10px", borderRight: "1px solid #ddd" }}>
                 <div style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
-                    <div style={{ float: 'left', marginTop: '0rem', width: '7.5rem', height: '4rem', marginLeft: '15px' }}>
+                    <div id="userInfoWrapper" style={{ float: 'left', marginTop: '0rem', width: '7.5rem', height: '4rem', marginLeft: '15px', cursor: 'pointer' }}>
                         <span style={{ width: '9rem' }}>
                             <p class="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_ID}</p>
                         </span>
@@ -480,7 +402,7 @@ const App = () => {
                 />
             </div>
 
-            {/* 🔹 탭 UI */}
+            {/* 탭 UI */}
             <div className="tab-container" style={{ flex: 1, padding: "10px" }}>
                     <Tooltip target=".tab-header" position="bottom" />
                     <TabView 
