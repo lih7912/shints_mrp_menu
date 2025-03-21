@@ -414,13 +414,14 @@ const App = () => {
                         </span>
                          
                     </div>
-                    <div style={{ float: 'left', marginLeft: '8px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                    <div style={{ float: 'left', marginLeft: '24px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary"
                             onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
                             title="Change password">
                         </i>
                     </div>
+                    {/*
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-times p-text-secondary"
                             onClick={() => { setTabs([]); }}
@@ -428,6 +429,7 @@ const App = () => {
                             title="Close all tabs">
                         </i>
                     </div>
+                    */}
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '3rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-refresh p-text-secondary"
                             data-pr-position="right"
