@@ -213,6 +213,8 @@ const App = () => {
         });
     };
 
+    
+
     // 탭 닫기 (iframe도 삭제)
     const removeTab = (index) => {
         // 현재 탭 목록에서 해당 인덱스의 탭 제거

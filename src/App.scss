@@ -225,6 +225,8 @@ iframe {
 .p-tabview .p-tabview-nav {
     width: 1341px;
     margin-top:0px;
+    z-index: 1000;
+    position: relative;
 }
 
 .p-tabview-nav li {
@@ -236,4 +238,29 @@ iframe {
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     padding: 8px 3px 8px 3px;
+}
+
+/* TabPanel 컨테이너 스타일 조정 */
+.p-tabview-panels {
+    position: relative !important;
+}
+
+/* 각 TabPanel 내부 컨텐츠 기본 스타일 */
+.p-hidden {
+    position: absolute !important;
+    display:block !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    transition: opacity 0.1s ease !important;
+    z-index: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* 활성화된 탭에 대한 스타일 오버라이드 */
+.p-tabview-panel[aria-hidden="false"] {
+    z-index: 1 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important; 
 }
