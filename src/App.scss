@@ -1,11 +1,11 @@
 /* 전체 애플리케이션에 Roboto 폰트 적용 */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 /* PrimeReact 기본 컴포넌트 폰트 설정 */
 .p-component {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 body { 
@@ -23,6 +23,14 @@ body {
 .p-tree-content { margin: 0rem; padding: 0rem; }
 .p-treenode .p-treenode-leaf { padding: 3px 0 3px 0 !important; }
 
+#mainFooter {
+    position: fixed;
+    top: 715px;
+    width: 100%;
+    background-color: #e5e5e5;
+    height: 100vh;
+    z-index: 1000;
+}
 
 button {
     background-color: #6366F1;
@@ -214,7 +222,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 iframe {
     background-color: transparent !important;
     width: 1360px;
-    height: 690px;
+    height: 720px;
     overflow:auto;
 }
 

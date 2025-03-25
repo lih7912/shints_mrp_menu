@@ -35,13 +35,14 @@ $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
 
-    /*
-    $('iframe').attr('scrolling', 'no');
-
     // 초기 스케일 설정
+    /*
     adjustScale();
     resizeIframe();
+    $('iframe').attr('scrolling', 'no');
+    */
 
+    /*
     // 창 크기 변경 시 스케일 조정 및 토스트 위치 조정
     $(window).resize(() => {
         adjustScale();
@@ -59,6 +60,9 @@ $(async function() {
     $('#userInfoWrapper').on('click', function () {
         $('body').attr('scrolling', 'no');
         $('body').css('overflow', 'hidden');
+        $('iframe').attr('scrolling', 'yes');
+        $('iframe').attr('overflow-y', 'auto');
+        $('iframe').attr('padding-right', '20px');
         adjustScale();
         resizeIframe();
     });
@@ -457,6 +461,8 @@ const App = () => {
                             </TabPanel>
                         ))}
                     </TabView>
+                    <div id="mainFooter" />
+                        
             </div>
 
             <Dialog
