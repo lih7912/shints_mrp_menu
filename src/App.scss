@@ -268,7 +268,8 @@ iframe {
 
 /* 활성화된 탭에 대한 스타일 오버라이드 */
 .p-tabview-panel[aria-hidden="false"] {
-    z-index: 1 !important;
+    z-index: 999 !important;
     opacity: 1 !important;
     pointer-events: auto !important; 
+    position: relative;
 }
