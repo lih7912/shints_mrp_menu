@@ -144,12 +144,15 @@ const App = () => {
 
     useEffect(() => {
         // 쿠키에서 사용자 정보 가져오기
-        let userInfoFromLogin = JSON.parse(getCookie('AF_ERP_USERINFO'));
+        const userId = new URLSearchParams(location.hash.split('?')[1]).get('userId');
+        //let userInfoFromLogin = JSON.parse(getCookie(`AF_ERP_USERINFO_${userId}`));
+        let userInfoFromLogin = JSON.parse(getCookie(`AF_ERP_USERINFO`));
 
         if (userInfoFromLogin) {
             userInfoForAuth.userId = userInfoFromLogin.USER_ID;
             userInfoForAuth.userName = userInfoFromLogin.USER_NAME;
             setUserInfo(userInfoFromLogin);
+            //history.pushState({}, "", "/");
         } else {
             window.location.href = `${window.location.protocol}//${window.location.hostname}:${apolloOption.client_port}/#/login`;
             return;
@@ -381,7 +384,7 @@ const App = () => {
                     </div>
                 </div>
                 <div style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px' }}>
-                    <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie('AF_ERP_USERINFO');window.location.href = `${BASE_URL}login`; }}>Log out</button>
+                    <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
                     <button id='btnTrLog' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
