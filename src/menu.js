@@ -100,7 +100,7 @@ const menu1 = [
         key: '7', label: 'RECEIVABLES', url: '',
         children: [
             { key: '7-2', label: '매출등록(국내)', url: 'S0801_DOCU_REGIST_DOMESTIC' },
-            { key: '7-3', label: '매출등록(해외)', url: 'S0802_DOCU_REGIST_OVERSEA' },
+            { key: '7-3', label: 'Invoice Record(Foreign)', url: 'S0802_DOCU_REGIST_OVERSEA' },
             { key: '7-5', label: 'Nego입금등록', url: 'S0607_LC_NEGO'},
             { key: '7-7', label: '매출입금관리', url: 'S0707_MAN_INVOICE'},
             { key: '7-6', label: '입금조회', url: 'S0608_LC_NEGO_LIST'},
@@ -208,7 +208,7 @@ const menu3 = [
     { key: '6-9', label: 'CMPT Confirmation', url: 'S0212_NEGO_CMPT'},
     { key: '7-2', label: '매출등록(국내)', url: 'S0801_DOCU_REGIST_DOMESTIC' },
     { key: '7-11', label: '세금계산서등록', url: 'S080101_DOCU_REGIST_DOMESTIC' },
-    { key: '7-3', label: '매출등록(해외)', url: 'S0802_DOCU_REGIST_OVERSEA' },
+    { key: '7-3', label: 'Invoice Record(Foreign)', url: 'S0802_DOCU_REGIST_OVERSEA' },
     { key: '7-5', label: 'Nego입금등록', url: 'S0607_LC_NEGO'},
     { key: '7-7', label: '매출입금관리', url: 'S0707_MAN_INVOICE'},
     { key: '7-6', label: '입금조회', url: 'S0608_LC_NEGO_LIST'},
