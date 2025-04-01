@@ -144,15 +144,21 @@ const App = () => {
 
     useEffect(() => {
         // 쿠키에서 사용자 정보 가져오기
-        const userId = new URLSearchParams(location.hash.split('?')[1]).get('userId');
-        //let userInfoFromLogin = JSON.parse(getCookie(`AF_ERP_USERINFO_${userId}`));
-        let userInfoFromLogin = JSON.parse(getCookie(`AF_ERP_USERINFO`));
+        let userId = new URLSearchParams(location.hash.split('?')[1]).get('userId');
+        
+        if (userId) {
+            window.sessionStorage.setItem('SESSION_USER_ID', userId);
+        } else {
+            userId = window.sessionStorage.getItem('SESSION_USER_ID');
+        }
+
+        let userInfoFromLogin = JSON.parse(getCookie(`AF_ERP_USERINFO_${userId}`));
 
         if (userInfoFromLogin) {
             userInfoForAuth.userId = userInfoFromLogin.USER_ID;
             userInfoForAuth.userName = userInfoFromLogin.USER_NAME;
             setUserInfo(userInfoFromLogin);
-            //history.pushState({}, "", "/");
+            history.pushState({}, "", "/#/");
         } else {
             window.location.href = `${window.location.protocol}//${window.location.hostname}:${apolloOption.client_port}/#/login`;
             return;
