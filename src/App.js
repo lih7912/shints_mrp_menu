@@ -30,41 +30,20 @@ let userInfoForAuth = {};
 let screenScale = 1.0;
 let screenScaleConst = 1.245;
 let origToastOffset = null;
+let isFitToWindow = false;
 
 $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
-
-    // 초기 스케일 설정
-    /*
-    adjustScale();
-    resizeIframe();
-    $('iframe').attr('scrolling', 'no');
-    */
-
-    /*
-    // 창 크기 변경 시 스케일 조정 및 토스트 위치 조정
-    $(window).resize(() => {
-        adjustScale();
-        resizeIframe();
-    });
-
-    // Toast 위치 보정
-    adjustToastPosition(screenScale);
-
-    // 툴팁이 나타날 때 위치 조정
-    $(document).on('mouseenter', '[id^="tab_"]', function () {
-        setTimeout(adjustTooltipPosition, 10); // 툴팁이 나타난 후 위치 조정
-    });
-    */
-    $('#userInfoWrapper').on('click', function () {
-        $('body').attr('scrolling', 'no');
-        $('body').css('overflow', 'hidden');
-        $('iframe').attr('scrolling', 'yes');
-        $('iframe').attr('overflow-y', 'auto');
-        $('iframe').attr('padding-right', '20px');
-        adjustScale();
-        resizeIframe();
+    
+    $('#iconFitToWindow').on('click', function () {
+        if (isFitToWindow) { 
+            isFitToWindow = false;
+        } else {
+            isFitToWindow = true;
+        }
+        adjustScale(isFitToWindow);
+        resizeIframe(isFitToWindow);
     });
 });
 
@@ -76,19 +55,15 @@ function resizeIframe() {
     $("iframe").css("height", newHeight + "px");
 }
 
-function adjustScale() {
+function adjustScale(isFitToWindow) {
     const width = $(window).width();
-    screenScale = screenScaleConst * width / 1920;
+    
+    if (isFitToWindow) {
+        screenScale = screenScaleConst * width / 1920;
+    } else {
+        screenScale = 1 * width / 1920;
+    }
 
-    /*
-    if (screenScale > 1.45)
-        screenScale = 1.45;
-    */
-
-    //if (screenScale < 0.85)
-        //screenScale = 0.85;
-
-    // `transform: scale` 적용
     console.log(screenScale);
     $("body").css("transform", `scale(${screenScale})`);
     $("body").css("transform-origin", "top left"); // transform 기준점 설정
@@ -341,23 +316,28 @@ const App = () => {
             <Toast ref={toast} />
             <div className="sidebar" style={{ width: "200px", minWidth: "200px", background: "#f8f9fa", padding: "10px", borderRight: "1px solid #ddd" }}>
                 <div style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
-                    <div id="userInfoWrapper" style={{ float: 'left', marginTop: '0rem', width: '7.5rem', height: '4rem', marginLeft: '15px', cursor: 'pointer' }}>
+                    <div id="userInfoWrapper" style={{ float: 'left', marginTop: '0rem', width: '6rem', height: '4rem', marginLeft: '15px' }}>
                         <span style={{ width: '9rem' }}>
                             <p class="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_ID}</p>
                         </span>
                         <span style={{ width: '9rem' }}>
                             <p class="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
                         </span>
-                         
                     </div>
-                    <div style={{ float: 'left', marginLeft: '24px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                    <div style={{ float: 'left', marginLeft: '16px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary"
                             onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
                             title="Change password">
                         </i>
                     </div>
-                    {/*
+                    <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                        <i className="custom-target-icon pi pi-arrows-h p-text-secondary"
+                            id='iconFitToWindow'
+                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                            title="Fit to window">
+                        </i>
+                    </div>
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-times p-text-secondary"
                             onClick={() => { setTabs([]); }}
@@ -365,8 +345,7 @@ const App = () => {
                             title="Close all tabs">
                         </i>
                     </div>
-                    */}
-                    <div style={{ float: 'left', marginTop: '0.6rem', width: '3rem', height: '2rem' }}>
+                    <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-refresh p-text-secondary"
                             data-pr-position="right"
                             data-pr-at="right+5 top"
