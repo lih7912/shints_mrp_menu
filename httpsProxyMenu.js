@@ -31,7 +31,7 @@ app.use(
   createProxyMiddleware({
     target: "http://localhost:4210",
     changeOrigin: true,
-    ws: false
+    ws: true
   })
 );
 
