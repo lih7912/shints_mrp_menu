@@ -318,10 +318,10 @@ const App = () => {
                 <div style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
                     <div id="userInfoWrapper" style={{ float: 'left', marginTop: '0rem', width: '6rem', height: '4rem', marginLeft: '15px' }}>
                         <span style={{ width: '9rem' }}>
-                            <p class="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_ID}</p>
+                            <p className="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_ID}</p>
                         </span>
                         <span style={{ width: '9rem' }}>
-                            <p class="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
+                            <p className="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
                         </span>
                     </div>
                     <div style={{ float: 'left', marginLeft: '16px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
