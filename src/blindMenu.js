@@ -109,13 +109,13 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                         } 
                     }
                 }
-
-                if (/*menuName == 'Purchase Manager' ||
+/*
+                if (menuName == 'Purchase Manager' ||
                     menuName == 'STSIN List' ||
                     menuName == 'STSOUT List' ||
                     menuName == 'Deposit & L/C Manager' ||
                     menuName == 'Bill Regist' ||
-                    menuName == 'Bill Manager' ||*/
+                    menuName == 'Bill Manager' ||
                     menuName == 'Clearance_Arrival(BVT)' ||
                     menuName == 'Clearance_Arrival(ETP)' ||
                     menuName == 'FAC-IN(Inspection)' ||
@@ -130,7 +130,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                     ) {
                         setBlind(menu, menuName);
                     }
-                 
+*/
             });
         }, 100);
     })
