@@ -262,7 +262,6 @@ const App = () => {
         const lengthCheck = password.length >= 8;
         const complexityCheck = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password);
         const hasNoSequential = !/(1111|0123|1234|2345|3456|4567|5678|6789|7890|abcd|bcde|cdef|defg|efgh|fghi|ghij|hijk|ijkl|jklm|klmn|lmno|mnop|nopq|opqr|pqrs|qrst|rstu|stuv|tuvw|uvwx|vwxy|wxyz|aaaa|bbbb|cccc|dddd|eeee|ffff|gggg|hhhh|iiii|jjjj|kkkk|llll|mmmm|nnnn|oooo|pppp|qqqq|rrrr|ssss|tttt|uuuu|vvvv|wwww|xxxx|yyyy|zzzz)/i.test(password);
-
         return lengthCheck && complexityCheck && hasNoSequential;
     };
 
@@ -373,6 +372,7 @@ const App = () => {
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
                     <button id='btnTrLog' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
+                    <button id='btnDevManual' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`https://www.notion.so/shints/1cf09bcd64ff803ea457dc278b9ba591?v=1cf09bcd64ff8031b40e000c9bdf5071`, 'blank'); }}>화면 분석서</button>
                     <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width: '90%', height: '20px', backgroundColor: 'purple', borderRadius: '3px', color: 'white', fontWeight: '700', textAlign: 'center', alignContent:'center' }}>TEST 환경</div>
                     <div className="workingMrpIcon">
                         <dotlottie-player 
