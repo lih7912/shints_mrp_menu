@@ -51,7 +51,7 @@ const menu1 = [
             { key: '3-2', label: 'Purchase Reg', url: 'S040101_PURCHASER_REG' },
             { key: '3-4', label: 'STSIN List', url: 'S043001_STSIN_LIST'},
             { key: '3-6', label: 'STSOUT List', url: 'S043101_STSOUT_LIST'},
-            { key: '3-3', label: 'Deposit & L/C Manager', url: 'S0439_LC_DEPOSIT'},
+            { key: '3-3', label: 'Deposit & L/C List', url: 'S0439_LC_DEPOSIT'},
             { key: '3-7', label: 'Bill Regist', url: 'S0419_ENDDING_MATL_AMT_DOMESTIC'},
             { key: '3-8', label: 'Bill Manager', url: 'S0423_TAXBILL'}
         ]
@@ -169,7 +169,7 @@ const menu3 = [
     { key: '3-4', label: 'STSIN List', url: 'S043001_STSIN_LIST'},
     { key: '3-5', label: 'STSOUT Record', url: 'S0431_STSOUT_RECORD'},
     { key: '3-6', label: 'STSOUT List', url: 'S043101_STSOUT_LIST'},
-    { key: '3-3', label: 'Deposit & L/C Manager', url: 'S0439_LC_DEPOSIT'},
+    { key: '3-3', label: 'Deposit & L/C List', url: 'S0439_LC_DEPOSIT'},
     { key: '3-7', label: 'Bill Regist', url: 'S0419_ENDDING_MATL_AMT_DOMESTIC'},
     { key: '3-8', label: 'Bill Manager', url: 'S0423_TAXBILL'},
     { key: '4-1', label: 'Shipment Manager', url: 'S0434_SHIPMENT_MANAGER' },
