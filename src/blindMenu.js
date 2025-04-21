@@ -110,7 +110,9 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                         } 
                     }
                 }
-                if (menuName == 'Bill Manager') {
+                if (menuName == 'Bill Manager' ||
+                    menuName == 'Bill Regist'
+                ) {
                     setBlind(menu, menuName);
                 }
 /*
