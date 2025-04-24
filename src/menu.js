@@ -182,7 +182,7 @@ const menu3 = [
     { key: '4-2', label: '수출등록(국내)', url: 'S0437_EXPORT_REGIST'},
     { key: '4-3', label: '수입등록(국내)', url: 'S0438_IMPORT_REGIST'},
     { key: '4-8', label: 'Garment Ship', url: 'S0513_SHIPPING_LIST'},
-    { key: '4-16', label: 'Shipping Regist', url: 'S051301_SHIPPING_REGIST'},
+    { key: '4-16', label: 'Garment Ship Regist', url: 'S051301_SHIPPING_REGIST'},
     { key: '4-7', label: 'Delay Report(#)', url: 'S0450_DELAY_REPORT'},
     { key: '5-1', label: '관리메인(#)', url: '#' },
     { key: '5-2', label: 'Clearance_Arrival(BVT)', url: 'S0518_FACTORY_ARRIVAL?FACTORY=BVT' },
