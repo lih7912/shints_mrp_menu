@@ -12,7 +12,7 @@ body {
     background-color: #e5e5e5 !important;
     transform-origin: top left; /* 확대/축소 기준점 */
     transition: transform 0.5s ease; /* 부드러운 전환 효과 */
-    overflow: auto;
+    overflow: hidden;
 }
 .hidden { display:none; }
 .show0 { z-index:1; display:block; }

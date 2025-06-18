@@ -30,12 +30,15 @@ let userInfoForAuth = {};
 let screenScale = 1.0;
 let screenScaleConst = 1.245;
 let origToastOffset = null;
-let isFitToWindow = false;
+let isFitToWindow = true;
 
 $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
     
+    adjustScale(isFitToWindow);
+    resizeIframe(isFitToWindow);
+
     $('#iconFitToWindow').on('click', function () {
         if (isFitToWindow) { 
             isFitToWindow = false;
@@ -43,9 +46,15 @@ $(async function() {
             isFitToWindow = true;
         }
         adjustScale(isFitToWindow);
-        resizeIframe(isFitToWindow);
+        //resizeIframe(isFitToWindow);
+    });
+
+     $(window).on('resize', function () {
+        adjustScale(isFitToWindow);
     });
 });
+
+
 
 function resizeIframe() {
     let windowHeight = $(window).height();
@@ -311,7 +320,7 @@ const App = () => {
     
 
     return (
-        <div className="app-container" style={{ display: "flex", height: "100vh" }}>
+        <div className="app-container" style={{ display: "flex", height: "100vh"}}>
             <Toast ref={toast} />
             <div className="sidebar" style={{ width: "200px", minWidth: "200px", background: "#f8f9fa", padding: "10px", borderRight: "1px solid #ddd" }}>
                 <div style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
@@ -323,13 +332,14 @@ const App = () => {
                             <p className="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
                         </span>
                     </div>
-                    <div style={{ float: 'left', marginLeft: '16px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                    <div style={{ float: 'left', marginLeft: '35px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary"
                             onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
                             title="Change password">
                         </i>
                     </div>
+                    {/*}
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-arrows-h p-text-secondary"
                             id='iconFitToWindow'
@@ -337,6 +347,7 @@ const App = () => {
                             title="Fit to window">
                         </i>
                     </div>
+                    */}
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-times p-text-secondary"
                             onClick={() => { setTabs([]); }}
@@ -444,7 +455,7 @@ const App = () => {
                                     key={tab.key}
                                     src={tab.url}
                                     width="100%"
-                                    style={{ border: "none", marginTop:'-5px' }}
+                                    style={{ border: "none", marginTop:'-5px', paddingRight: '17px', overflow:'auto' }}
                                 />
                             </TabPanel>
                         ))}
