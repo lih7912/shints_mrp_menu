@@ -29,40 +29,22 @@ import './App.scss';
 let userInfoForAuth = {};
 let screenScale = 1.0;
 let screenScaleConst = 1.245;
-let origToastOffset = null;
-let isFitToWindow = true;
 
 $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
     
-    adjustScale(isFitToWindow);
-    //resizeIframe(isFitToWindow);
+    //adjustScale(isFitToWindow);
 
-    $('#iconFitToWindow').on('click', function () {
-        if (isFitToWindow) { 
-            isFitToWindow = false;
-        } else {
-            isFitToWindow = true;
-        }
-        adjustScale(isFitToWindow);
-        //resizeIframe(isFitToWindow);
-    });
+    //$(window).on('resize', function () {
+        //adjustScale(isFitToWindow);
+    //});
 
-     $(window).on('resize', function () {
-        adjustScale(isFitToWindow);
-    });
+
 });
 
 
 
-function resizeIframe() {
-    let windowHeight = $(window).height();
-    let remInPx = parseFloat($("html").css("font-size")); // 1rem을 px 단위로 변환
-    let newHeight = windowHeight - remInPx - 50; // 최종 높이 계산
-
-    $("iframe").css("height", newHeight + "px");
-}
 
 function adjustScale(isFitToWindow) {
     const width = $(window).width();
