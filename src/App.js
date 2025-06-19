@@ -36,8 +36,8 @@ $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
     
-    adjustScale(isFitToWindow);
-    resizeIframe(isFitToWindow);
+    //adjustScale(isFitToWindow);
+    //resizeIframe(isFitToWindow);
 
     $('#iconFitToWindow').on('click', function () {
         if (isFitToWindow) { 
@@ -49,9 +49,9 @@ $(async function() {
         //resizeIframe(isFitToWindow);
     });
 
-     $(window).on('resize', function () {
-        adjustScale(isFitToWindow);
-    });
+     //$(window).on('resize', function () {
+        //adjustScale(isFitToWindow);
+    //});
 });
 
 
