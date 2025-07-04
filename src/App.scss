@@ -191,12 +191,14 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 }
 
 .p-tree-container {
-    height: 505px;
+    height: calc(95vh - var(--dynamicOffset, 0px));
+    overflow:auto;
     background-color: rgb(248, 249, 250);
 }
 
 .sidebar {
-    height: 715px;
+    //height: 715px;
+    height: 100vh;
 }
 
 .tab-container {
@@ -222,8 +224,8 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 
 iframe {
     background-color: transparent !important;
-    width: 1360px;
-    height: 676px;
+    width: calc(100vw - 200px);
+    height: calc(100vh - 42px);
     overflow:auto;
 }
 
@@ -231,8 +233,11 @@ iframe {
     display: none !important;
 }
 
+.af-div-main {
+    width: calc(100vw - 200px) !important;
+}
 .p-tabview .p-tabview-nav {
-    width: 1341px;
+//    width: 1341px;
     margin-top:0px;
     z-index: 1000;
     position: relative;
