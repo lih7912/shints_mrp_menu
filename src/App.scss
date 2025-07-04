@@ -163,7 +163,6 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 
 .p-tabview .p-tabview-panels {
     padding: 0 !important;
-    background: #e5e5e5;
 }
 
 .p-tabview-nav li .p-button-sm {
@@ -221,11 +220,11 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
     border-bottom-width: thick;
 }
 
-
 iframe {
     background-color: transparent !important;
     width: calc(100vw - 200px);
     height: calc(100vh - 42px);
+    max-width: calc(2180px - 200px) !important;
     overflow:auto;
 }
 
