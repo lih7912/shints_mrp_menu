@@ -165,40 +165,43 @@ const App = () => {
 
     // 메뉴 클릭 시 탭 추가
     const openTab = (item) => {
-        if (item.url1) {
+        // 메뉴 정의에 url1 필드가 있으면 처음 열 때만 URL을 만들어 둡니다.
+        if (item.url1 && !item.url) {
             item.url = `${BASE_URL}${item.url1}?label=${encodeURI(item.label)}`;
         }
-        if (!item.url) return;
+        if (!item.url) return;   // URL이 없으면 아무것도 하지 않음
 
         setTabs((prevTabs) => {
             const existingTabIndex = prevTabs.findIndex(tab => tab.label === item.label);
-            if (existingTabIndex === -1) {
-                if (prevTabs.length >= 10) {
-                    toast.current.show({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: '탭은 10개까지 열 수 있습니다. 열린 탭을 닫고 새로 열어주세요. (Alt+X)',
-                        life: 5000,
-                    });
-                    return prevTabs;
-                }
-                item.idx = `${item.label}-${new Date().getTime()}`;
-                item.key = `${item.idx}-key-${new Date().getTime()}`; // 강제 리렌더링을 위한 key 추가
-                const newTabs = [...prevTabs, item];
-                setActiveIndex(newTabs.length - 1);
-                return newTabs;
-            } else {
-                // 기존 탭이 있으면 URL을 업데이트하면서 key도 변경하여 리렌더링 유도
-                const updatedTabs = prevTabs.map((tab, index) => {
-                    if (index === existingTabIndex) {
-                        return { ...tab, url: item.url, key: `${tab.idx}-key-${new Date().getTime()}` };
-                    }
-                    return tab;
-                });
 
-                setActiveIndex(existingTabIndex);
-                return updatedTabs;
+            /* 1) 이미 존재하는 탭이면: 목록을 건드리지 않고 활성 탭만 변경 */
+            if (existingTabIndex !== -1) {
+                setActiveIndex(existingTabIndex);   // ← **리렌더 없이 탭만 전환**
+                return prevTabs;                    //   상태 그대로 돌려줌
             }
+
+            /* 2) 새 탭을 추가해야 하는 경우 */
+            if (prevTabs.length >= 10) {
+                toast.current.show({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: '탭은 10개까지 열 수 있습니다. 열린 탭을 닫고 새로 열어주세요. (Alt+X)',
+                    life: 5000,
+                });
+                return prevTabs;
+            }
+
+            // 새 탭 객체 생성
+            const now = Date.now();
+            const newTab = {
+                ...item,
+                idx: `${item.label}-${now}`,
+                key: `${item.label}-${now}-key`,
+            };
+
+            const newTabs = [...prevTabs, newTab];
+            setActiveIndex(newTabs.length - 1);     // 방금 만든 탭을 활성화
+            return newTabs;
         });
     };
 
