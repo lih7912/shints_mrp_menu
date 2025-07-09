@@ -278,3 +278,8 @@ iframe {
     pointer-events: auto !important; 
     position: relative;
 }
+
+.table-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr; /* 마지막 1fr이 남은 공간 */
+}
