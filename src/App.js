@@ -27,20 +27,10 @@ import './assets/layout/layout.scss';
 import './App.scss';
 
 let userInfoForAuth = {};
-let screenScale = 1.0;
-let screenScaleConst = 1.245;
 
 $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
-    
-    //adjustScale(isFitToWindow);
-
-    //$(window).on('resize', function () {
-        //adjustScale(isFitToWindow);
-    //});
-
-
 });
 
 // 높이 측정 → CSS 변수 주입
@@ -55,21 +45,6 @@ $(window).on('load resize', refreshOffset);
 // 최초 한 번 실행
 refreshOffset();
 
-
-function adjustScale(isFitToWindow) {
-    const width = $(window).width();
-    
-    if (isFitToWindow) {
-        screenScale = screenScaleConst * width / 1920;
-    } else {
-        screenScale = 1 * width / 1920;
-    }
-
-    console.log(screenScale);
-    $("body").css("transform", `scale(${screenScale})`);
-    $("body").css("transform-origin", "top left"); // transform 기준점 설정
-}
-    
 // 메시지를 수신하는 이벤트 리스너
 window.addEventListener('message', function(event) {
     // 보낸 iframe의 출처(origin)을 확인
