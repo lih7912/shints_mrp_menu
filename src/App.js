@@ -283,6 +283,37 @@ const App = () => {
     };
     /***************************************/
     
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (!event.data || typeof event.data !== 'object') return;
+
+            const { type, url } = event.data;
+
+            if (type === 'closeTab' && url) {
+                setTabs((prevTabs) => {
+                    const tabIndex = prevTabs.findIndex(tab => tab.url === url);
+                    if (tabIndex !== -1) {
+                        const newTabs = prevTabs.filter((_, i) => i !== tabIndex);
+
+                        if (tabIndex === activeIndex) {
+                            setActiveIndex((prev) => (tabIndex === 0 ? 0 : prev - 1));
+                        } else if (tabIndex < activeIndex) {
+                            setActiveIndex((prev) => prev - 1);
+                        }
+
+                        return newTabs;
+                    }
+                    return prevTabs;
+                });
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+        return () => {
+            window.removeEventListener('message', handleMessage);
+        };
+    }, [activeIndex]);
+
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
     return (
