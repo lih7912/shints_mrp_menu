@@ -67,6 +67,19 @@ function showTestEnvLabel(window) {
         $('.testEnvLabel').css('display','block');
     }
 }
+
+function clearAllColumnOrders() {
+    const confirmMessage = '모든 Custom된 컬럼 정보를 삭제하시겠습니까?\nDo you want to delete all customized column settings?';
+    
+    if (window.confirm(confirmMessage)) {
+        const iframe = document.getElementById('tabIframe');
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ type: 'CLEAR_AF_COLUMNS' }, '*');
+        } else {
+            console.warn('iframe with id "tabIframe" not found.');
+        }
+    }
+}
   
 const App = () => {
     const [tabs, setTabs] = useState([]);
@@ -362,7 +375,16 @@ const App = () => {
                             <p className="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
                         </span>
                     </div>
-                    <div style={{ float: 'left', marginLeft: '35px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                    
+                    <div style={{ float: 'left', marginLeft: '20px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                        <i className="custom-target-icon pi pi-arrows-h p-text-secondary"
+                            onClick={() => { clearAllColumnOrders(); }}
+                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                            title="Clear customized column">
+                        </i>
+                    </div>
+                    
+                    <div style={{ float: 'left',  marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                         <i className="custom-target-icon pi pi-unlock p-text-secondary"
                             onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
@@ -483,6 +505,7 @@ const App = () => {
                                 }
                             >
                                 <iframe
+                                    id="tabIframe"
                                     key={tab.key}
                                     src={tab.url}
                                     width="100%"
