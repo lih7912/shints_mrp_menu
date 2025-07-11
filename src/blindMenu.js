@@ -79,13 +79,13 @@ function setShow(menu) {
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
     
+    console.log(userId);
+    
     if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr') {
+        $('#btnAuth').css('display', 'block');
+        $('#btnTrLog').css('display', 'block');
         return;
-    } else {
-        $('#btnAuth').remove();
-        $('#btnTrLog').remove();
-        $('#btnDevManual').remove();
-    }
+    } 
 
     let authInfoList = await getAuthInfo(window, apolloOption, userId);
     userInfoForAuth.authMenuList = authInfoList.afAuthPart;
