@@ -69,7 +69,7 @@ function showTestEnvLabel(window) {
 }
 
 function clearAllColumnOrders() {
-    const confirmMessage = '모든 Custom된 컬럼 정보를 삭제하시겠습니까?\nDo you want to delete all customized column settings?';
+    const confirmMessage = '모든 Custom된 컬럼 순서정보를 삭제하시겠습니까?\nDo you want to delete all customized column settings?';
     
     if (window.confirm(confirmMessage)) {
         const iframe = document.getElementById('tabIframe');
