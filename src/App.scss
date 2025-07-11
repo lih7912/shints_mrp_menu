@@ -198,6 +198,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 .sidebar {
     //height: 715px;
     height: 100vh;
+    overflow:hidden;
 }
 
 .tab-container {
@@ -222,7 +223,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 
 iframe {
     background-color: transparent !important;
-    width: calc(100vw - 200px);
+    width: 100%;
     height: calc(100vh - 42px);
     max-width: calc(2180px - 200px) !important;
     overflow:auto;

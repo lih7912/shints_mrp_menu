@@ -283,12 +283,47 @@ const App = () => {
     };
     /***************************************/
     
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
             <Toast ref={toast} />
-            <div className="sidebar" style={{ width: "200px", minWidth: "200px", background: "#f8f9fa", padding: "10px", borderRight: "1px solid #ddd" }}>
-                <div id="userInfoWrapper" style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
+            <div 
+                style={{ 
+                    position: 'fixed',       // 고정 위치
+                    bottom: '5px',             // 상단 여백
+                    left: '5px',            // 왼쪽 여백
+                    zIndex: 2000             // 다른 요소보다 위에
+                }}
+            >
+                <Button 
+                    icon={sidebarCollapsed ? 'pi pi-chevron-right' : 'pi pi-chevron-left'} 
+                    className="p-button-rounded p-button-primary"
+                    onClick={() => setSidebarCollapsed(prev => !prev)} 
+                    title={sidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                    style={{
+                        width: '2rem',
+                        height: '2rem',
+                        fontSize: '1.8rem',
+                        backgroundColor: '#6366F1'
+                    }}
+                />
+            </div>
+            <div 
+                className="sidebar"
+                style={{
+                    width: sidebarCollapsed ? "0px" : "200px",
+                    minWidth: sidebarCollapsed ? "0px" : "200px",
+                    background: "#f8f9fa",
+                    padding: sidebarCollapsed ? "0px" : "10px",
+                    borderRight: "1px solid #ddd",
+                    overflowX: 'hidden',
+                    transition: 'width 0.5s ease'
+                }}
+            >
+                {!sidebarCollapsed && (
+                <div>
+                  <div id="userInfoWrapper" style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
                     <div style={{ float: 'left', marginTop: '0rem', width: '6rem', height: '4rem', marginLeft: '15px' }}>
                         <span style={{ width: '9rem' }}>
                             <p className="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_ID}</p>
@@ -370,6 +405,8 @@ const App = () => {
                     onToggle={(e) => setExpandedKeys(e.value)}
                     nodeTemplate={nodeTemplate}
                 />
+                </div>
+                )}
             </div>
 
             {/* 탭 UI */}
