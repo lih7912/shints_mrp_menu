@@ -349,7 +349,8 @@ const App = () => {
                         width: '2rem',
                         height: '2rem',
                         fontSize: '1.8rem',
-                        backgroundColor: '#6366F1'
+                        backgroundColor: '#6366F1',
+                        opacity: sidebarCollapsed ? '0.5' : '1.0'
                     }}
                 />
             </div>
