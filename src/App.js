@@ -310,6 +310,7 @@ const App = () => {
                 />
             </div>
             <div 
+          
                 className="sidebar"
                 style={{
                     width: sidebarCollapsed ? "0px" : "200px",
