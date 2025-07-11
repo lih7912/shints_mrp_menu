@@ -318,10 +318,9 @@ const App = () => {
                     padding: sidebarCollapsed ? "0px" : "10px",
                     borderRight: "1px solid #ddd",
                     overflowX: 'hidden',
-                    transition: 'width 0.5s ease'
+                    transition: 'width 0.1s ease'
                 }}
             >
-                {!sidebarCollapsed && (
                 <div>
                   <div id="userInfoWrapper" style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
                     <div style={{ float: 'left', marginTop: '0rem', width: '6rem', height: '4rem', marginLeft: '15px' }}>
@@ -382,7 +381,7 @@ const App = () => {
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '90%', height: '20px', display:'none'}} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
-                    <button id='btnTrLog' style={{ marginBottom: '0.5rem', width: '90%', height: '20px', display:'none' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
+                    <button id='btnTrLog' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
                     {/*<button id='btnDevManual' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`https://www.notion.so/shints/1cf09bcd64ff803ea457dc278b9ba591?v=1cf09bcd64ff8031b40e000c9bdf5071`, 'blank'); }}>화면 분석서</button>*/}
                     <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width: '90%', height: '20px', backgroundColor: 'purple', borderRadius: '3px', color: 'white', fontWeight: '700', textAlign: 'center', alignContent:'center' }}>TEST 환경</div>
                     <div className="workingMrpIcon">
@@ -406,7 +405,6 @@ const App = () => {
                     nodeTemplate={nodeTemplate}
                 />
                 </div>
-                )}
             </div>
 
             {/* 탭 UI */}
