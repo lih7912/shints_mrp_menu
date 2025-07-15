@@ -363,7 +363,7 @@ const App = () => {
                     padding: sidebarCollapsed ? "0px" : "10px",
                     borderRight: "1px solid #ddd",
                     overflowX: 'hidden',
-                    transition: 'width 0.1s ease'
+                    //transition: 'width 0.1s ease'
                 }}
             >
                 <div>
