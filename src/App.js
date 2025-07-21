@@ -378,7 +378,7 @@ const App = () => {
                     </div>
                     
                     <div style={{ float: 'left', marginLeft: '20px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="custom-target-icon pi pi-arrows-h p-text-secondary"
+                        <i className="af-button custom-target-icon pi pi-arrows-h p-text-secondary"
                             onClick={() => { clearAllColumnOrders(); }}
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
                             title="Clear customized column">
@@ -386,7 +386,7 @@ const App = () => {
                     </div>
                     
                     <div style={{ float: 'left',  marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="custom-target-icon pi pi-unlock p-text-secondary"
+                        <i className="af-button custom-target-icon pi pi-unlock p-text-secondary"
                             onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
                             title="Change password">
@@ -402,14 +402,14 @@ const App = () => {
                     </div>
                     */}
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="custom-target-icon pi pi-times p-text-secondary"
+                        <i className="af-button custom-target-icon pi pi-times p-text-secondary"
                             onClick={() => { setTabs([]); }}
                             style={{ fontSize: '1.5rem', cursor: "pointer" }}
                             title="Close all tabs">
                         </i>
                     </div>
                     <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="custom-target-icon pi pi-refresh p-text-secondary"
+                        <i className="af-button custom-target-icon pi pi-refresh p-text-secondary"
                             data-pr-position="right"
                             data-pr-at="right+5 top"
                             data-pr-my="left center-2"

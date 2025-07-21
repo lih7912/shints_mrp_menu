@@ -284,3 +284,14 @@ iframe {
   display: grid;
   grid-template-columns: auto auto 1fr; /* 마지막 1fr이 남은 공간 */
 }
+
+.af-button:hover {
+    transform: scale(1.15) !important;
+    transition: transform 0.1s ease-in-out !important;
+}
+
+.tree-node-custom.p-treenode-label:hover {
+    background-color: #e9e9ff;
+    transform: scale(1.05) !important;
+    transition: transform 0.1s ease-in-out !important;
+}
