@@ -94,6 +94,7 @@ const menu1 = [
             { key: '6-7', label: 'Debit Note(E)', url: 'S070301_DEBIT_NOTE_FACTORY_ETP'},
             { key: '6-8', label: 'Sample Cost', url: 'S0203_SAMPLE_COST' },
             { key: '6-9', label: 'CMPT Confirmation', url: 'S0212_NEGO_CMPT'},
+            { key: '6-10', label: 'ETC Cost', url: 'S0803_ETC_COST'},
         ]
     },
     {
@@ -206,6 +207,7 @@ const menu3 = [
     { key: '6-7', label: 'Debit Note(E)', url: 'S070301_DEBIT_NOTE_FACTORY_ETP'},
     { key: '6-8', label: 'Sample Cost', url: 'S0203_SAMPLE_COST' },
     { key: '6-9', label: 'CMPT Confirmation', url: 'S0212_NEGO_CMPT'},
+    { key: '6-10', label: 'ETC Cost', url: 'S0803_ETC_COST'},
     { key: '7-2', label: '매출등록(국내)', url: 'S0801_DOCU_REGIST_DOMESTIC' },
     { key: '7-11', label: '세금계산서등록', url: 'S080101_DOCU_REGIST_DOMESTIC' },
     { key: '7-3', label: 'Invoice Record(Foreign)', url: 'S0802_DOCU_REGIST_OVERSEA' },
