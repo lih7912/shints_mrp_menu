@@ -566,8 +566,8 @@ const App = () => {
                             default={{
                                 x: 100 + i * 30,
                                 y: 100 + i * 30,
-                                width: 1400,
-                                height: 600,
+                                width: 1024,
+                                height: 600
                             }}
                             bounds="window"
                             minWidth={400}
