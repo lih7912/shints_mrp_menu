@@ -15,6 +15,7 @@ import { blindMenu } from './blindMenu';
 import { getMrpWorkingStatus } from './getMrpWorkingStatus';
 import { changePassword, getPassword } from './changePassword';``
 import apolloOption from './assets/env_graphql';
+import axios from 'axios';
 
 const menu1 = require('./menu').menu1;
 const menu3 = require('./menu').menu3;
@@ -27,6 +28,7 @@ import './assets/layout/layout.scss';
 import './App.scss';
 
 let userInfoForAuth = {};
+let prismaDate = '';
 
 $(async function() {
     blindMenu(window, apolloOption, userInfoForAuth);
@@ -35,7 +37,7 @@ $(async function() {
 
 // 높이 측정 → CSS 변수 주입
 function refreshOffset(){
-    const total = $('#userInfoWrapper').outerHeight() +$('#menuTopWrapper').outerHeight();
+    const total = $('#userInfoWrapper').outerHeight() + $('#menuTopWrapper').outerHeight();
     $(':root').css('--dynamicOffset', total + 'px');
 }
 
@@ -296,6 +298,13 @@ const App = () => {
     };
     /***************************************/
     
+    const [dbName, setDbName] = useState('');
+    useEffect(() => {
+        axios.get(`${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/db-name`)
+            .then(res => setDbName(res.data.dbName.replace('test','')))
+            .catch(() => setDbName('오류 발생'));
+    }, []);
+
     useEffect(() => {
         const handleMessage = (event) => {
             if (!event.data || typeof event.data !== 'object') return;
@@ -437,7 +446,7 @@ const App = () => {
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '90%', height: '20px', display:'none'}} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
                     <button id='btnTrLog' style={{ marginBottom: '0.5rem', width: '90%', height: '20px', display:'none'}} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
                     {/*<button id='btnDevManual' style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open(`https://www.notion.so/shints/1cf09bcd64ff803ea457dc278b9ba591?v=1cf09bcd64ff8031b40e000c9bdf5071`, 'blank'); }}>화면 분석서</button>*/}
-                    <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width: '90%', height: '20px', backgroundColor: 'purple', borderRadius: '3px', color: 'white', fontWeight: '700', textAlign: 'center', alignContent:'center' }}>TEST 환경</div>
+                    <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width: '90%', height: '20px', backgroundColor: 'purple', borderRadius: '3px', color: 'white', fontWeight: '700', textAlign: 'center', alignContent:'center' }}>TEST 환경 ({dbName})</div>
                     <div className="workingMrpIcon">
                         <dotlottie-player 
                             src="https://lottie.host/8bad9105-8a45-4862-a1bc-ff9efaa5a99b/hiboDpMUKL.lottie" 
