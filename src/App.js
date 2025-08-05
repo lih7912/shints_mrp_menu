@@ -9,6 +9,7 @@ import { Dialog } from "primereact/dialog";
 import { Password } from "primereact/password";
 import { Toast } from 'primereact/toast';
 import { Tooltip } from 'primereact/tooltip';
+import { Rnd } from "react-rnd";
 
 import Swal from 'sweetalert2';
 import { blindMenu } from './blindMenu';
@@ -338,6 +339,28 @@ const App = () => {
 
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+    // 상태로 floatingTabs 배열 관리
+    const [floatingTabs, setFloatingTabs] = useState([]);
+
+    const floatTab = (tab) => {
+        const newZ = maxZIndex + 1;
+        const newTab = { ...tab, zIndex: newZ };
+
+        setFloatingTabs(prev => [...prev, newTab]);
+        setMaxZIndex(newZ);
+        setTabs(prev => prev.filter(t => t.idx !== tab.idx));
+    };
+
+    const returnToTab = (tab) => {
+        setTabs(prev => [...prev, tab]);
+        setFloatingTabs(prev => prev.filter((t) => t.idx !== tab.idx));
+        setActiveIndex(tabs.length);
+    };
+
+    const [maxZIndex, setMaxZIndex] = useState(2000);  // 초기 z-index
+
+    const iframeRefs = useRef({});
+
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
             <Toast ref={toast} />
@@ -511,6 +534,18 @@ const App = () => {
                                             title='CLOSE TAB'
                                             accessKey='x'
                                         />
+                                        {
+                                        <Button
+                                            icon="pi pi-clone"
+                                            className="p-button-text p-button-sm"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                floatTab(tab);
+                                            }}
+                                            style={{ color: "green", marginLeft: "0px" }}
+                                            title="Detach to floating"
+                                        />
+                                        }
                                     </span>
                                 }
                             >
@@ -524,8 +559,76 @@ const App = () => {
                             </TabPanel>
                         ))}
                     </TabView>
-                    
-                        
+
+                    {floatingTabs.map((tab, i) => (
+                        <Rnd
+                            key={tab.idx}
+                            default={{
+                                x: 100 + i * 30,
+                                y: 100 + i * 30,
+                                width: 1400,
+                                height: 600,
+                            }}
+                            bounds="window"
+                            minWidth={400}
+                            minHeight={300}
+                            style={{
+                                zIndex: tab.zIndex || 2000,
+                                position: 'absolute',
+                                background: '#fff',
+                                boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                            }}
+                        >
+                            <div
+                                style={{ display: "flex", flexDirection: "column", height: "100%" }}
+                                onMouseDown={() => {
+                                    const newZ = maxZIndex + 1;
+                                    setFloatingTabs((prevTabs) =>
+                                        prevTabs.map((ft, j) =>
+                                            j === i ? { ...ft, zIndex: newZ } : ft
+                                        )
+                                    );
+                                    setMaxZIndex(newZ);
+                                }}
+                            >
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#f1f1f1", padding: "5px 10px" }}>
+                                    <div>
+                                        <strong>{tab.label}</strong>
+                                    </div>
+                                    <div>
+                                        <Button
+                                            icon="pi pi-refresh"
+                                            className="p-button-text"
+                                            onClick={() => {
+                                                const iframe = iframeRefs.current[tab.idx];
+                                                if (iframe && iframe.contentWindow) {
+                                                    iframe.contentWindow.postMessage({ type: 'RELOAD_ME' }, '*');
+                                                }
+                                            }}
+                                            title="Reload iframe"
+                                        />
+                                        <Button
+                                            icon="pi pi-clone"
+                                            className="p-button-text"
+                                            style={{ color: "#333", marginRight: "0rem" }}
+                                            onClick={() => returnToTab(tab)}
+                                            title="Return to tab"
+                                        />
+                                        <Button
+                                            icon="pi pi-times"
+                                            className="p-button-text"
+                                            style={{ color: "red" }}
+                                            onClick={() => setFloatingTabs(floatingTabs.filter((_, j) => j !== i))}
+                                            title="Close floating tab"
+                                        />
+                                    </div>
+                                    
+                                </div>
+                                <iframe ref={(el) => iframeRefs.current[tab.idx] = el} src={tab.url} style={{ width: "100%", height: "100%", border: "none", flex: 1 }} />
+                            </div>
+                        </Rnd>
+                    ))}
+
             </div>
 
             <Dialog

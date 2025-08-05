@@ -167,7 +167,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 
 .p-tabview-nav li .p-button-sm {
     padding: 0;
-    margin-right: 12px;
+    margin-right: 5px;
     font-size: 0.9rem;
 }
 
@@ -299,4 +299,12 @@ iframe {
 .tree-node-custom.p-treenode-label:active {
     transform: scale(0.9) !important;
     transition: transform 0.1s ease-in-out !important;
+}
+
+.tab-header {
+    height: 16px !important;
+}
+
+.p-button.p-button-icon-only {
+    width: 15px;
 }
