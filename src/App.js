@@ -360,6 +360,20 @@ const App = () => {
     const [maxZIndex, setMaxZIndex] = useState(2000);  // 초기 z-index
 
     const iframeRefs = useRef({});
+    
+    const DEFAULT_WIDTH = 1400;
+    const DEFAULT_HEIGHT = 600;
+    const ASPECT = DEFAULT_WIDTH / DEFAULT_HEIGHT;
+    
+    // 리사이즈 이벤트 핸들러
+    const handleResizeFloatingTab = (i, width, height) => {
+        // 비율 유지: width 기준으로 height 재계산
+        let newWidth = width;
+        let newHeight = Math.round(newWidth / ASPECT);
+        setFloatingTabs((prev) =>
+            prev.map((tab, idx) => idx === i ? { ...tab, width: newWidth, height: newHeight } : tab)
+        );
+    };
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
@@ -495,140 +509,176 @@ const App = () => {
 
             {/* 탭 UI */}
             <div className="tab-container" style={{ flex: 1, padding: "10px" }}>
-                    <Tooltip target=".tab-header" position="bottom" />
-                    <TabView 
-                        activeIndex={activeIndex} 
-                        onTabChange={(e) => setActiveIndex(e.index)}
-                        renderActiveOnly={false}  // 모든 탭 패널을 렌더링하여 상태 유지
-                    >
-                        {tabs.map((tab, index) => (
-                            <TabPanel 
-                                key={tab.idx}
-                                header={
-                                    <span 
-                                        className="tab-header"
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            width: '132px',
-                                            height: '15px',
-                                            overflow: 'hidden',
-                                            padding: '0 5px',
-                                        }}>
-                                        <span style={{ 
-                                            width: '110px', 
-                                            overflow: 'hidden', 
-                                            height: '25px',
-                                            paddingTop: '9px'
-                                        }}
-                                        title={tab.url.split('#/')[1].split('?')[0]}
-                                        >{tab.label}</span>
-                                        <Button
-                                            icon="pi pi-times"
-                                            className="p-button-text p-button-sm p-ml-2"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                removeTab(index);
-                                            }}
-                                            style={{ textAlign: 'right', marginRight: "0px", color: "red" }}
-                                            title='CLOSE TAB'
-                                            accessKey='x'
-                                        />
-                                        {
-                                        <Button
-                                            icon="pi pi-clone"
-                                            className="p-button-text p-button-sm"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                floatTab(tab);
-                                            }}
-                                            style={{ color: "green", marginLeft: "0px" }}
-                                            title="Detach to floating"
-                                        />
-                                        }
-                                    </span>
-                                }
-                            >
-                                <iframe
-                                    id="tabIframe"
-                                    key={tab.key}
-                                    src={tab.url}
-                                    width="100%"
-                                    style={{ border: "none", marginTop:'-5px', overflow:'auto' }}
-                                />
-                            </TabPanel>
-                        ))}
-                    </TabView>
-
-                    {floatingTabs.map((tab, i) => (
-                        <Rnd
+                <Tooltip target=".tab-header" position="bottom" />
+                <TabView 
+                    activeIndex={activeIndex} 
+                    onTabChange={(e) => setActiveIndex(e.index)}
+                    renderActiveOnly={false}  // 모든 탭 패널을 렌더링하여 상태 유지
+                >
+                    {tabs.map((tab, index) => (
+                        <TabPanel 
                             key={tab.idx}
-                            default={{
-                                x: 100 + i * 30,
-                                y: 100 + i * 30,
-                                width: 1024,
-                                height: 600
-                            }}
-                            bounds="window"
-                            minWidth={400}
-                            minHeight={300}
-                            style={{
-                                zIndex: tab.zIndex || 2000,
-                                position: 'absolute',
-                                background: '#fff',
-                                boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
-                            }}
+                            header={
+                                <span 
+                                    className="tab-header"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        width: '132px',
+                                        height: '15px',
+                                        overflow: 'hidden',
+                                        padding: '0 5px',
+                                    }}>
+                                    <span style={{ 
+                                        width: '110px', 
+                                        overflow: 'hidden', 
+                                        height: '25px',
+                                        paddingTop: '9px'
+                                    }}
+                                    title={tab.url.split('#/')[1].split('?')[0]}
+                                    >{tab.label}</span>
+                                    <Button
+                                        icon="pi pi-times"
+                                        className="p-button-text p-button-sm p-ml-2"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            removeTab(index);
+                                        }}
+                                        style={{ textAlign: 'right', marginRight: "0px", color: "red" }}
+                                        title='CLOSE TAB'
+                                        accessKey='x'
+                                    />
+                                    {
+                                    <Button
+                                        icon="pi pi-clone"
+                                        className="p-button-text p-button-sm"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            floatTab(tab);
+                                        }}
+                                        style={{ color: "green", marginLeft: "0px" }}
+                                        title="Detach to floating"
+                                    />
+                                    }
+                                </span>
+                            }
                         >
-                            <div
-                                style={{ display: "flex", flexDirection: "column", height: "100%" }}
-                                onMouseDown={() => {
-                                    const newZ = maxZIndex + 1;
-                                    setFloatingTabs((prevTabs) =>
-                                        prevTabs.map((ft, j) =>
-                                            j === i ? { ...ft, zIndex: newZ } : ft
-                                        )
-                                    );
-                                    setMaxZIndex(newZ);
-                                }}
-                            >
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#f1f1f1", padding: "5px 10px" }}>
-                                    <div>
-                                        <strong>{tab.label}</strong>
-                                    </div>
-                                    <div>
-                                        <Button
-                                            icon="pi pi-refresh"
-                                            className="p-button-text"
-                                            onClick={() => {
-                                                const iframe = iframeRefs.current[tab.idx];
-                                                if (iframe && iframe.contentWindow) {
-                                                    iframe.contentWindow.postMessage({ type: 'RELOAD_ME' }, '*');
-                                                }
-                                            }}
-                                            title="Reload iframe"
-                                        />
-                                        <Button
-                                            icon="pi pi-clone"
-                                            className="p-button-text"
-                                            style={{ color: "#333", marginRight: "0rem" }}
-                                            onClick={() => returnToTab(tab)}
-                                            title="Return to tab"
-                                        />
-                                        <Button
-                                            icon="pi pi-times"
-                                            className="p-button-text"
-                                            style={{ color: "red" }}
-                                            onClick={() => setFloatingTabs(floatingTabs.filter((_, j) => j !== i))}
-                                            title="Close floating tab"
-                                        />
-                                    </div>
-                                    
-                                </div>
-                                <iframe ref={(el) => iframeRefs.current[tab.idx] = el} src={tab.url} style={{ width: "100%", height: "100%", border: "none", flex: 1 }} />
-                            </div>
-                        </Rnd>
+                            <iframe
+                                id="tabIframe"
+                                key={tab.key}
+                                src={tab.url}
+                                width="100%"
+                                style={{ border: "none", marginTop:'-5px', overflow:'auto' }}
+                            />
+                        </TabPanel>
                     ))}
+                </TabView>
 
+                {floatingTabs.map((tab, i) => {
+                const width = tab.width || DEFAULT_WIDTH;
+                const height = tab.height || DEFAULT_HEIGHT;
+                const scale = width / DEFAULT_WIDTH;
+
+                // scale 비율 계산
+                const scaleX = width / DEFAULT_WIDTH;
+                const scaleY = height / DEFAULT_HEIGHT;
+
+                return (
+                    <Rnd
+                        key={tab.idx}
+                        size={{ width, height }}
+                        default={{
+                            x: i * 30 - 50,
+                            y: 100 + i * 30,
+                            width,
+                            height,
+                        }}
+                        minWidth={1000}
+                        minHeight={1000 / ASPECT}
+                        lockAspectRatio={ASPECT}
+                        style={{
+                            zIndex: tab.zIndex || 2000,
+                            position: 'absolute',
+                            background: '#fff',
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                            overflow: 'hidden',
+                        }}
+                        onResizeStop={(e, direction, ref, delta, position) => {
+                            handleResizeFloatingTab(i, parseInt(ref.style.width, 10), parseInt(ref.style.height, 10));
+                        }}
+                        onMouseDown={() => {
+                            const newZ = maxZIndex + 1;
+                            setFloatingTabs((prevTabs) =>
+                                prevTabs.map((ft, j) =>
+                                    j === i ? { ...ft, zIndex: newZ } : ft
+                                )
+                            );
+                            setMaxZIndex(newZ);
+                        }}
+                    >
+                        {/* 헤더 */}
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            background: "#f1f1f1",
+                            padding: "5px 10px"
+                        }}>
+                            <div>
+                                <strong>{tab.label}</strong>
+                            </div>
+                            <div>
+                                <Button
+                                    icon="pi pi-refresh"
+                                    className="p-button-text"
+                                    onClick={() => {
+                                        const iframe = iframeRefs.current[tab.idx];
+                                        if (iframe && iframe.contentWindow) {
+                                            iframe.contentWindow.postMessage({ type: 'RELOAD_ME' }, '*');
+                                        }
+                                    }}
+                                    title="Reload iframe"
+                                />
+                                <Button
+                                    icon="pi pi-clone"
+                                    className="p-button-text"
+                                    style={{ color: "#333", marginRight: "0rem" }}
+                                    onClick={() => returnToTab(tab)}
+                                    title="Return to tab"
+                                />
+                                <Button icon="pi pi-times"
+                                    className="p-button-text"
+                                    style={{ color: "red" }}
+                                    onClick={() => setFloatingTabs(floatingTabs.filter((_, j) => j !== i))}
+                                    title="Close floating tab"
+                                />
+                            </div>
+                        </div>
+                        <div style={{
+                            width: "100%",
+                            height: `calc(100%)`,
+                            overflow: "hidden",
+                            background: "#fff"
+                        }}>
+                            <iframe
+                                ref={el => iframeRefs.current[tab.idx] = el}
+                                src={tab.url}
+                                style={{
+                                    width: `${DEFAULT_WIDTH}px`,
+                                    height: `${DEFAULT_HEIGHT-50}px`,
+                                    border: "none",
+                                    transform: `scale(${scaleX},${scaleY})`,
+                                    transformOrigin: "top left",
+                                    pointerEvents: "auto", 
+                                    background: "#fff",
+                                    display: "block"
+                                }}
+                                title={tab.label}
+                            />
+                        </div>
+                    </Rnd>
+                );
+            })}
             </div>
 
             <Dialog
