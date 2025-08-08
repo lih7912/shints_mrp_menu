@@ -337,3 +337,7 @@ iframe {
 .p-button .p-button-icon.pi.pi-trash {
     font-size: 1.2rem; /* 원하는 크기 */
 }
+
+.p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
+    margin-right: 0 !important;
+}
