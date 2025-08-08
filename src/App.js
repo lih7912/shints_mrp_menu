@@ -48,13 +48,9 @@ function refreshOffset() {
     const favoritesH = $('#favoritesWrapper').outerHeight() || 0;
     total = userInfoH + menuTopH + favoritesH + 25;
 
-    console.log('userInfoH', userInfoH);
-    console.log('menuTopH', menuTopH);
-
-
     setTimeout( () => {
         $(':root').css('--dynamicOffset', total + 'px');
-    }, 100);
+    }, 500);
     
 }
 // 첫 로드 & 창 리사이즈 때 반영
@@ -520,7 +516,6 @@ const App = () => {
                     padding: sidebarCollapsed ? "0px" : "5px",
                     borderRight: "1px solid #ddd",
                     overflowX: 'hidden',
-                    overflowY: 'auto',
                     //transition: 'width 0.1s ease'
                 }}
             >
