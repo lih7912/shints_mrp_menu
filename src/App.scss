@@ -198,6 +198,11 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
     height: calc(95vh - var(--dynamicOffset, 0px));
 }
 
+#favoritesWrapper {
+    border-bottom: 1px dashed #cbcbcb;
+    padding-bottom: 8px !important;
+}
+
 #favoritesWrapper .p-treenode-content button {
     display:none;
 }
