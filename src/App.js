@@ -50,7 +50,7 @@ function refreshOffset() {
 
     setTimeout( () => {
         $(':root').css('--dynamicOffset', total + 'px');
-    }, 500);
+    }, 100);
     
 }
 // 첫 로드 & 창 리사이즈 때 반영
