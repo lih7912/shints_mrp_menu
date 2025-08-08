@@ -702,7 +702,7 @@ const App = () => {
                                         // Button의 fontSize로 아이콘 크기가 안 바뀔 수 있어 기본 유지
                                         color: isFavoriteTab(tab) ? '#f59e0b' : '#8a8a8a'
                                         }}
-                                        title={isFavoriteTab(tab) ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+                                        title={isFavoriteTab(tab) ? 'Remove favorite' : 'Add favorite'}
                                     />
                                     
                                     
