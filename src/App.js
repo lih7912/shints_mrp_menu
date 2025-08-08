@@ -520,17 +520,17 @@ const App = () => {
                 }}
             >
                 <div>
-                  <div id="userInfoWrapper" style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem', display:'flex', flexDirection:'column' }}>
-                    <div style={{ float: 'left', marginTop: '0rem', width: '6rem', height: '4rem', marginLeft: '15px' }}>
-                        <span style={{ width: '9rem' }}>
-                            <p className="p-text-secondary" style={{ width: '9rem', fontSize:'11px', fontWeight: '600', display: 'inline-block' }}>{userInfo.USER_ID}</p>
+                  <div id="userInfoWrapper" style={{ marginTop: '0.3rem', width: '100%', height: '4rem', marginBottom: '0rem', display:'flex', flexDirection:'column',  }}>
+                    <div style={{ marginTop: '0rem', width: '90%', height: '4rem', border:' 1px solid #cdcdcd', borderRadius: '5px', margin:'0 10px 0 5px', padding:'3px', backgroundColor: '#ebebeb'}}>
+                        <span style={{ width: '100%' }}>
+                            <p className="p-text-secondary" style={{ width: '100%', fontSize:'11px', fontWeight: '500', display: 'inline-block', textAlign:'center' }}>{userInfo.USER_ID}</p>
                         </span>
-                        <span style={{ width: '9rem' }}>
-                            <p className="p-text-secondary" style={{ width: '9rem',  fontSize:'11px', fontWeight: '600', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
+                        <span style={{ width: '100%' }}>
+                            <p className="p-text-secondary" style={{ width: '100%',  fontSize:'11px', fontWeight: '400', display: 'inline-block', textAlign:'center'}}>{userInfo.USER_NAME}</p>
                         </span>
                     </div>
                     
-                    <div style={{ width: '100%', display:'flex', justifyContent:'center', marginTop:'10px' }}>
+                    <div style={{ width: '100%', display:'flex', justifyContent:'center', marginTop:'15px' }}>
                         <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
                             <i className="af-button custom-target-icon pi pi-arrows-h p-text-secondary"
                                 onClick={() => { clearAllColumnOrders(); }}
@@ -588,7 +588,7 @@ const App = () => {
                     </div>
                     
                 </div>
-                <div id='menuTopWrapper' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '25px' }}>
+                <div id='menuTopWrapper' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '35px' }}>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '90%', height: '20px', display:'none'}} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
