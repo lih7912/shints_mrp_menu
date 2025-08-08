@@ -46,9 +46,16 @@ function refreshOffset() {
 
     // Favorites 영역 높이 (id를 따로 주는 게 안전)
     const favoritesH = $('#favoritesWrapper').outerHeight() || 0;
-    total = userInfoH + menuTopH + favoritesH + 20 ;
+    total = userInfoH + menuTopH + favoritesH + 25;
 
-    $(':root').css('--dynamicOffset', total + 'px');
+    console.log('userInfoH', userInfoH);
+    console.log('menuTopH', menuTopH);
+
+
+    setTimeout( () => {
+        $(':root').css('--dynamicOffset', total + 'px');
+    }, 100);
+    
 }
 // 첫 로드 & 창 리사이즈 때 반영
 $(window).on('load resize', refreshOffset);
