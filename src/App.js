@@ -683,7 +683,7 @@ const App = () => {
                                         width: '132px',
                                         height: '15px',
                                         overflow: 'hidden',
-                                        padding: '0 5px',
+                                        padding: '0 2px 0 2px',
                                     }}>
                                     <span style={{ 
                                         width: '110px', 
@@ -694,7 +694,7 @@ const App = () => {
                                     title={tab.url.split('#/')[1].split('?')[0]}
                                     >{tab.label}</span>
 
-                                    {/* ★ 즐겨찾기 토글 버튼 (닫기 버튼 바로 앞) */}
+                                    {/* 즐겨찾기 토글 버튼 */}
                                     <Button
                                         icon={isFavoriteTab(tab) ? 'pi pi-star-fill' : 'pi pi-star'}
                                         className="p-button-text p-button-sm"
