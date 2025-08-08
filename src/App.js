@@ -403,81 +403,85 @@ const App = () => {
             <div 
                 className="sidebar"
                 style={{
-                    width: sidebarCollapsed ? "0px" : "200px",
-                    minWidth: sidebarCollapsed ? "0px" : "200px",
+                    width: sidebarCollapsed ? "0px" : "160px",
+                    minWidth: sidebarCollapsed ? "0px" : "160px",
                     background: "#f8f9fa",
-                    padding: sidebarCollapsed ? "0px" : "10px",
+                    padding: sidebarCollapsed ? "0px" : "5px",
                     borderRight: "1px solid #ddd",
                     overflowX: 'hidden',
                     //transition: 'width 0.1s ease'
                 }}
             >
                 <div>
-                  <div id="userInfoWrapper" style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem' }}>
+                  <div id="userInfoWrapper" style={{ marginTop: '0rem', width: '100%', height: '4rem', marginBottom: '0rem', display:'flex', flexDirection:'column' }}>
                     <div style={{ float: 'left', marginTop: '0rem', width: '6rem', height: '4rem', marginLeft: '15px' }}>
                         <span style={{ width: '9rem' }}>
-                            <p className="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_ID}</p>
+                            <p className="p-text-secondary" style={{ width: '9rem', fontSize:'11px', fontWeight: '600', display: 'inline-block' }}>{userInfo.USER_ID}</p>
                         </span>
                         <span style={{ width: '9rem' }}>
-                            <p className="p-text-secondary" style={{ width: '9rem', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
+                            <p className="p-text-secondary" style={{ width: '9rem',  fontSize:'11px', fontWeight: '600', display: 'inline-block' }}>{userInfo.USER_NAME}</p>
                         </span>
                     </div>
                     
-                    <div style={{ float: 'left', marginLeft: '20px', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="af-button custom-target-icon pi pi-arrows-h p-text-secondary"
-                            onClick={() => { clearAllColumnOrders(); }}
-                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                            title="Clear customized column">
-                        </i>
+                    <div style={{ width: '100%', display:'flex', justifyContent:'center', marginTop:'10px' }}>
+                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
+                            <i className="af-button custom-target-icon pi pi-arrows-h p-text-secondary"
+                                onClick={() => { clearAllColumnOrders(); }}
+                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                                title="Clear customized column">
+                            </i>
+                        </div>
+                        
+                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
+                            <i className="af-button custom-target-icon pi pi-unlock p-text-secondary"
+                                onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
+                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                                title="Change password">
+                            </i>
+                        </div>
+                        {/*}
+                        <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
+                            <i className="custom-target-icon pi pi-arrows-h p-text-secondary"
+                                id='iconFitToWindow'
+                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                                title="Fit to window">
+                            </i>
+                        </div>
+                        */}
+                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
+                            <i className="af-button custom-target-icon pi pi-times p-text-secondary"
+                                onClick={() => { setTabs([]); }}
+                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                                title="Close all tabs">
+                            </i>
+                        </div>
+                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
+                            <i className="af-button custom-target-icon pi pi-refresh p-text-secondary"
+                                data-pr-position="right"
+                                data-pr-at="right+5 top"
+                                data-pr-my="left center-2"
+                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
+                                onClick={() => {
+                                    setTabs((prevTabs) => 
+                                        prevTabs.map((tab, index) => {
+                                            if (index === activeIndex) {
+                                                return { 
+                                                    ...tab, 
+                                                    key: `${tab.idx}-key-${new Date().getTime()}` // key 변경하여 iframe 리프레시
+                                                };
+                                            }
+                                            return tab;
+                                        })
+                                    );
+                                }}
+                                title="Reload current tab">    
+                            </i>
+                        </div>
+
                     </div>
                     
-                    <div style={{ float: 'left',  marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="af-button custom-target-icon pi pi-unlock p-text-secondary"
-                            onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
-                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                            title="Change password">
-                        </i>
-                    </div>
-                    {/*}
-                    <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="custom-target-icon pi pi-arrows-h p-text-secondary"
-                            id='iconFitToWindow'
-                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                            title="Fit to window">
-                        </i>
-                    </div>
-                    */}
-                    <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="af-button custom-target-icon pi pi-times p-text-secondary"
-                            onClick={() => { setTabs([]); }}
-                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                            title="Close all tabs">
-                        </i>
-                    </div>
-                    <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
-                        <i className="af-button custom-target-icon pi pi-refresh p-text-secondary"
-                            data-pr-position="right"
-                            data-pr-at="right+5 top"
-                            data-pr-my="left center-2"
-                            style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                            onClick={() => {
-                                setTabs((prevTabs) => 
-                                    prevTabs.map((tab, index) => {
-                                        if (index === activeIndex) {
-                                            return { 
-                                                ...tab, 
-                                                key: `${tab.idx}-key-${new Date().getTime()}` // key 변경하여 iframe 리프레시
-                                            };
-                                        }
-                                        return tab;
-                                    })
-                                );
-                            }}
-                            title="Reload current tab">    
-                        </i>
-                    </div>
                 </div>
-                <div id='menuTopWrapper' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px' }}>
+                <div id='menuTopWrapper' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '25px' }}>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
                     <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '90%', height: '20px', display:'none'}} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>

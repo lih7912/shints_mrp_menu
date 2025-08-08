@@ -21,7 +21,7 @@ body {
 .layout-sidebar { z-index:1; position:'absolute'; padding: 1rem 0rem 0rem 1rem;  top: 1rem; left: 1rem; height:718px; overflow-x:hidden; box-shadow: none; border-radius: 0px;}
 .p-tree { padding: 0rem 0rem 0rem 0rem; border: 0; }
 .p-tree-content { margin: 0rem; padding: 0rem; }
-.p-treenode .p-treenode-leaf { padding: 3px 0 3px 0 !important; }
+.p-treenode .p-treenode-leaf { padding: 3px 0 0px 0 !important; }
 
 #mainFooter {
     position: fixed;
@@ -178,7 +178,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 
 .p-treenode-children li {
     height: 20px !important;
-    margin-left: 10px;
+    margin-left: px;
 }
 
 .p-treenode-children .p-treenode-content button {
@@ -225,7 +225,7 @@ iframe {
     background-color: transparent !important;
     width: 100%;
     height: calc(100vh - 42px);
-    max-width: calc(2180px - 200px) !important;
+    max-width: calc(2180px - 160px) !important;
     overflow:auto;
 }
 
@@ -234,7 +234,7 @@ iframe {
 }
 
 .af-div-main {
-    width: calc(100vw - 200px) !important;
+    width: calc(100vw - 160px) !important;
 }
 .p-tabview .p-tabview-nav {
 //    width: 1341px;
@@ -307,4 +307,12 @@ iframe {
 
 .p-button.p-button-icon-only {
     width: 15px;
+}
+
+.p-tree .p-treenode-children {
+    padding: none !important;
+}
+
+.p-treenode {
+    margin: 2px 0 2px 0 !important;
 }
