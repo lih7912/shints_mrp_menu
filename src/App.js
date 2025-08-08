@@ -698,7 +698,6 @@ const App = () => {
                                         className="p-button-text p-button-sm"
                                         onClick={(e) => { e.stopPropagation(); toggleFavoriteFromTab(tab); }}
                                         style={{ 
-                                        marginRight: '0.15rem',
                                         color: isFavoriteTab(tab) ? '#f59e0b' : '#8a8a8a'
                                         }}
                                         title={isFavoriteTab(tab) ? 'Remove favorite' : 'Add favorite'}
@@ -723,7 +722,7 @@ const App = () => {
                                             e.stopPropagation();
                                             removeTab(index);
                                         }}
-                                        style={{ textAlign: 'right', marginLeft: "0px", color: "red" }}
+                                        style={{ textAlign: 'right', marginRight: "5px", color: "red" }}
                                         title='CLOSE TAB'
                                         accessKey='x'
                                     />
