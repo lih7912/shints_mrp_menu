@@ -477,7 +477,7 @@ const App = () => {
         });
     };
 
-
+    const [draggingTabId, setDraggingTabId] = useState(null);
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
@@ -753,36 +753,49 @@ const App = () => {
 
                 return (
                     <Rnd
-                        key={tab.idx}
-                        size={{ width, height }}
-                        default={{
-                            x: i * 30 - 50,
-                            y: 100 + i * 30,
-                            width,
-                            height,
-                        }}
-                        minWidth={1000}
-                        minHeight={1000 / ASPECT}
-                        lockAspectRatio={ASPECT}
-                        style={{
-                            zIndex: tab.zIndex || 2000,
-                            position: 'absolute',
-                            background: '#fff',
-                            boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
-                            overflow: 'hidden',
-                        }}
-                        onResizeStop={(e, direction, ref, delta, position) => {
-                            handleResizeFloatingTab(i, parseInt(ref.style.width, 10), parseInt(ref.style.height, 10));
-                        }}
-                        onMouseDown={() => {
-                            const newZ = maxZIndex + 1;
-                            setFloatingTabs((prevTabs) =>
-                                prevTabs.map((ft, j) =>
-                                    j === i ? { ...ft, zIndex: newZ } : ft
-                                )
-                            );
-                            setMaxZIndex(newZ);
-                        }}
+                    key={tab.idx}
+                    size={{ width, height }}
+                    default={{
+                        x: i * 30 - 50,
+                        y: 100 + i * 30,
+                        width,
+                        height,
+                    }}
+                    minWidth={1000}
+                    minHeight={1000 / ASPECT}
+                    lockAspectRatio={ASPECT}
+
+                    /* (A) 헤더만 드래그되게: */
+                    dragHandleClassName="floating-tab-handle"
+
+                    /* (B) 드래그 시작/종료 시 드래그 상태 기록 */
+                    onDragStart={() => setDraggingTabId(tab.idx)}
+                    onDragStop={(e, d) => {
+                        setDraggingTabId(null);
+                        // 좌표를 저장해야 한다면 여기서만 setState (지금은 필요없으면 생략)
+                    }}
+
+                    onResizeStop={(e, direction, ref, delta, position) => {
+                        handleResizeFloatingTab(i, parseInt(ref.style.width, 10), parseInt(ref.style.height, 10));
+                    }}
+                    onMouseDown={() => {
+                        const newZ = maxZIndex + 1;
+                        setFloatingTabs((prevTabs) =>
+                        prevTabs.map((ft, j) => (j === i ? { ...ft, zIndex: newZ } : ft))
+                        );
+                        setMaxZIndex(newZ);
+                    }}
+
+                    /* (C) 드래그 중 가벼운 스타일로 */
+                    style={{
+                        zIndex: tab.zIndex || 2000,
+                        position: 'absolute',
+                        background: draggingTabId === tab.idx ? 'transparent' : '#fff',
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                        overflow: 'hidden',
+                        border: draggingTabId === tab.idx ? '1px dashed #999' : 'none',
+                        willChange: 'transform',
+                    }}
                     >
                         {/* 헤더 */}
                         <div style={{
@@ -791,7 +804,8 @@ const App = () => {
                             alignItems: "center",
                             background: "#f1f1f1",
                             padding: "5px 10px"
-                        }}>
+                        }}
+                            className="floating-tab-handle">
                             <div>
                                 <strong>{tab.label}</strong>
                             </div>
