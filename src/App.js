@@ -699,7 +699,6 @@ const App = () => {
                                         onClick={(e) => { e.stopPropagation(); toggleFavoriteFromTab(tab); }}
                                         style={{ 
                                         marginRight: '0.15rem',
-                                        // Button의 fontSize로 아이콘 크기가 안 바뀔 수 있어 기본 유지
                                         color: isFavoriteTab(tab) ? '#f59e0b' : '#8a8a8a'
                                         }}
                                         title={isFavoriteTab(tab) ? 'Remove favorite' : 'Add favorite'}
@@ -747,7 +746,6 @@ const App = () => {
                 const height = tab.height || DEFAULT_HEIGHT;
                 const scale = width / DEFAULT_WIDTH;
 
-                // scale 비율 계산
                 const scaleX = width / DEFAULT_WIDTH;
                 const scaleY = height / DEFAULT_HEIGHT;
 
@@ -765,14 +763,11 @@ const App = () => {
                     minHeight={1000 / ASPECT}
                     lockAspectRatio={ASPECT}
 
-                    /* (A) 헤더만 드래그되게: */
                     dragHandleClassName="floating-tab-handle"
 
-                    /* (B) 드래그 시작/종료 시 드래그 상태 기록 */
                     onDragStart={() => setDraggingTabId(tab.idx)}
                     onDragStop={(e, d) => {
                         setDraggingTabId(null);
-                        // 좌표를 저장해야 한다면 여기서만 setState (지금은 필요없으면 생략)
                     }}
 
                     onResizeStop={(e, direction, ref, delta, position) => {
@@ -786,7 +781,6 @@ const App = () => {
                         setMaxZIndex(newZ);
                     }}
 
-                    /* (C) 드래그 중 가벼운 스타일로 */
                     style={{
                         zIndex: tab.zIndex || 2000,
                         position: 'absolute',
