@@ -37,11 +37,19 @@ $(async function() {
 });
 
 // 높이 측정 → CSS 변수 주입
-function refreshOffset(){
-    const total = $('#userInfoWrapper').outerHeight() + $('#menuTopWrapper').outerHeight();
+function refreshOffset() {
+    let total = 0;
+
+    // 기존 영역 높이
+    const userInfoH = $('#userInfoWrapper').outerHeight() || 0;
+    const menuTopH = $('#menuTopWrapper').outerHeight() || 0;
+
+    // Favorites 영역 높이 (id를 따로 주는 게 안전)
+    const favoritesH = $('#favoritesWrapper').outerHeight() || 0;
+    total = userInfoH + menuTopH + favoritesH ;
+
     $(':root').css('--dynamicOffset', total + 'px');
 }
-
 // 첫 로드 & 창 리사이즈 때 반영
 $(window).on('load resize', refreshOffset);
 
@@ -230,18 +238,6 @@ const App = () => {
         });
     };
 
-    const nodeTemplate = (node, options) => {
-        return (
-            <div 
-                className="tree-node-custom p-treenode-label" 
-                onClick={() => onToggleNode(node)} 
-                style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-            >
-                <span style={{ marginLeft: "2px" }}>{node.label}</span>
-            </div>
-        );
-    };
-
     /* 패스워드 변경 */
     const [passwordModalVisible, setPasswordModalVisible] = useState(false);
     const [currentPassword, setCurrentPassword] = useState("");
@@ -375,6 +371,114 @@ const App = () => {
         );
     };
 
+    const [favorites, setFavorites] = useState([]); // [{key, label, url}]
+    const storageKey = userInfo?.USER_ID ? `${userInfo.USER_ID}-favorites` : null;
+
+    const getNodeKey = (node) => node?.url || node?.key || node?.label;
+
+    const loadFavorites = () => {
+        if (!storageKey) return;
+        try {
+            const raw = localStorage.getItem(storageKey);
+            const arr = raw ? JSON.parse(raw) : [];
+            setFavorites(Array.isArray(arr) ? arr : []);
+        } catch {
+            setFavorites([]);
+        }
+    };
+
+    const saveFavorites = (next) => {
+        if (!storageKey) return;
+        localStorage.setItem(storageKey, JSON.stringify(next));
+    };
+
+    const isFavorite = (node) => {
+        const k = getNodeKey(node);
+        if (!k) return false;
+        return favorites.some(f => f.key === k);
+    };
+
+    const toggleFavorite = (node) => {
+        const k = getNodeKey(node);
+        if (!k) return;
+        setFavorites(prev => {
+            const exists = prev.some(f => f.key === k);
+            let next;
+            if (exists) {
+                next = prev.filter(f => f.key !== k);
+            } else {
+                next = [...prev, { key: k, label: node.label, url: node.url || '' }];
+            }
+            saveFavorites(next);
+            return next;
+        });
+    };
+
+    useEffect(() => {
+        if (storageKey) {
+            loadFavorites();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [storageKey]);
+
+    const nodeTemplate = (node, options) => {
+        const fav = isFavorite(node);
+
+        return (
+            <div 
+                className="tree-node-custom p-treenode-label" 
+                onClick={() => onToggleNode(node)} 
+                style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            >
+                {/* 노란별 (왼쪽) 
+                <i
+                    className={`pi ${fav ? 'pi-star-fill' : 'pi-star'}`}
+                    style={{ 
+                        marginRight: '6px', 
+                        fontSize: '1rem', 
+                        color: '#f59e0b',
+                        flex: '0 0 auto'
+                    }}
+                    title={fav ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+                    onClick={(e) => {
+                        e.stopPropagation(); // 라벨 클릭과 분리
+                        toggleFavorite(node);
+                    }}
+                />
+                */}
+                {/* 라벨 */}
+                <span style={{ marginLeft: "2px" }}>{node.label}</span>
+            </div>
+        );
+    };
+
+    useEffect(() => {
+        refreshOffset();
+    }, [favorites]);
+
+    const getTabKey = (tab) => tab?.url || tab?.idx || tab?.label;
+
+    // 현재 탭이 즐겨찾기인지
+    const isFavoriteTab = (tab) => favorites.some(f => f.key === getTabKey(tab));
+
+    // 탭에서 즐겨찾기 토글
+    const toggleFavoriteFromTab = (tab) => {
+        const key = getTabKey(tab);
+        const label = tab?.label || key;
+        const url = tab?.url || '';
+
+        setFavorites(prev => {
+            const exists = prev.some(f => f.key === key);
+            const next = exists
+            ? prev.filter(f => f.key !== key)
+            : [...prev, { key, label, url }];
+            saveFavorites(next);
+            return next;
+        });
+    };
+
+
+
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
             <Toast ref={toast} />
@@ -409,6 +513,7 @@ const App = () => {
                     padding: sidebarCollapsed ? "0px" : "5px",
                     borderRight: "1px solid #ddd",
                     overflowX: 'hidden',
+                    overflowY: 'auto',
                     //transition: 'width 0.1s ease'
                 }}
             >
@@ -501,9 +606,54 @@ const App = () => {
                         <span>WORKING MRPLIST…</span>
                     </div>
                 </div>
+                {favorites.length > 0 && (
+                    <div 
+                        id='favoritesWrapper' 
+                        style={{ 
+                            width: '100%', 
+                            padding: sidebarCollapsed ? '0' : '0' 
+                        }}
+                    >
+                        <div 
+                            style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'space-between',
+                                margin: '6px 0 4px 6px' 
+                            }}
+                        >
+                            <div style={{ fontWeight: 700, fontSize: '12px' }}>
+                                <span style={{ color: '#f59e0b' }}>★</span> Favorites
+                            </div>
+                            <Button
+                                icon="pi pi-trash"
+                                className="p-button-text p-button-plain p-button-sm"
+                                onClick={() => { 
+                                    setFavorites([]); 
+                                    saveFavorites([]); 
+                                }}
+                                style={{ fontSize: '1.5rem', height: '1.3rem', color: 'gray' }}
+                            />
+                        </div>
+
+                        <Tree
+                            value={
+                                favorites.map(f => ({
+                                    key: f.key,
+                                    label: f.label,
+                                    url: f.url,
+                                }))
+                            }
+                            style={{ width: "100%", marginBottom: '0px' }}
+                            nodeTemplate={nodeTemplate}
+                        />
+                    </div>
+                )}
+                
                 <Tree
+                    id='menuTree'
                     value={menuInfo}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", marginTop: '10px'}}
                     expandedKeys={expandedKeys}
                     onToggle={(e) => setExpandedKeys(e.value)}
                     nodeTemplate={nodeTemplate}
@@ -541,18 +691,21 @@ const App = () => {
                                     }}
                                     title={tab.url.split('#/')[1].split('?')[0]}
                                     >{tab.label}</span>
+
+                                    {/* ★ 즐겨찾기 토글 버튼 (닫기 버튼 바로 앞) */}
                                     <Button
-                                        icon="pi pi-times"
-                                        className="p-button-text p-button-sm p-ml-2"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            removeTab(index);
+                                        icon={isFavoriteTab(tab) ? 'pi pi-star-fill' : 'pi pi-star'}
+                                        className="p-button-text p-button-sm"
+                                        onClick={(e) => { e.stopPropagation(); toggleFavoriteFromTab(tab); }}
+                                        style={{ 
+                                        marginRight: '0.15rem',
+                                        // Button의 fontSize로 아이콘 크기가 안 바뀔 수 있어 기본 유지
+                                        color: isFavoriteTab(tab) ? '#f59e0b' : '#8a8a8a'
                                         }}
-                                        style={{ textAlign: 'right', marginRight: "0px", color: "red" }}
-                                        title='CLOSE TAB'
-                                        accessKey='x'
+                                        title={isFavoriteTab(tab) ? '즐겨찾기 해제' : '즐겨찾기 추가'}
                                     />
-                                    {
+                                    
+                                    
                                     <Button
                                         icon="pi pi-clone"
                                         className="p-button-text p-button-sm"
@@ -563,7 +716,18 @@ const App = () => {
                                         style={{ color: "green", marginLeft: "0px" }}
                                         title="Detach to floating"
                                     />
-                                    }
+                                    
+                                    <Button
+                                        icon="pi pi-times"
+                                        className="p-button-text p-button-sm p-ml-2"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            removeTab(index);
+                                        }}
+                                        style={{ textAlign: 'right', marginLeft: "0px", color: "red" }}
+                                        title='CLOSE TAB'
+                                        accessKey='x'
+                                    />
                                 </span>
                             }
                         >

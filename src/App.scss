@@ -190,9 +190,26 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 }
 
 .p-tree-container {
-    height: calc(95vh - var(--dynamicOffset, 0px));
     overflow:auto;
     background-color: rgb(248, 249, 250);
+}
+
+#menuTree .p-tree-container {
+    height: calc(95vh - var(--dynamicOffset, 0px));
+}
+
+#favoritesWrapper .p-treenode-content button {
+    display:none;
+}
+
+#favoritesWrapper .tree-node-custom {
+    margin-left:10px;
+}
+
+#favoritesWrapper .p-treenode span {
+    font-weight: normal;
+    font-size:11px !important;
+    color:#000397;
 }
 
 .sidebar {
@@ -315,4 +332,8 @@ iframe {
 
 .p-treenode {
     margin: 2px 0 2px 0 !important;
+}
+
+.p-button .p-button-icon.pi.pi-trash {
+    font-size: 1.2rem; /* 원하는 크기 */
 }
