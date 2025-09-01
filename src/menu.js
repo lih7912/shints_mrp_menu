@@ -53,7 +53,8 @@ const menu1 = [
             { key: '3-6', label: 'STSOUT List', url: 'S043101_STSOUT_LIST'},
             { key: '3-3', label: 'Deposit & L/C List', url: 'S0439_LC_DEPOSIT'},
             { key: '3-7', label: 'Bill Regist', url: 'S0419_ENDDING_MATL_AMT_DOMESTIC'},
-            { key: '3-8', label: 'Bill Manager', url: 'S0423_TAXBILL'}
+            { key: '3-8', label: 'Bill Manager', url: 'S0423_TAXBILL'},
+            { key: '3-9', label: 'Delay Report', url: 'S0450_DELAY_REPORT'}
         ]
     },
     {
@@ -63,7 +64,6 @@ const menu1 = [
             /* { key: '4-2', label: '수출등록(국내)', url: 'S0437_EXPORT_REGIST'}, */
             { key: '4-3', label: '수입등록(국내)', url: 'S0438_IMPORT_REGIST'},
             { key: '4-8', label: 'Garment Ship', url: 'S0513_SHIPPING_LIST'},
-            { key: '4-7', label: 'Delay Report', url: 'S0450_DELAY_REPORT'}
         ]
     },
     {
