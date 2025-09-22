@@ -79,8 +79,6 @@ function setShow(menu) {
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
     
-    console.log(userId);
-    
     if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr') {
         $('#btnAuth').css('display', 'block');
         $('#btnTrLog').css('display', 'block');
