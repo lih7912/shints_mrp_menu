@@ -38,7 +38,7 @@ async function getAuthInfo(window, apolloOption, userId) {
 function forceOpenCapa(userId, menuName) {
     let ret = false;
 
-    if (userId != 'kr' && userId != 'mt' && userId != 'sales1' && userId != 'sales2' && userId != 'sales3' && userId != 'sales4' && userId != 'sales5') {
+    if (userId != 'kr' && userId != 'mt' && userId != 'sales1' && userId != 'sales2' && userId != 'sales3' && userId != 'sales4' && userId != 'sales5' && userId != 'Rnd' && userId != 'wf') {
         ret = false;
     } else {
         if (menuName === 'Capa Record' || menuName === 'Capa List') {
@@ -88,6 +88,8 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
     let authInfoList = await getAuthInfo(window, apolloOption, userId);
     userInfoForAuth.authMenuList = authInfoList.afAuthPart;
     userInfoForAuth.authMenuListUser = authInfoList.afAuthUser;
+
+    console.log(userInfoForAuth);
    
     $('.p-treenode').on('click', () => {
         setTimeout( () => {
@@ -98,6 +100,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                 if (menuName !== 'INFO' && menuName !== 'ORDER' && menuName !== 'MRP' && menuName !== 'PURCHASE' && menuName !== 'EXPORT/IMPORT' && menuName !== 'FACTORY IN-OUT' && menuName !== 'COST' && menuName !== 'RECEIVABLES') {
                     for (let blindMenu of userInfoForAuth.authMenuList) {
                         if (blindMenu.MENU_NAME === menuName && !forceOpenCapa(userId, menuName) && !forceOpen(userId, menuName)) {
+                            console.log(menuName);
                             setBlind(menu, menuName);
                         }
                     }

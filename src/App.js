@@ -83,12 +83,12 @@ function showTestEnvLabel(window) {
 }
 
 function clearAllColumnOrders() {
-    const confirmMessage = '모든 Custom된 컬럼 순서정보를 삭제하시겠습니까?\nDo you want to delete all customized column settings?';
-    
+    const confirmMessage =
+        '현재 탭의 컬럼 순서정보만 삭제하시겠습니까?\nDo you want to delete column order only for the active tab?';
     if (window.confirm(confirmMessage)) {
         const iframe = document.getElementById('tabIframe');
         if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage({ type: 'CLEAR_AF_COLUMNS' }, '*');
+            iframe.contentWindow.postMessage({ type: 'CLEAR_AF_COLUMNS_ACTIVE' }, '*');
         } else {
             console.warn('iframe with id "tabIframe" not found.');
         }
