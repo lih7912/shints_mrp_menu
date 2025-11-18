@@ -79,7 +79,7 @@ function setShow(menu) {
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
     
-    if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr') {
+    if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr' || userId === 'brandon') {
         $('#btnAuth').css('display', 'block');
         $('#btnTrLog').css('display', 'block');
         return;
