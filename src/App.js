@@ -36,15 +36,12 @@ $(async function() {
     showTestEnvLabel(window);
 });
 
-// 높이 측정 → CSS 변수 주입
 function refreshOffset() {
     let total = 0;
 
-    // 기존 영역 높이
     const userInfoH = $('#userInfoWrapper').outerHeight() || 0;
     const menuTopH = $('#menuTopWrapper').outerHeight() || 0;
 
-    // Favorites 영역 높이 (id를 따로 주는 게 안전)
     const favoritesH = $('#favoritesWrapper').outerHeight() || 0;
     total = userInfoH + menuTopH + favoritesH + 25;
 
@@ -53,15 +50,11 @@ function refreshOffset() {
     }, 100);
     
 }
-// 첫 로드 & 창 리사이즈 때 반영
 $(window).on('load resize', refreshOffset);
 
-// 최초 한 번 실행
 refreshOffset();
 
-// 메시지를 수신하는 이벤트 리스너
 window.addEventListener('message', function(event) {
-    // 보낸 iframe의 출처(origin)을 확인
     if (event.origin === `https://${window.location.hostname}:3201`) {
         if (event.data === 'focusParent') {
             window.focus(); // 부모 프레임에 포커스
@@ -85,7 +78,7 @@ function showTestEnvLabel(window) {
 function clearAllColumnOrders() {
     const confirmMessage =
         '현재 탭의 컬럼 순서정보만 삭제하시겠습니까?\nDo you want to delete column order only for the active tab?';
-    if (window.confirm(confirmMessage)) {
+    if (confirm(confirmMessage)) {
         const iframe = document.getElementById('tabIframe');
         if (iframe && iframe.contentWindow) {
             iframe.contentWindow.postMessage({ type: 'CLEAR_AF_COLUMNS_ACTIVE' }, '*');

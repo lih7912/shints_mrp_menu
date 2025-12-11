@@ -81,6 +81,7 @@ const menu1 = [
             { key: '5-10', label: 'Pending Shipment', url: 'S0531_PENDDING_SHIPMENT' },
             { key: '5-11', label: 'Stock Record', url: 'S0521_STOCK_RECORD_NEW' },
             { key: '5-12', label: 'Stock Manager', url: 'S0523_STOCK_MANAGER' },
+            { key: '5-14', label: 'Fac In/Out Manager', url: 'S0914_FAC_IN_OUT_MANAGER' },
         ]
     },
     {
