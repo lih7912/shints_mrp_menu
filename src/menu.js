@@ -1,6 +1,7 @@
 const menu1 = [
     {
         key: '0', label: 'INFO', url: '',
+        icon: 'pi pi-info-circle',
         children: [
             { key: '0-1', label: 'Bank', url: 'S0110_KCD_BANK_QRY', children: [] },
             { key: '0-2', label: 'User', url: 'S0111_KCD_USER', children: []},
@@ -18,6 +19,7 @@ const menu1 = [
     },
     {
         key: '1', label: 'ORDER', url: '', 
+        icon: 'pi pi-shopping-cart',
         children: [
             { key: '1-1', label: 'Style Regist', url: 'S0200_KCD_STYLE' },
             { key: '1-2', label: 'Style Price', url: 'S0202_STYLE_COST' },
@@ -36,6 +38,7 @@ const menu1 = [
     },
     {
         key: '2', label: 'MRP', url: '',
+        icon: 'pi pi-cog',
         children: [
             { key: '2-1', label: 'Material Record', url: 'S0301_MATL_RECORD' },
             { key: '2-2', label: 'Material Search', url: 'S0302_MATL_SEARCH'},
@@ -46,6 +49,7 @@ const menu1 = [
     },
     {
         key: '3', label: 'PURCHASE', url: '',
+        icon: 'pi pi-box',
         children: [
             { key: '3-1', label: 'Purchase Manager', url: 'S0401_PURCHASING_MANAGER' },
             { key: '3-2', label: 'Purchase Reg', url: 'S040101_PURCHASER_REG' },
@@ -59,6 +63,7 @@ const menu1 = [
     },
     {
         key: '4', label: 'EXPORT/IMPORT', url: '',
+        icon: 'pi pi-send',
         children: [
             { key: '4-1', label: 'Shipment Manager', url: 'S0434_SHIPMENT_MANAGER' },
             /* { key: '4-2', label: '수출등록(국내)', url: 'S0437_EXPORT_REGIST'}, */
@@ -68,6 +73,7 @@ const menu1 = [
     },
     {
         key: '5', label: 'FACTORY IN-OUT', url: '',
+        icon: 'pi pi-building',
         children: [
             { key: '5-2', label: 'Clearance_Arrival(BVT)', url: 'S0518_FACTORY_ARRIVAL?FACTORY=BVT' },
             { key: '5-17', label: 'Clearance_Arrival(ETP)', url: 'S0518_FACTORY_ARRIVAL?FACTORY=ETP' },
@@ -86,6 +92,7 @@ const menu1 = [
     },
     {
         key: '6', label: 'COST', url: '',
+        icon: 'pi pi-dollar',
         children: [
             { key: '6-1', label: 'Cost Confirmation', url: 'S0610_COST_CONFIRM' },
             { key: '6-2', label: 'CMPT Payment', url: 'S0705_CMPT_PAYMENT' },
@@ -100,6 +107,7 @@ const menu1 = [
     },
     {
         key: '7', label: 'RECEIVABLES', url: '',
+        icon: 'pi pi-wallet',
         children: [
             { key: '7-2', label: '매출등록(국내)', url: 'S0801_DOCU_REGIST_DOMESTIC' },
             { key: '7-3', label: 'Invoice Record(Foreign)', url: 'S0802_DOCU_REGIST_OVERSEA' },

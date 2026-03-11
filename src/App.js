@@ -17,6 +17,7 @@ import { getMrpWorkingStatus } from './getMrpWorkingStatus';
 import { changePassword, getPassword } from './changePassword';
 import apolloOption from './assets/env_graphql';
 import axios from 'axios';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const menu1 = require('./menu').menu1;
 const menu3 = require('./menu').menu3;
@@ -24,7 +25,6 @@ const menu3 = require('./menu').menu3;
 import $ from 'jquery';
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
 import './assets/layout/layout.scss';
 import './App.scss';
 
@@ -380,15 +380,14 @@ const App = () => {
     }, [storageKey]);
 
     const nodeTemplate = (node, options) => {
-        const fav = isFavorite(node);
-
         return (
             <div 
-                className="tree-node-custom p-treenode-label" 
-                onClick={() => onToggleNode(node)} 
-                style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+                className="tree-node-custom"
+                onClick={() => onToggleNode(node)}
+                style={{ display: "flex", alignItems: "center", cursor: "pointer", gap:'6px' }}
             >
-                <span style={{ marginLeft: "2px" }}>{node.label}</span>
+                {node.icon && <i className={node.icon} />}
+                <span>{node.label}</span>
             </div>
         );
     };
@@ -418,7 +417,7 @@ const App = () => {
         });
     };
 
-    const [draggingTabId, setDraggingTabId] = useState(null);
+    const [sidebarPinned, setSidebarPinned] = useState(false);
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
@@ -431,34 +430,10 @@ const App = () => {
                     zIndex: 2000             // 다른 요소보다 위에
                 }}
             >
-                <Button 
-                    icon={sidebarCollapsed ? 'pi pi-chevron-right' : 'pi pi-chevron-left'} 
-                    className="p-button-rounded p-button-primary"
-                    onClick={() => setSidebarCollapsed(prev => !prev)} 
-                    title={sidebarCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
-                    style={{
-                        width: '2rem',
-                        height: '2rem',
-                        fontSize: '1.8rem',
-                        backgroundColor: '#6366F1',
-                        opacity: sidebarCollapsed ? '0.5' : '1.0'
-                    }}
-                />
             </div>
-            <div 
-                className="sidebar"
-                style={{
-                    width: sidebarCollapsed ? "0px" : "160px",
-                    minWidth: sidebarCollapsed ? "0px" : "160px",
-                    background: "#f8f9fa",
-                    padding: sidebarCollapsed ? "0px" : "5px",
-                    borderRight: "1px solid #ddd",
-                    overflowX: 'hidden',
-                    //transition: 'width 0.1s ease'
-                }}
-            >
-                <div>
-                  <div id="userInfoWrapper" style={{ marginTop: '0.3rem', width: '100%', height: '4rem', marginBottom: '0rem', display:'flex', flexDirection:'column',  }}>
+            <div className={`sidebar ${sidebarPinned ? "pinned" : ""}`}>
+                <div className="sidebar-content">
+                  <div id="userInfoWrapper">
                     <div style={{ marginTop: '0rem', width: '90%', height: '4rem', border:' 1px solid #cdcdcd', borderRadius: '5px', margin:'0 10px 0 5px', padding:'3px', backgroundColor: '#ebebeb'}}>
                         <span style={{ width: '100%' }}>
                             <p className="p-text-secondary" style={{ width: '100%', fontSize:'11px', fontWeight: '500', display: 'inline-block', textAlign:'center' }}>{userInfo.USER_ID}</p>
@@ -524,7 +499,6 @@ const App = () => {
                         </div>
 
                     </div>
-                    
                 </div>
                 <div id='menuTopWrapper' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '35px' }}>
                     <button style={{ marginBottom: '0.5rem', width: '90%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>
@@ -598,6 +572,14 @@ const App = () => {
                     onToggle={(e) => setExpandedKeys(e.value)}
                     nodeTemplate={nodeTemplate}
                 />
+                </div>
+
+                <div
+                    className={`sidebar-pin ${sidebarPinned ? "pinned" : "unpinned"}`}
+                    onClick={() => setSidebarPinned(prev => !prev)}
+                    title={sidebarPinned ? "Unpin sidebar" : "Pin sidebar"}
+                >
+                    <i className="fas fa-thumbtack" />
                 </div>
             </div>
 

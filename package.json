@@ -10,6 +10,7 @@
     "license": "MIT",
     "dependencies": {
         "@apollo/client": "^3.6.9",
+        "@fortawesome/fontawesome-free": "^7.2.0",
         "@fullcalendar/core": "^5.7.2",
         "@fullcalendar/daygrid": "^5.7.2",
         "@fullcalendar/interaction": "^5.7.2",
