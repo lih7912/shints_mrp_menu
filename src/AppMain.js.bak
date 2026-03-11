@@ -162,42 +162,8 @@ const AppMain = () => {
     const ref_iframe19 = useRef(null);
     const ref_iframe20 = useRef(null);
 
-
-
     const [selectedKey, setSelectedKey] = useState('');
-
-    // const [styleVal, setStyleVal] = useState({ width: '65vw' });
-    // const [styleVal, setStyleVal] = useState({ position: 'fixed', marginLeft: '18rem' });
     const [styleVal, setStyleVal] = useState({ marginLeft: '18rem' });
-    const onCall = (e) => {
-        const rVal = {};
-        rVal.marginLeft = '0.5rem';
-        setStyleVal(rVal);
-        console.log(e);
-    }
-
-    const reloadTab = (argIdx) => {
-        // ref_iframe1.reload();
-        if (typeof ref_iframe1.current !== 'undefined') {
-           if (ref_iframe1.current !== null) { 
-              console.log('reload tab');
-              // console.log(ref_iframe1.current.src);
-              // ref_iframe1.current.src += '';
-              // ref_iframe1.current.contentWindow.location.reload();
-              var tSrc = ref_iframe1.current.src;
-              ref_iframe1.current.src = '';
-              ref_iframe1.current.src = tSrc;
-           }
-        }
-        // ref_iframe1.src += '';
-    } 
-
-    const findCloseTab = (argIdx) => {
-        let _tabDatas0 =  JSON.parse(localStorage.getItem('tabinfo1'));
-        let _tOnes = _tabDatas0.filter((el) => el.idx === argIdx);
-        let _tOne = _tOnes[0];
-        return (_tOne);
-    }
 
     const unprocTabDatas = (argIdx) => {
 
@@ -278,68 +244,20 @@ const AppMain = () => {
       localStorage.setItem('tabinfo', JSON.stringify(_tArray, null, 4));
     }
 
-    const [usedIndex, setUsedIndex] = useState([]);
-    const [unUsedIndex, setUnUsedIndex] = useState(Array.from({ length: 20 }, (_, i) => (
-        {  
-           idx: i 
-        }
-    )));
-
-
-    const getTabViews_0 = (tab) => {
-       // let _url1 = "http://localhost:3201/#/" + tab.url1;
-       // let _url1 = `${process.env.APP_URL}` + tab.url1;
-
-       // let _url1 = "http://localhost:3288/webapp/mrpapp/index.html#/" + tab.url1;
-       let _url1 = "https://localhost:3101/#/" + tab.url1;
-       return (
-          <TabPanel key={tab.title} header={tab.content} closable >
-            <Iframe url={_url1}
-                    width="100%"
-                    height="850px"
-                    id="{tab.title}"
-                    className="myClassname"
-                    display="block"
-                    styles={{border: 0}}
-                    position="relative"/>
-           </TabPanel>
-       )
-    } 
-
-    const getTabViews_1 = (tab) => {
-       var _path = "/" + tab.url1;
-       var _component  = null;
-       if (tab.url1 === "mgrkcdbank") _component = MgrKcdBank;
-       if (tab.url1 === "mgrkcduser") _component = MgrKcdUser;
-       if (tab.url1 === "mgrkcdsizemst") _component = MgrKcdSizeMst;
-           
-       return (
-          <TabPanel key={tab.title} header={tab.content} closable >
-               <Route path={_path} component={_component} />
-          </TabPanel>
-       )
-    } 
-
     useEffect(() => {
-        // document.documentElement.style.fontSize = '14.5px';
-        document.documentElement.style.fontSize = '10.9px';
+        const handleF5 = (e) => {
+          if (e.key === "F5" || e.keyCode === 116) {
+                  e.preventDefault();
 
-        var tUserInfo = window.localStorage.getItem('AF_ERP_USERINFO');
-        console.log("USER_INFO=>" + tUserInfo);
-/*
-        function handleKeyDown(e) {
-           if (!ref.current || ref.current.contains(event.target)) {
-               return;
-           }
-           console.log("click =>" e);
-           onKeyDown(e);
-        }
-        document.addEventListener("keydown", handleKeyDown);
-        return function cleanup() {
-            document.removeEventListener("keydown", handleKeyDown);
+                  reloadActiveIframe();
+              }
+          };
+
+          window.addEventListener("keydown", handleF5);
+
+          return () => {
+              window.removeEventListener("keydown", handleF5);
         };
-*/
-
     }, []);
 
     useEffect(() => {
@@ -355,29 +273,6 @@ const AppMain = () => {
     useEffect(() => {
         copyTooltipRef && copyTooltipRef.current && copyTooltipRef.current.updateTargetEvents();
     }, [location]);
-
-    const onInputStyleChange = (inputStyle) => {
-        console.log("onInputStyleChange");
-        console.log(inputStyle);
-        setInputStyle(inputStyle);
-    }
-
-    const onRipple = (e) => {
-        console.log("onRipple");
-        console.log(e);
-        PrimeReact.ripple = e.value;
-        setRipple(e.value)
-    }
-
-    const onLayoutModeChange = (mode) => {
-        console.log("onLayoutModeChange");
-        setLayoutMode(mode)
-    }
-
-    const onColorModeChange = (mode) => {
-        console.log("onColorModeChange");
-        setLayoutColorMode(mode)
-    }
 
     const onWrapperClick = (event) => {
         if (!menuClick) {
@@ -418,19 +313,6 @@ const AppMain = () => {
 
     const onSidebarClick = () => {
         menuClick = true;
-    }
-
-    const onMobileTopbarMenuClick = (event) => {
-        mobileTopbarMenuClick = true;
-
-        setMobileTopbarMenuActive((prevState) => !prevState);
-        event.preventDefault();
-    }
-
-    const onMobileSubTopbarMenuClick = (event) => {
-        mobileTopbarMenuClick = true;
-
-        event.preventDefault();
     }
 
     const procUnVisible = (idx) => {
@@ -731,12 +613,7 @@ const AppMain = () => {
         return (_tObj);
     }
 
-/*
-    const onMenuItemClick = (event) => {
-*/
     const onMenuItemClick = (argValue) => {
-        // console.log(event);
-
         var tFindObj = {};
         menu1.forEach((col, i) => {
             var tObj = { ...col };
@@ -767,9 +644,6 @@ const AppMain = () => {
         var _retObj = procTabDatas(_retObj0.idx, item.url1, item.label);
 
         procUnVisible(saveIndex2);
-        // let _url1 = `${process.env.APP_URL}` + item.url1;
-
-        // let _url1 = "http://localhost:3288/webapp/mrpapp/index.html#/" + item.url1;
         let _url1 = "http://localhost:3201/#/" + item.url1;
         procVisible(_retObj.idx, _url1, item.label);
 
@@ -800,10 +674,6 @@ const AppMain = () => {
         console.log(_tabDatas1);
         return (_tabDatas1[_tabDatas1.length-1]);
 
-    }
-
-    const onClickClose = (event) => {
-        console.log("onClickClose:tabDatas=>" + tabDatas.length);
     }
 
     const onTabChange1 = (event) => {
@@ -859,277 +729,6 @@ const AppMain = () => {
     const isDesktop = () => {
         return window.innerWidth >= 992;
     }
-
-    const menu = [
-        {
-            label: '기초정보관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: '은행계좌관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0110_KCD_BANK_QRY' },
-                { label: '사용자관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0111_KCD_USER' },
-                { label: '사이즈관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0107_KCD_SIZEMST'},
-                { label: '바이어관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0113_KCD_BUYER'},
-                { label: '공급사관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0114_KCD_SUPPLIER'},
-                { label: '공장관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0101_KCD_FACTORY'},
-                { label: 'Forwarder관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0108_KCD_PLACE'},
-                { label: 'HS_CODE관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0105_KCD_HSCODE'},
-                { label: 'Currency관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0112_KCD_CURRENCY'},
-                { label: '원가적용환율관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0218_EXCHANGE_RATE_RECORD'},
-                { label: '국가관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0104_KCD_NATION'},
-                { label: '(*)로스관리', icon: 'pi pi-fw pi-user-edit', url1: ''},
-            ]
-        },
-        {
-            label: '오더관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: '스타일관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0200_KCD_STYLE' },
-                { label: 'Style Cost', icon: 'pi pi-fw pi-user-edit', url1: 'S0202_STYLE_COST' },
-                { label: 'Sample Cost', icon: 'pi pi-fw pi-user-edit', url1: 'S0203_SAMPLE_COST' },
-                { label: 'Order관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0204_ORDER_LIST'},
-                { label: 'Order등록', icon: 'pi pi-fw pi-user-edit', url1: 'S020602_ORDER_REG'},
-                { label: 'PO관리', icon: 'pi pi-fw pi-user-edit', url1: 'S020701_PO_MANAGER'},
-                { label: 'PI관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0205_PI_MANAGER'},
-                { label: 'Capa 관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0208_CAPABOOK_RECORD_BVT'},
-                { label: 'Capa 조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0209_CAPABOOK_LIST_BVT'},
-                { label: 'Nego CMPT', icon: 'pi pi-fw pi-user-edit', url1: 'S0212_NEGO_CMPT'},
-                { label: '손익현황', icon: 'pi pi-fw pi-user-edit', url1: 'S0213_ORDER_REPORT'},
-                { label: 'Order Status', icon: 'pi pi-fw pi-user-edit', url1: 'S0214_ORDER_STATUS_BEFORE_AFTER_CHECK'},
-                { label: 'Over/Shortage', icon: 'pi pi-fw pi-user-edit', url1: 'S0215_ORDER_STATUS_SHORTAGE'},
-                { label: 'Sale Matl Plan관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0216_SALES_MATL_PLAN_QRY'},
-                { label: 'Sale Matl Plan조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0217_SALES_MATL_PLAN_LIST'}
-            ]
-        },
-        {
-            label: 'MRP관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: '자재등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0301_MATL_RECORD' },
-                { label: '자재조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0302_MATL_SEARCH'},
-                { label: 'MRP Record Style', icon: 'pi pi-fw pi-user-edit', url1: 'S0303_MRP_RECORD_STYLE'},
-                { label: 'MRP Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S0305_MRP_MANAGER'},
-                { label: 'MRP Record(Order)', icon: 'pi pi-fw pi-user-edit', url1: 'S0306_MRP_BY_ORDER'}
-            ]
-        },
-        {
-            label: '구매관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: 'Purchase관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0401_PURCHASING_MANAGER' },
-                { label: '입고등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0430_STSIN_RECORD'},
-                { label: '입고등록(LC)', icon: 'pi pi-fw pi-user-edit', url1: 'S0407_STSI N_DEPOSIT_LC'},
-                { label: '입고관리', icon: 'pi pi-fw pi-user-edit', url1: 'S043001_STSIN_LIST'},
-                { label: '출고등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0431_STSOUT_RECORD'},
-                { label: '출고관리', icon: 'pi pi-fw pi-user-edit', url1: 'S043101_STSOUT_LIST'},
-                { label: 'Bill Regist', icon: 'pi pi-fw pi-user-edit', url1: 'S0419_ENDDING_MATL_AMT_DOMESTIC'},
-                { label: 'Bill Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S0423_TAXBILL'}
-            ]
-        },
-        {
-            label: '수출입관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: 'Shippment관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0434_SHIPMENT_MANAGER' },
-                { label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit', url1: 'S0413_INVOICE_REG_MATL'},
-                { label: '수입등록(국내)', icon: 'pi pi-fw pi-user-edit', url1: 'S0604_IMPORT_CHARGE_RECORD'},
-                { label: '수입등록(국내)조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0605_IMPORT_CHARGE_LIST'},
-                { label: '수입등록(해외)', icon: 'pi pi-fw pi-user-edit', url1: 'S0601_INVOICE_REG_OVERSEA'},
-                { label: 'Invoice조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0414_INVOICE_QRY_MATL'},
-                { label: 'Delay Report', icon: 'pi pi-fw pi-user-edit', url1: 'S0416_MATL_DELAY_REPORT'}
-            ]
-        },
-        {
-            label: '공장입출고관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: '관리메인', icon: 'pi pi-fw pi-user-edit', url1: 'S0501_FACTORY_IO_MAIN' },
-                { label: 'Clearance_Arrival', icon: 'pi pi-fw pi-user-edit', url1: 'S0518_FACTORY_ARRIVAL' },
-                { label: 'Inspection Report', icon: 'pi pi-fw pi-user-edit', url1: 'S0519_INSPECT_REPORT' },
-                { label: 'FAC-IN조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0504_FACTORY_INPUT_LIST' },
-                { label: '재고확인', icon: 'pi pi-fw pi-user-edit', url1: 'S0516_STOCK_USE_CONFIRM' },
-                { label: 'Fac-Out등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0507_FACTORY_OUTPUT_RECORD' },
-                { label: 'Fac-Out조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0506_FACTORY_OUTPUT_LIST' },
-                { label: '생산종료', icon: 'pi pi-fw pi-user-edit', url1: 'S0508_PRODUCTION_COMPLETE' },
-                { label: '반납등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0509_RETURN_MATL' },
-                { label: '(*)Pendding Shipment', icon: 'pi pi-fw pi-user-edit', url1: '' },
-                { label: '자재재고등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0511_STOCK_RECORD' },
-                { label: '자재재고관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0512_STOCK_LIST' },
-                { label: 'Stock I/O History', icon: 'pi pi-fw pi-user-edit', url1: 'S0517_STOCK_HISTORY'},
-                { label: '선적등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0513_SHIPPING_REGIST_BVT'},
-                { label: '선적관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0514_SHIPPING_LIST_BVT_OLD'}
-            ]
-        },
-        {
-            label: '지출관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: '(*)Cost Confirm', icon: 'pi pi-fw pi-user-edit', url1: '' },
-                { label: 'CMPT Payment', icon: 'pi pi-fw pi-user-edit', url1: 'S0705_CMPT_PAYMENT' },
-                { label: 'Credit Note', icon: 'pi pi-fw pi-user-edit', url1: 'S0701_CREDIT_NOTE'},
-                { label: 'Debit Note', icon: 'pi pi-fw pi-user-edit', url1: 'S0702_DEBIT_NOTE'},
-                { label: 'Debit Note(F)', icon: 'pi pi-fw pi-user-edit', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
-                { label: '(*)수입자재미지급조회', icon: 'pi pi-fw pi-user-edit', url1: ''},
-                { label: '자재금액결제', icon: 'pi pi-fw pi-user-edit', url1: 'S0704_PAYMENT_MATL_AMT'},
-                { label: '수입업체결제', icon: 'pi pi-fw pi-user-edit', url1: 'S0706_PAYMENT_IMPORT_VENDOR'}
-            ]
-        },
-        {
-            label: '매출관리', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: '관세환급관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0609_MANAGE_RETURN_TAX' },
-                { label: '매출등록(국내)', icon: 'pi pi-fw pi-user-edit', url1: 'S0413_INVOICE_REG_MATL' },
-                { label: '매출등록(해외)', icon: 'pi pi-fw pi-user-edit', url1: 'S0606_IMPORT_REG' },
-                { label: 'Invoice조회(제품)', icon: 'pi pi-fw pi-user-edit', url1: 'S0603_INVOICE_LIST'},
-                { label: 'Nego입금등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0607_NEGO'},
-                { label: 'Nego입금관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0608_NEGO_LIST'},
-                { label: 'TT입금관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0707_MAN_INVOICE'},
-                { label: '바이어별입금관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0708_MANAGE_BUYER_INPUT'},
-                { label: '매출채권조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0709_MANAGE_INVOICE_AMT'},
-                { label: '오더수불부', icon: 'pi pi-fw pi-user-edit', url1: 'S0710_ORDER_EXPORT_REPORT'}
-            ]
-        }
-    ];
-
-/*
-{
-    key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
-},
-
-*/
-
-    const menu1 = [
-        {
-            key: '0', label: 'Base Info Manage', url1: '', icon: 'pi pi-fw pi-clone',
-            children: [
-                { key: '0-1', label: 'Bank', icon: 'pi pi-fw pi-user-edit', url1: 'S0110_KCD_BANK_QRY', children: [] },
-                { key: '0-3', label: 'Size', icon: 'pi pi-fw pi-user-edit', url1: 'S0107_KCD_SIZEMST', children: []},
-                { key: '0-4', label: 'Buyer', icon: 'pi pi-fw pi-user-edit', url1: 'S0113_KCD_BUYER', children: []},
-                { key: '0-5', label: 'Suuplier', icon: 'pi pi-fw pi-user-edit', url1: 'S0114_KCD_SUPPLIER', children: []},
-                { key: '0-6', label: 'Factory', icon: 'pi pi-fw pi-user-edit', url1: 'S0101_KCD_FACTORY', children: []},
-                { key: '0-7', label: 'Forwarder', icon: 'pi pi-fw pi-user-edit', url1: 'S0108_KCD_PLACE', children: []},
-                { key: '0-8', label: 'HS_CODE', icon: 'pi pi-fw pi-user-edit', url1: 'S0105_KCD_HSCODE', children: []},
-                { key: '0-9', label: 'Currency', icon: 'pi pi-fw pi-user-edit', url1: 'S0112_KCD_CURRENCY', children: []},
-                { key: '0-10', label: 'Currency for Price', icon: 'pi pi-fw pi-user-edit', url1: 'S0218_EXCHANGE_RATE_RECORD', children: []},
-                { key: '0-11', label: 'Country', icon: 'pi pi-fw pi-user-edit', url1: 'S0104_KCD_NATION', children: []},
-                { key: '0-12', label: 'Loss', icon: 'pi pi-fw pi-user-edit', url1: '', children: []},
-            ]
-        },
-        {
-            key: '1', label: 'Order Manage', url1: '',  icon: 'pi pi-fw pi-clone',
-            children: [
-                { key: '1-1', label: 'Style Regist', icon: 'pi pi-fw pi-user-edit', url1: 'S0200_KCD_STYLE' },
-                { key: '1-2', label: 'Style Cost', icon: 'pi pi-fw pi-user-edit', url1: 'S0202_STYLE_COST' },
-                { key: '1-3', label: 'Sample Cost', icon: 'pi pi-fw pi-user-edit', url1: 'S0203_SAMPLE_COST' },
-                { key: '1-4', label: 'Order Manger', icon: 'pi pi-fw pi-user-edit', url1: 'S0204_ORDER_LIST'},
-                { key: '1-19', label: 'Order Regist', icon: 'pi pi-fw pi-user-edit', url1: 'S020602_ORDER_REG'},
-                { key: '1-6', label: 'PO Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S020701_PO_MANAGER'},
-                { key: '1-8', label: 'PI Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S0205_PI_MANAGER'},
-                { key: '1-9', label: 'Capa Record', icon: 'pi pi-fw pi-user-edit', url1: 'S0208_CAPABOOK_RECORD_BVT'},
-                { key: '1-10', label: 'Capa List', icon: 'pi pi-fw pi-user-edit', url1: 'S0209_CAPABOOK_LIST_BVT'},
-                { key: '1-13', label: 'CMPT Confirmation', icon: 'pi pi-fw pi-user-edit', url1: 'S0212_NEGO_CMPT'},
-                { key: '1-14', label: '손익현황', icon: 'pi pi-fw pi-user-edit', url1: 'S0213_ORDER_REPORT'},
-                { key: '1-15', label: 'Order Status', icon: 'pi pi-fw pi-user-edit', url1: 'S0214_ORDER_STATUS_BEFORE_AFTER_CHECK'},
-                { key: '1-16', label: 'Over/Shortage', icon: 'pi pi-fw pi-user-edit', url1: 'S0215_ORDER_STATUS_SHORTAGE'},
-                { key: '1-17', label: 'Sale Matl Plan(Record)', icon: 'pi pi-fw pi-user-edit', url1: 'S0216_SALES_MATL_PLAN_QRY'},
-                { key: '1-18', label: 'Sale Matl Plan(List)', icon: 'pi pi-fw pi-user-edit', url1: 'S0217_SALES_MATL_PLAN_LIST'}
-            ]
-        },
-        {
-            key: '2', label: 'MRP Manage', icon: 'pi pi-fw pi-clone', url1: '',
-            children: [
-                { key: '2-1', label: 'Material Record', icon: 'pi pi-fw pi-user-edit', url1: 'S0301_MATL_RECORD' },
-                { key: '2-2', label: 'Material Search', icon: 'pi pi-fw pi-user-edit', url1: 'S0302_MATL_SEARCH'},
-                { key: '2-3', label: 'MRP Record(Style)', icon: 'pi pi-fw pi-user-edit', url1: 'S0303_MRP_RECORD_STYLE'},
-                { key: '2-4', label: 'MRP Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S0305_MRP_MANAGER'},
-                { key: '2-5', label: 'MRP Record(Order)', icon: 'pi pi-fw pi-user-edit', url1: 'S0306_MRP_BY_ORDER'}
-            ]
-        },
-        {
-            key: '3', label: 'Purchase Manage', icon: 'pi pi-fw pi-clone', url1: '',
-            children: [
-                { key: '3-1', label: 'Purchase Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S0401_PURCHASING_MANAGER' },
-                { key: '3-2', label: 'STSIN Record', icon: 'pi pi-fw pi-user-edit', url1: 'S0430_STSIN_RECORD'},
-                { key: '3-4', label: 'STSIN List', icon: 'pi pi-fw pi-user-edit', url1: 'S043001_STSIN_LIST'},
-                { key: '3-5', label: 'STSOUT Record', icon: 'pi pi-fw pi-user-edit', url1: 'S0431_STSOUT_RECORD'},
-                { key: '3-6', label: 'STSOUT List', icon: 'pi pi-fw pi-user-edit', url1: 'S043101_STSOUT_LIST'},
-                { key: '3-3', label: 'LC & Deposit', icon: 'pi pi-fw pi-user-edit', url1: 'S0439_LC_DEPOSIT'},
-                { key: '3-7', label: 'Bill Regist', icon: 'pi pi-fw pi-user-edit', url1: 'S0419_ENDDING_MATL_AMT_DOMESTIC'},
-                { key: '3-8', label: 'Bill Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S0423_TAXBILL'}
-            ]
-        },
-        {
-            key: '4', label: 'Import/Export', icon: 'pi pi-fw pi-clone', url1: '',
-            children: [
-                { key: '4-1', label: 'Shippment Manager', icon: 'pi pi-fw pi-user-edit', url1: 'S0434_SHIPMENT_MANAGER' },
-                { key: '4-2', label: '수출등록(국내)', icon: 'pi pi-fw pi-user-edit', url1: 'S0437_EXPORT_REGIST'},
-                { key: '4-3', label: '수입등록(국내)', icon: 'pi pi-fw pi-user-edit', url1: 'S0438_IMPORT_REGIST'},
-                { key: '4-8', label: 'Garment Ship', icon: 'pi pi-fw pi-user-edit', url1: 'S0513_SHIPPING_LIST'},
-                { key: '4-6', label: 'Garment Invoice List(#)', icon: 'pi pi-fw pi-user-edit', url1: '#'},
-                { key: '4-7', label: 'Delay Report(#)', icon: 'pi pi-fw pi-user-edit', url1: '#'}
-            ]
-        },
-        {
-            key: '5', label: 'Factory In/Out', icon: 'pi pi-fw pi-clone',url1: '',
-            children: [
-                { key: '5-1', label: '관리메인(#)', icon: 'pi pi-fw pi-user-edit', url1: '#' },
-                { key: '5-2', label: 'Clearance_Arrival(BVT)', icon: 'pi pi-fw pi-user-edit', url1: 'S0518_FACTORY_ARRIVAL' },
-                { key: '5-16', label: 'Clearance_Arrival(ETP)', icon: 'pi pi-fw pi-user-edit', url1: 'S051801_FACTORY_ARRIVAL_ETP' },
-                { key: '5-3', label: 'Inspection Report', icon: 'pi pi-fw pi-user-edit', url1: 'S0519_INSPECT_REPORT' },
-                { key: '5-4', label: 'FAC-IN List', icon: 'pi pi-fw pi-user-edit', url1: 'S051901_FACIN_LIST' },
-                { key: '5-5', label: 'Stock Check', icon: 'pi pi-fw pi-user-edit', url1: 'S0516_STOCK_USE_CONFIRM' },
-                { key: '5-6', label: 'Fac-Out Record', icon: 'pi pi-fw pi-user-edit', url1: 'S0520_FACOUT_RECORD' },
-                { key: '5-7', label: 'Fac-Out List', icon: 'pi pi-fw pi-user-edit', url1: 'S052001_FACOUT_LIST' },
-                { key: '5-8', label: 'Production Finish', icon: 'pi pi-fw pi-user-edit', url1: 'S0508_CAPABOOK_LIST_BVT' },
-                { key: '5-9', label: 'Return Matl', icon: 'pi pi-fw pi-user-edit', url1: 'S0509_RETURN_MATL' },
-                { key: '5-10', label: 'Pendding Shipment(#)', icon: 'pi pi-fw pi-user-edit', url1: '' },
-                { key: '5-11', label: 'Stock Record', icon: 'pi pi-fw pi-user-edit', url1: 'S0521_STOCK_RECORD_NEW' },
-                { key: '5-16', label: 'Stock List', icon: 'pi pi-fw pi-user-edit', url1: 'S0522_STOCK_LIST' },
-                { key: '5-12', label: 'Stock Manager(#)', icon: 'pi pi-fw pi-user-edit', url1: 'S0512_STOCK_LIST' },
-                { key: '5-13', label: 'Stock I/O History', icon: 'pi pi-fw pi-user-edit', url1: 'S0517_STOCK_HISTORY'},
-            ]
-        },
-        {
-            key: '6', label: '지출관리', icon: 'pi pi-fw pi-clone',url1: '',
-            children: [
-                { key: '6-1', label: 'Cost Confirmation', icon: 'pi pi-fw pi-user-edit', url1: 'S0610_COST_CONFIRM' },
-                { key: '6-2', label: 'CMPT Payment', icon: 'pi pi-fw pi-user-edit', url1: 'S0705_CMPT_PAYMENT' },
-                { key: '6-3', label: 'Credit Note', icon: 'pi pi-fw pi-user-edit', url1: 'S0701_CREDIT_NOTE'},
-                { key: '6-4', label: 'Debit Note', icon: 'pi pi-fw pi-user-edit', url1: 'S0702_DEBIT_NOTE'},
-                { key: '6-5', label: 'Debit Note(F)', icon: 'pi pi-fw pi-user-edit', url1: 'S0703_DEBIT_NOTE_FACTORY_BVT'},
-                { key: '6-7', label: 'Debit Note(E)', icon: 'pi pi-fw pi-user-edit', url1: 'S070301_DEBIT_NOTE_FACTORY_ETP'},
-                { key: '6-6', label: '(#)수입자재미지급조회', icon: 'pi pi-fw pi-user-edit', url1: ''},
-            ]
-        },
-        {
-            key: '7', label: '매출관리', icon: 'pi pi-fw pi-clone', url1: '',
-            children: [
-                { key: '7-1', label: '(#)관세환급관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0609_MANAGE_RETURN_TAX' },
-                { key: '7-2', label: '매출등록(국내)', icon: 'pi pi-fw pi-user-edit', url1: 'S0801_DOCU_REGIST_DOMESTIC' },
-                { key: '7-3', label: '매출등록(해외)', icon: 'pi pi-fw pi-user-edit', url1: 'S0802_DOCU_REGIST_OVERSEA' },
-                { key: '7-5', label: 'Nego입금등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0607_NEGO'},
-                { key: '7-7', label: 'TT입금등록', icon: 'pi pi-fw pi-user-edit', url1: 'S0707_MAN_INVOICE'},
-                { key: '7-6', label: '(#)입금조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0608_NEGO_LIST'},
-                { key: '7-8', label: '바이어별입금관리', icon: 'pi pi-fw pi-user-edit', url1: 'S0708_MANAGE_BUYER_INPUT'},
-                { key: '7-9', label: '(#)매출채권조회', icon: 'pi pi-fw pi-user-edit', url1: 'S0709_MANAGE_INVOICE_AMT'},
-                { key: '7-10', label: '(#)오더수불부', icon: 'pi pi-fw pi-user-edit', url1: 'S0710_ORDER_EXPORT_REPORT'}
-            ]
-        }
-    ];
 
     const addClass = (element, className) => {
         if (element.classList)

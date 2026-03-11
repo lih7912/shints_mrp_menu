@@ -14,7 +14,7 @@ import { Rnd } from "react-rnd";
 import Swal from 'sweetalert2';
 import { blindMenu } from './blindMenu';
 import { getMrpWorkingStatus } from './getMrpWorkingStatus';
-import { changePassword, getPassword } from './changePassword';``
+import { changePassword, getPassword } from './changePassword';
 import apolloOption from './assets/env_graphql';
 import axios from 'axios';
 
@@ -158,6 +158,21 @@ const App = () => {
         });
     }, []);
 
+    useEffect(() => {
+        const blockF5 = (e) => {
+            if (e.key === "F5" || e.keyCode === 116) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        };
+
+        window.addEventListener("keydown", blockF5, true);
+
+        return () => {
+            window.removeEventListener("keydown", blockF5, true);
+        };
+
+    }, []);
 
     const openTab = (item) => {
         if (item.url1) {
@@ -725,7 +740,7 @@ const App = () => {
                             }
                         >
                             <iframe
-                                id="tabIframe"
+                                id={`tabIframe-${index}`}
                                 key={tab.key}
                                 src={tab.url}
                                 width="100%"
