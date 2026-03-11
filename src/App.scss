@@ -393,8 +393,8 @@ iframe {
 /* hover 또는 pin 고정 시 펼쳐짐 */
 .sidebar:hover,
 .sidebar.pinned {
-    width: 150px;
-    min-width: 150px;
+    width: 160px;
+    min-width: 160px;
     overflow-x: hidden;
 }
 
@@ -403,7 +403,7 @@ iframe {
 ========================= */
 
 .sidebar-content {
-    width: 150px;
+    width: 160px;
 }
 
 /* 접힌 상태에서는 텍스트만 숨김 */
