@@ -28,6 +28,8 @@ import "primereact/resources/primereact.min.css";
 import './assets/layout/layout.scss';
 import './App.scss';
 
+import logo from './assets/shints_logo_transparent.png'
+
 let userInfoForAuth = {};
 let prismaDate = '';
 
@@ -622,6 +624,32 @@ const App = () => {
 
             {/* 탭 UI */}
             <div className="tab-container" style={{ flex: 1, padding: "5px" }}>
+                {tabs.length === 0 && (
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            pointerEvents: "none"
+                        }}
+                    >
+                        <img
+                            src={logo}
+                            alt="logo"
+                            style={{
+                                width: "300px",
+                                opacity: 0.8
+                            }}
+                        />
+                    </div>
+                )}
+
+
                 <Tooltip target=".tab-header" position="bottom" />
                 <TabView 
                     activeIndex={activeIndex} 
