@@ -415,7 +415,7 @@ const App = () => {
             return next;
         });
     };
-
+    
     useEffect(() => {
 
         if (userInfo.USER_ID && menuInfo.length > 0) {
@@ -429,7 +429,7 @@ const App = () => {
 
     }, [userInfo, menuInfo]);
 
-    const [sidebarPinned, setSidebarPinned] = useState(false);
+    const [sidebarPinned, setSidebarPinned] = useState(true);
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
