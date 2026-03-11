@@ -346,6 +346,7 @@ const App = () => {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     const [favorites, setFavorites] = useState([]); // [{key, label, url}]
     const storageKey = userInfo?.USER_ID ? `${userInfo.USER_ID}-favorites` : null;
+    const sidebarPinnedKey = userInfo?.USER_ID ? `${userInfo.USER_ID}-sidebarPinned` : null;
 
     const getNodeKey = (node) => node?.url || node?.key || node?.label;
 
@@ -429,7 +430,31 @@ const App = () => {
 
     }, [userInfo, menuInfo]);
 
-    const [sidebarPinned, setSidebarPinned] = useState(true);
+    const [sidebarPinned, setSidebarPinned] = useState(() => {
+
+        const userId = window.sessionStorage.getItem('SESSION_USER_ID');
+
+        if (!userId) return false;
+
+        const saved = localStorage.getItem(`${userId}-sidebarPinned`);
+
+        if (saved === null) return false;
+
+        return saved === "true";
+
+    });
+
+    useEffect(() => {
+
+        const userId = userInfo?.USER_ID;
+
+        if (!userId) return;
+
+        localStorage.setItem(`${userId}-sidebarPinned`, sidebarPinned);
+
+    }, [sidebarPinned, userInfo]);
+
+
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
