@@ -64,6 +64,7 @@ function forceOpen(userId, menuName) {
 }
 
 function setBlind(menu, menuName) {
+    console.log(menu, menuName);
     let li = $(menu).closest('li');
     li.children().css('display','none');
     li.append(`<span class="menu_blind disabled">${menuName}</span>`)
@@ -93,9 +94,13 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
    
     $('.p-treenode').on('click', () => {
         setTimeout( () => {
-            let menuList = $('.p-treenode-label');
+            
+            let menuList = $('.tree-node-custom span');
+
             menuList.each( (index, menu) => {
                 let menuName = $(menu).text();
+
+                console.log(menuName);
 
                 if (menuName !== 'INFO' && menuName !== 'ORDER' && menuName !== 'MRP' && menuName !== 'PURCHASE' && menuName !== 'EXPORT/IMPORT' && menuName !== 'FACTORY IN-OUT' && menuName !== 'COST' && menuName !== 'RECEIVABLES') {
                     for (let blindMenu of userInfoForAuth.authMenuList) {

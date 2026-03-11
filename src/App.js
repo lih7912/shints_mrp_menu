@@ -32,7 +32,6 @@ let userInfoForAuth = {};
 let prismaDate = '';
 
 $(async function() {
-    blindMenu(window, apolloOption, userInfoForAuth);
     showTestEnvLabel(window);
 });
 
@@ -416,8 +415,21 @@ const App = () => {
             return next;
         });
     };
+    
+    useEffect(() => {
 
-    const [sidebarPinned, setSidebarPinned] = useState(false);
+        if (userInfo.USER_ID && menuInfo.length > 0) {
+
+            userInfoForAuth.userId = userInfo.USER_ID;
+            userInfoForAuth.userName = userInfo.USER_NAME;
+
+            blindMenu(window, apolloOption, userInfoForAuth);
+
+        }
+
+    }, [userInfo, menuInfo]);
+
+    const [sidebarPinned, setSidebarPinned] = useState(true);
 
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
