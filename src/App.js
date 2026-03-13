@@ -436,7 +436,7 @@ const App = () => {
 
         const userId = window.sessionStorage.getItem('SESSION_USER_ID');
 
-        if (!userId) return false;
+        if (!userId) return true;
 
         const saved = localStorage.getItem(`${userId}-sidebarPinned`);
 
