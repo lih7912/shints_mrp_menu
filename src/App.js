@@ -440,7 +440,7 @@ const App = () => {
 
         const saved = localStorage.getItem(`${userId}-sidebarPinned`);
 
-        if (saved === null) return false;
+        if (saved === null) return true;
 
         return saved === "true";
 
