@@ -457,7 +457,6 @@ const App = () => {
     }, [sidebarPinned, userInfo]);
 
 
-
     return (
         <div className="app-container" style={{ display: "flex", height: "100vh"}}>
             <Toast ref={toast} />
@@ -641,6 +640,7 @@ const App = () => {
                         <img
                             src={logo}
                             alt="logo"
+                            className="logo-placeholder"
                             style={{
                                 width: "300px",
                                 opacity: 0.8
@@ -704,13 +704,15 @@ const App = () => {
                                 </span>
                             }
                         >
-                            <iframe
-                                id={`tabIframe-${index}`}
-                                key={tab.key}
-                                src={tab.url}
-                                width="100%"
-                                style={{ border: "none", marginTop:'-5px', overflow:'auto' }}
-                            />
+                            <div className="iframe-scroll-wrapper">
+                                <iframe
+                                    id={`tabIframe-${index}`}
+                                    key={tab.key}
+                                    src={tab.url}
+                                    height="100%"
+                                    style={{ border: "none", marginTop:'-5px' }}
+                                />
+                            </div>
                         </TabPanel>
                     ))}
                 </TabView>
