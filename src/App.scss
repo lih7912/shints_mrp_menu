@@ -17,7 +17,7 @@ body {
 
 /* 모바일에서만 overflow 해제 */
 @media (max-width: 1000px) {
-    body {
+    html, body {
         overflow: auto !important;
     }
 }
@@ -575,11 +575,12 @@ iframe {
 
     body {
         transform-origin: top left;
-        transform: scale(0.9);
+        transform: none !important;
     }
 
     #root {
         height: calc(100vh / 0.9);
+        width: 100% !important;
     }
 
     .sidebar {
