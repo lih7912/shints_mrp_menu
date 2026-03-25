@@ -538,6 +538,9 @@ const App = () => {
 
                     </div>
                 </div>
+                <div id='mobileLogOut' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '7px' }}>
+                    <button style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>    
+                </div>
                 <div id='menuTopWrapper' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '35px' }}>
                     <button style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>
                     <button style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>

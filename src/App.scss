@@ -591,3 +591,13 @@ iframe {
         height: calc(100vh / 0.9);
     }
 }
+
+#mobileLogOut {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    #mobileLogOut {
+        display: block !important;
+    }
+}
