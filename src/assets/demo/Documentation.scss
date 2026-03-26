@@ -7,7 +7,7 @@
         font-size: 12px;
         font-weight: 500;
         padding: 0 4px;
-        letter-spacing: .5px;
+        letter-spacing: 0.5px;
         font-weight: 600;
         margin: 0 2px;
         display: inline-flex;
@@ -18,7 +18,8 @@
     }
 
     pre[class*="language-"] {
-        &:before, &:after {
+        &:before,
+        &:after {
             display: none !important;
         }
 
@@ -34,16 +35,16 @@
         .token {
             &.tag,
             &.keyword {
-                color: #2196F3 !important;
+                color: #2196f3 !important;
             }
 
             &.attr-name,
             &.attr-string {
-                color: #2196F3 !important;
+                color: #2196f3 !important;
             }
 
             &.attr-value {
-                color: #4CAF50 !important;
+                color: #4caf50 !important;
             }
 
             &.punctuation {

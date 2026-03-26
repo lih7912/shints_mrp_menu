@@ -1,11 +1,12 @@
 /* TabViewDemo.css */
 
-.tabview-demo .tabview-header-icon i, .tabview-demo .tabview-header-icon span {
+.tabview-demo .tabview-header-icon i,
+.tabview-demo .tabview-header-icon span {
     vertical-align: middle;
 }
 
 .tabview-demo .tabview-header-icon span {
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
 }
 
 .tabview-demo .p-tabview p {

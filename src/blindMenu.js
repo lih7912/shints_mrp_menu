@@ -1,36 +1,36 @@
 /* eslint-disable */
-import $ from 'jquery';
+import $ from "jquery";
 
 async function ajaxToRouter(method, url, data) {
-    return new Promise( resolve => {
+    return new Promise((resolve) => {
         $.ajax({
-            type : method,
-            url : url,
-            headers : {
-                "Content-Type" : "application/json",
+            type: method,
+            url: url,
+            headers: {
+                "Content-Type": "application/json",
             },
             Accept: "application/json",
-            dataType : 'text',
-            data : JSON.stringify(data),
-            success : function(result) {
+            dataType: "text",
+            data: JSON.stringify(data),
+            success: function (result) {
                 resolve(JSON.parse(result));
             },
-            error : function(request, status, error) {
-                console.log(error)
-            }
-        })
+            error: function (request, status, error) {
+                console.log(error);
+            },
+        });
     });
 }
-  
+
 async function getAuthInfo(window, apolloOption, userId) {
     return await ajaxToRouter(
-        'post',
-        `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/auth`, 
+        "post",
+        `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/auth`,
         {
             userId: userId,
             authCd: 0,
-            menuName: '',
-        }
+            menuName: "",
+        },
     );
 }
 
@@ -38,10 +38,20 @@ async function getAuthInfo(window, apolloOption, userId) {
 function forceOpenCapa(userId, menuName) {
     let ret = false;
 
-    if (userId != 'kr' && userId != 'mt' && userId != 'sales1' && userId != 'sales2' && userId != 'sales3' && userId != 'sales4' && userId != 'sales5' && userId != 'Rnd' && userId != 'wf') {
+    if (
+        userId != "kr" &&
+        userId != "mt" &&
+        userId != "sales1" &&
+        userId != "sales2" &&
+        userId != "sales3" &&
+        userId != "sales4" &&
+        userId != "sales5" &&
+        userId != "Rnd" &&
+        userId != "wf"
+    ) {
         ret = false;
     } else {
-        if (menuName === 'Capa Record' || menuName === 'Capa List') {
+        if (menuName === "Capa Record" || menuName === "Capa List") {
             ret = true;
         }
     }
@@ -53,9 +63,8 @@ function forceOpenCapa(userId, menuName) {
 function forceOpen(userId, menuName) {
     let ret = false;
 
-    if (userId === 'trade1' || userId === 'jim1') {
-        if (menuName.includes('Debit Note'))
-            ret = true;
+    if (userId === "trade1" || userId === "jim1") {
+        if (menuName.includes("Debit Note")) ret = true;
     }
 
     console.log(userId, menuName, ret);
@@ -65,55 +74,79 @@ function forceOpen(userId, menuName) {
 
 function setBlind(menu, menuName) {
     console.log(menu, menuName);
-    let li = $(menu).closest('li');
-    li.children().css('display','none');
-    li.append(`<span class="menu_blind disabled">${menuName}</span>`)
+    let li = $(menu).closest("li");
+    li.children().css("display", "none");
+    li.append(`<span class="menu_blind disabled">${menuName}</span>`);
 }
 
 function setShow(menu) {
-    let li = $(menu).closest('li');
-    li.children().css('display','block');
-    li.find('.menu_blind').remove();
-
+    let li = $(menu).closest("li");
+    li.children().css("display", "block");
+    li.find(".menu_blind").remove();
 }
 
 async function blindMenu(window, apolloOption, userInfoForAuth) {
     let userId = userInfoForAuth.userId;
-    
-    if (userId === 'lih7912' || userId === 'chibumy' || userId === 'lkj83' || userId === 'haein' || userId === 'bell1' || userId === 'mila' || userId === 'won21kr' || userId === 'brandon' || userId === 'kevin1') {
-        $('#btnAuth').css('display', 'block');
-        $('#btnTrLog').css('display', 'block');
+
+    if (
+        userId === "lih7912" ||
+        userId === "chibumy" ||
+        userId === "lkj83" ||
+        userId === "haein" ||
+        userId === "bell1" ||
+        userId === "mila" ||
+        userId === "won21kr" ||
+        userId === "brandon" ||
+        userId === "kevin1"
+    ) {
+        $("#btnAuth").css("display", "block");
+        $("#btnTrLog").css("display", "block");
         return;
-    } 
+    }
 
     let authInfoList = await getAuthInfo(window, apolloOption, userId);
     userInfoForAuth.authMenuList = authInfoList.afAuthPart;
     userInfoForAuth.authMenuListUser = authInfoList.afAuthUser;
 
     console.log(userInfoForAuth);
-   
-    $('.p-treenode').on('click', () => {
-        setTimeout( () => {
-            
-            let menuList = $('.tree-node-custom span');
 
-            menuList.each( (index, menu) => {
+    $(".p-treenode").on("click", () => {
+        setTimeout(() => {
+            let menuList = $(".tree-node-custom span");
+
+            menuList.each((index, menu) => {
                 let menuName = $(menu).text();
 
                 console.log(menuName);
 
-                if (menuName !== 'INFO' && menuName !== 'ORDER' && menuName !== 'MRP' && menuName !== 'PURCHASE' && menuName !== 'EXPORT/IMPORT' && menuName !== 'FACTORY IN-OUT' && menuName !== 'COST' && menuName !== 'RECEIVABLES') {
+                if (
+                    menuName !== "INFO" &&
+                    menuName !== "ORDER" &&
+                    menuName !== "MRP" &&
+                    menuName !== "PURCHASE" &&
+                    menuName !== "EXPORT/IMPORT" &&
+                    menuName !== "FACTORY IN-OUT" &&
+                    menuName !== "COST" &&
+                    menuName !== "RECEIVABLES"
+                ) {
                     for (let blindMenu of userInfoForAuth.authMenuList) {
-                        if (blindMenu.MENU_NAME === menuName && !forceOpenCapa(userId, menuName) && !forceOpen(userId, menuName)) {
+                        if (
+                            blindMenu.MENU_NAME === menuName &&
+                            !forceOpenCapa(userId, menuName) &&
+                            !forceOpen(userId, menuName)
+                        ) {
                             console.log(menuName);
                             setBlind(menu, menuName);
                         }
                     }
 
                     for (let blindMenu of userInfoForAuth.authMenuListUser) {
-                        if (blindMenu.MENU_NAME == menuName && blindMenu.AUTH_CD > 0) {
+                        if (
+                            blindMenu.MENU_NAME == menuName &&
+                            blindMenu.AUTH_CD > 0
+                        ) {
                             setShow(menu);
-                        } 
+                        }
                     }
                 }
                 /*
@@ -123,7 +156,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                     setBlind(menu, menuName);
                 }
                 */
-/*
+                /*
                 if (menuName == 'Purchase Manager' ||
                     menuName == 'STSIN List' ||
                     menuName == 'STSOUT List' ||
@@ -147,7 +180,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
 */
             });
         }, 100);
-    })
+    });
 }
 
-export { blindMenu }
+export { blindMenu };

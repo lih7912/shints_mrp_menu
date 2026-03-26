@@ -1,106 +1,108 @@
 /* eslint-disable */
-import React, { useState, useEffect, useRef } from 'react';
-import classNames from 'classnames';
+import React, { useState, useEffect, useRef } from "react";
+import classNames from "classnames";
 import { useParams } from "react-router-dom";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
-import { Tree } from 'primereact/tree';
+import { Tree } from "primereact/tree";
 import { Dialog } from "primereact/dialog";
 import { Password } from "primereact/password";
-import { Toast } from 'primereact/toast';
-import { Tooltip } from 'primereact/tooltip';
+import { Toast } from "primereact/toast";
+import { Tooltip } from "primereact/tooltip";
 import { Rnd } from "react-rnd";
 
-import Swal from 'sweetalert2';
-import { blindMenu } from './blindMenu';
-import { getMrpWorkingStatus } from './getMrpWorkingStatus';
-import { changePassword, getPassword } from './changePassword';
-import apolloOption from './assets/env_graphql';
-import axios from 'axios';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import Swal from "sweetalert2";
+import { blindMenu } from "./blindMenu";
+import { getMrpWorkingStatus } from "./getMrpWorkingStatus";
+import { changePassword, getPassword } from "./changePassword";
+import apolloOption from "./assets/env_graphql";
+import axios from "axios";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const menu1 = require('./menu').menu1;
-const menu3 = require('./menu').menu3;
+const menu1 = require("./menu").menu1;
+const menu3 = require("./menu").menu3;
 
-import $ from 'jquery';
+import $ from "jquery";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
-import './assets/layout/layout.scss';
-import './App.scss';
+import "./assets/layout/layout.scss";
+import "./App.scss";
 
-import logo from './assets/shints_logo_transparent.png'
+import logo from "./assets/shints_logo_transparent.png";
 
 let userInfoForAuth = {};
-let prismaDate = '';
+let prismaDate = "";
 
-$(async function() {
+$(async function () {
     showTestEnvLabel(window);
 });
 
 function refreshOffset() {
     let total = 0;
 
-    const userInfoH = $('#userInfoWrapper').outerHeight() || 0;
-    const menuTopH = $('#menuTopWrapper').outerHeight() || 0;
+    const userInfoH = $("#userInfoWrapper").outerHeight() || 0;
+    const menuTopH = $("#menuTopWrapper").outerHeight() || 0;
 
-    const favoritesH = $('#favoritesWrapper').outerHeight() || 0;
+    const favoritesH = $("#favoritesWrapper").outerHeight() || 0;
     total = userInfoH + menuTopH + favoritesH + 25;
 
-    setTimeout( () => {
-        $(':root').css('--dynamicOffset', total + 'px');
+    setTimeout(() => {
+        $(":root").css("--dynamicOffset", total + "px");
     }, 100);
-    
 }
-$(window).on('load resize', refreshOffset);
+$(window).on("load resize", refreshOffset);
 
 refreshOffset();
 
-window.addEventListener('message', function(event) {
+window.addEventListener("message", function (event) {
     if (event.origin === `https://${window.location.hostname}:3201`) {
-        if (event.data === 'focusParent') {
+        if (event.data === "focusParent") {
             window.focus(); // 부모 프레임에 포커스
-            console.log('Parent frame focused!');
-            $('.p-tabmenu').fadeOut(200).fadeIn(200);
+            console.log("Parent frame focused!");
+            $(".p-tabmenu").fadeOut(200).fadeIn(200);
         }
-  
-        if (event.data === 'WorkingMrp') {
-            console.log('Working MrpEVENT 수신');
+
+        if (event.data === "WorkingMrp") {
+            console.log("Working MrpEVENT 수신");
             getMrpWorkingStatus(window, apolloOption, userInfoForAuth);
         }
     }
 });
-  
+
 function showTestEnvLabel(window) {
-    if (!window.location.host.includes('erp.shints.com')) {
-        $('.testEnvLabel').css('display','block');
+    if (!window.location.host.includes("erp.shints.com")) {
+        $(".testEnvLabel").css("display", "block");
     }
 }
 
 function clearAllColumnOrders() {
     const confirmMessage =
-        '현재 탭의 컬럼 순서정보만 삭제하시겠습니까?\nDo you want to delete column order only for the active tab?';
+        "현재 탭의 컬럼 순서정보만 삭제하시겠습니까?\nDo you want to delete column order only for the active tab?";
     if (confirm(confirmMessage)) {
-        const iframe = document.getElementById('tabIframe');
+        const iframe = document.getElementById("tabIframe");
         if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage({ type: 'CLEAR_AF_COLUMNS_ACTIVE' }, '*');
+            iframe.contentWindow.postMessage(
+                { type: "CLEAR_AF_COLUMNS_ACTIVE" },
+                "*",
+            );
         } else {
             console.warn('iframe with id "tabIframe" not found.');
         }
     }
 }
-  
+
 const App = () => {
     const [tabs, setTabs] = useState([]);
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-    const toast = useRef(null); 
+    const toast = useRef(null);
 
     const BASE_URL = `https://${window.location.hostname}:3201/#/`;
 
     function getCookie(name) {
         const cookies = document.cookie.split("; ");
-        
+
         for (let cookie of cookies) {
             const [key, value] = cookie.split("=");
             if (key === name) {
@@ -111,20 +113,25 @@ const App = () => {
     }
 
     function deleteCookie(name) {
-        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie =
+            name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
     useEffect(() => {
         // 쿠키에서 사용자 정보 가져오기
-        let userId = new URLSearchParams(location.hash.split('?')[1]).get('userId');
-        
+        let userId = new URLSearchParams(location.hash.split("?")[1]).get(
+            "userId",
+        );
+
         if (userId) {
-            window.sessionStorage.setItem('SESSION_USER_ID', userId);
+            window.sessionStorage.setItem("SESSION_USER_ID", userId);
         } else {
-            userId = window.sessionStorage.getItem('SESSION_USER_ID');
+            userId = window.sessionStorage.getItem("SESSION_USER_ID");
         }
 
-        let userInfoFromLogin = JSON.parse(getCookie(`AF_ERP_USERINFO_${userId}`));
+        let userInfoFromLogin = JSON.parse(
+            getCookie(`AF_ERP_USERINFO_${userId}`),
+        );
 
         if (userInfoFromLogin) {
             userInfoForAuth.userId = userInfoFromLogin.USER_ID;
@@ -137,24 +144,30 @@ const App = () => {
         }
 
         const transformMenuUrls = (menu) => {
-            return menu.map(item => ({
+            return menu.map((item) => ({
                 ...item,
-                url: item.url ? `${BASE_URL}${item.url}?label=${encodeURI(item.label)}` : '',
-                children: item.children ? transformMenuUrls(item.children) : []
+                url: item.url
+                    ? `${BASE_URL}${item.url}?label=${encodeURI(item.label)}`
+                    : "",
+                children: item.children ? transformMenuUrls(item.children) : [],
             }));
         };
-    
+
         const updatedMenu1 = transformMenuUrls(menu1);
         setMenuInfo(updatedMenu1);
 
-        window.addEventListener("message", (e) => {
-            if (e.data.func && e.data.func === 'call_url') {
-                console.log(e.data.message);
-                openTab(e.data.message);
-            }
-        }, false);
-         
-        $('input[type="text"]').on('focus', function () {
+        window.addEventListener(
+            "message",
+            (e) => {
+                if (e.data.func && e.data.func === "call_url") {
+                    console.log(e.data.message);
+                    openTab(e.data.message);
+                }
+            },
+            false,
+        );
+
+        $('input[type="text"]').on("focus", function () {
             $(this).select(); // 포커스된 input 요소의 내용을 전체 선택
         });
     }, []);
@@ -172,7 +185,6 @@ const App = () => {
         return () => {
             window.removeEventListener("keydown", blockF5, true);
         };
-
     }, []);
 
     const openTab = (item) => {
@@ -182,13 +194,15 @@ const App = () => {
         if (!item.url) return;
 
         setTabs((prevTabs) => {
-            const existingTabIndex = prevTabs.findIndex(tab => tab.label === item.label);
+            const existingTabIndex = prevTabs.findIndex(
+                (tab) => tab.label === item.label,
+            );
             if (existingTabIndex === -1) {
                 if (prevTabs.length >= 10) {
                     toast.current.show({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: '탭은 10개까지 열 수 있습니다. 열린 탭을 닫고 새로 열어주세요. (Alt+X)',
+                        severity: "error",
+                        summary: "Error",
+                        detail: "탭은 10개까지 열 수 있습니다. 열린 탭을 닫고 새로 열어주세요. (Alt+X)",
                         life: 5000,
                     });
                     return prevTabs;
@@ -202,7 +216,11 @@ const App = () => {
                 // 기존 탭이 있으면 URL을 업데이트하면서 key도 변경하여 리렌더링 유도
                 const updatedTabs = prevTabs.map((tab, index) => {
                     if (index === existingTabIndex) {
-                        return { ...tab, url: item.url, key: `${tab.idx}-key-${new Date().getTime()}` };
+                        return {
+                            ...tab,
+                            url: item.url,
+                            key: `${tab.idx}-key-${new Date().getTime()}`,
+                        };
                     }
                     return tab;
                 });
@@ -258,13 +276,21 @@ const App = () => {
 
     const validatePassword = (password) => {
         const lengthCheck = password.length >= 8;
-        const complexityCheck = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password);
-        const hasNoSequential = !/(1111|0123|1234|2345|3456|4567|5678|6789|7890|abcd|bcde|cdef|defg|efgh|fghi|ghij|hijk|ijkl|jklm|klmn|lmno|mnop|nopq|opqr|pqrs|qrst|rstu|stuv|tuvw|uvwx|vwxy|wxyz|aaaa|bbbb|cccc|dddd|eeee|ffff|gggg|hhhh|iiii|jjjj|kkkk|llll|mmmm|nnnn|oooo|pppp|qqqq|rrrr|ssss|tttt|uuuu|vvvv|wwww|xxxx|yyyy|zzzz)/i.test(password);
+        const complexityCheck =
+            /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
+                password,
+            );
+        const hasNoSequential =
+            !/(1111|0123|1234|2345|3456|4567|5678|6789|7890|abcd|bcde|cdef|defg|efgh|fghi|ghij|hijk|ijkl|jklm|klmn|lmno|mnop|nopq|opqr|pqrs|qrst|rstu|stuv|tuvw|uvwx|vwxy|wxyz|aaaa|bbbb|cccc|dddd|eeee|ffff|gggg|hhhh|iiii|jjjj|kkkk|llll|mmmm|nnnn|oooo|pppp|qqqq|rrrr|ssss|tttt|uuuu|vvvv|wwww|xxxx|yyyy|zzzz)/i.test(
+                password,
+            );
         return lengthCheck && complexityCheck && hasNoSequential;
     };
 
     const handleSave = async () => {
-        let result = (await getPassword(window, apolloOption, userInfoForAuth.userId))[0].passwd;
+        let result = (
+            await getPassword(window, apolloOption, userInfoForAuth.userId)
+        )[0].passwd;
 
         console.log(result);
 
@@ -293,7 +319,13 @@ const App = () => {
             return;
         }
 
-        await changePassword(window, apolloOption, userInfoForAuth.userId, newPassword, currentPassword);
+        await changePassword(
+            window,
+            apolloOption,
+            userInfoForAuth.userId,
+            newPassword,
+            currentPassword,
+        );
 
         Swal.fire({
             html: "Password changed successfully!",
@@ -301,33 +333,42 @@ const App = () => {
         });
         setPasswordModalVisible(false);
     };
-        
+
     const handleCancel = () => {
         setPasswordModalVisible(false);
     };
     /***************************************/
-    
-    const [dbName, setDbName] = useState('');
+
+    const [dbName, setDbName] = useState("");
     useEffect(() => {
-        axios.get(`${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/db-name`)
-            .then(res => setDbName(res.data.dbName.replace('test','')))
-            .catch(() => setDbName('오류 발생'));
+        axios
+            .get(
+                `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/db-name`,
+            )
+            .then((res) => setDbName(res.data.dbName.replace("test", "")))
+            .catch(() => setDbName("오류 발생"));
     }, []);
 
     useEffect(() => {
         const handleMessage = (event) => {
-            if (!event.data || typeof event.data !== 'object') return;
+            if (!event.data || typeof event.data !== "object") return;
 
             const { type, url } = event.data;
 
-            if (type === 'closeTab' && url) {
+            if (type === "closeTab" && url) {
                 setTabs((prevTabs) => {
-                    const tabIndex = prevTabs.findIndex(tab => tab.url === url);
+                    const tabIndex = prevTabs.findIndex(
+                        (tab) => tab.url === url,
+                    );
                     if (tabIndex !== -1) {
-                        const newTabs = prevTabs.filter((_, i) => i !== tabIndex);
+                        const newTabs = prevTabs.filter(
+                            (_, i) => i !== tabIndex,
+                        );
 
                         if (tabIndex === activeIndex) {
-                            setActiveIndex((prev) => (tabIndex === 0 ? 0 : prev - 1));
+                            setActiveIndex((prev) =>
+                                tabIndex === 0 ? 0 : prev - 1,
+                            );
                         } else if (tabIndex < activeIndex) {
                             setActiveIndex((prev) => prev - 1);
                         }
@@ -339,16 +380,20 @@ const App = () => {
             }
         };
 
-        window.addEventListener('message', handleMessage);
+        window.addEventListener("message", handleMessage);
         return () => {
-            window.removeEventListener('message', handleMessage);
+            window.removeEventListener("message", handleMessage);
         };
     }, [activeIndex]);
 
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     const [favorites, setFavorites] = useState([]); // [{key, label, url}]
-    const storageKey = userInfo?.USER_ID ? `${userInfo.USER_ID}-favorites` : null;
-    const sidebarPinnedKey = userInfo?.USER_ID ? `${userInfo.USER_ID}-sidebarPinned` : null;
+    const storageKey = userInfo?.USER_ID
+        ? `${userInfo.USER_ID}-favorites`
+        : null;
+    const sidebarPinnedKey = userInfo?.USER_ID
+        ? `${userInfo.USER_ID}-sidebarPinned`
+        : null;
 
     const getNodeKey = (node) => node?.url || node?.key || node?.label;
 
@@ -371,7 +416,7 @@ const App = () => {
     const isFavorite = (node) => {
         const k = getNodeKey(node);
         if (!k) return false;
-        return favorites.some(f => f.key === k);
+        return favorites.some((f) => f.key === k);
     };
 
     useEffect(() => {
@@ -383,10 +428,15 @@ const App = () => {
 
     const nodeTemplate = (node, options) => {
         return (
-            <div 
+            <div
                 className="tree-node-custom"
                 onClick={() => onToggleNode(node)}
-                style={{ display: "flex", alignItems: "center", cursor: "pointer", gap:'6px' }}
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    gap: "6px",
+                }}
             >
                 {node.icon && <i className={node.icon} />}
                 <span>{node.label}</span>
@@ -401,40 +451,36 @@ const App = () => {
     const getTabKey = (tab) => tab?.url || tab?.idx || tab?.label;
 
     // 현재 탭이 즐겨찾기인지
-    const isFavoriteTab = (tab) => favorites.some(f => f.key === getTabKey(tab));
+    const isFavoriteTab = (tab) =>
+        favorites.some((f) => f.key === getTabKey(tab));
 
     // 탭에서 즐겨찾기 토글
     const toggleFavoriteFromTab = (tab) => {
         const key = getTabKey(tab);
         const label = tab?.label || key;
-        const url = tab?.url || '';
+        const url = tab?.url || "";
 
-        setFavorites(prev => {
-            const exists = prev.some(f => f.key === key);
+        setFavorites((prev) => {
+            const exists = prev.some((f) => f.key === key);
             const next = exists
-            ? prev.filter(f => f.key !== key)
-            : [...prev, { key, label, url }];
+                ? prev.filter((f) => f.key !== key)
+                : [...prev, { key, label, url }];
             saveFavorites(next);
             return next;
         });
     };
-    
+
     useEffect(() => {
-
         if (userInfo.USER_ID && menuInfo.length > 0) {
-
             userInfoForAuth.userId = userInfo.USER_ID;
             userInfoForAuth.userName = userInfo.USER_NAME;
 
             blindMenu(window, apolloOption, userInfoForAuth);
-
         }
-
     }, [userInfo, menuInfo]);
 
     const [sidebarPinned, setSidebarPinned] = useState(() => {
-
-        const userId = window.sessionStorage.getItem('SESSION_USER_ID');
+        const userId = window.sessionStorage.getItem("SESSION_USER_ID");
 
         if (!userId) return true;
 
@@ -443,61 +489,126 @@ const App = () => {
         if (saved === null) return true;
 
         return saved === "true";
-
     });
 
     useEffect(() => {
-
         const userId = userInfo?.USER_ID;
 
         if (!userId) return;
 
         localStorage.setItem(`${userId}-sidebarPinned`, sidebarPinned);
-
     }, [sidebarPinned, userInfo]);
 
-
     return (
-        <div className="app-container" style={{ display: "flex", height: "100vh"}}>
+        <div
+            className="app-container"
+            style={{ display: "flex", height: "100vh" }}
+        >
             <Toast ref={toast} />
-            <div 
-                style={{ 
-                    position: 'fixed',       // 고정 위치
-                    bottom: '5px',             // 상단 여백
-                    left: '5px',            // 왼쪽 여백
-                    zIndex: 2000             // 다른 요소보다 위에
+            <div
+                style={{
+                    position: "fixed", // 고정 위치
+                    bottom: "5px", // 상단 여백
+                    left: "5px", // 왼쪽 여백
+                    zIndex: 2000, // 다른 요소보다 위에
                 }}
-            >
-            </div>
+            ></div>
             <div className={`sidebar ${sidebarPinned ? "pinned" : ""}`}>
                 <div className="sidebar-content">
-                  <div id="userInfoWrapper">
-                    <div style={{ marginTop: '0rem', width: '93%', height: '4rem', border:' 1px solid #cdcdcd', borderRadius: '5px', margin:'0 10px 0 5px', padding:'3px', backgroundColor: '#ebebeb'}}>
-                        <span style={{ width: '100%' }}>
-                            <p className="p-text-secondary" style={{ width: '100%', fontSize:'11px', fontWeight: '500', display: 'inline-block', textAlign:'center' }}>{userInfo.USER_ID}</p>
-                        </span>
-                        <span style={{ width: '100%' }}>
-                            <p className="p-text-secondary" style={{ width: '100%',  fontSize:'11px', fontWeight: '400', display: 'inline-block', textAlign:'center'}}>{userInfo.USER_NAME}</p>
-                        </span>
-                    </div>
-                    
-                    <div style={{ width: '100%', display:'flex', justifyContent:'center', marginTop:'15px' }}>
-                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
-                            <i className="af-button custom-target-icon pi pi-arrows-h p-text-secondary"
-                                onClick={() => { clearAllColumnOrders(); }}
-                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                                title="Clear customized column">
-                            </i>
+                    <div id="userInfoWrapper">
+                        <div
+                            style={{
+                                marginTop: "0rem",
+                                width: "93%",
+                                height: "4rem",
+                                border: " 1px solid #cdcdcd",
+                                borderRadius: "5px",
+                                margin: "0 10px 0 5px",
+                                padding: "3px",
+                                backgroundColor: "#ebebeb",
+                            }}
+                        >
+                            <span style={{ width: "100%" }}>
+                                <p
+                                    className="p-text-secondary"
+                                    style={{
+                                        width: "100%",
+                                        fontSize: "11px",
+                                        fontWeight: "500",
+                                        display: "inline-block",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {userInfo.USER_ID}
+                                </p>
+                            </span>
+                            <span style={{ width: "100%" }}>
+                                <p
+                                    className="p-text-secondary"
+                                    style={{
+                                        width: "100%",
+                                        fontSize: "11px",
+                                        fontWeight: "400",
+                                        display: "inline-block",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    {userInfo.USER_NAME}
+                                </p>
+                            </span>
                         </div>
-                        
-                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
-                            <i className="af-button custom-target-icon pi pi-unlock p-text-secondary"
-                                onClick={() => { setPasswordModalVisible(true); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); }}
-                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                                title="Change password">
-                            </i>
-                        </div>
-                        {/*}
+
+                        <div
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                                marginTop: "15px",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    width: "2.5rem",
+                                    height: "2rem",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <i
+                                    className="af-button custom-target-icon pi pi-arrows-h p-text-secondary"
+                                    onClick={() => {
+                                        clearAllColumnOrders();
+                                    }}
+                                    style={{
+                                        fontSize: "1.5rem",
+                                        cursor: "pointer",
+                                    }}
+                                    title="Clear customized column"
+                                ></i>
+                            </div>
+
+                            <div
+                                style={{
+                                    width: "2.5rem",
+                                    height: "2rem",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <i
+                                    className="af-button custom-target-icon pi pi-unlock p-text-secondary"
+                                    onClick={() => {
+                                        setPasswordModalVisible(true);
+                                        setCurrentPassword("");
+                                        setNewPassword("");
+                                        setConfirmPassword("");
+                                    }}
+                                    style={{
+                                        fontSize: "1.5rem",
+                                        cursor: "pointer",
+                                    }}
+                                    title="Change password"
+                                ></i>
+                            </div>
+                            {/*}
                         <div style={{ float: 'left', marginTop: '0.6rem', width: '2rem', height: '2rem' }}>
                             <i className="custom-target-icon pi pi-arrows-h p-text-secondary"
                                 id='iconFitToWindow'
@@ -506,118 +617,261 @@ const App = () => {
                             </i>
                         </div>
                         */}
-                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
-                            <i className="af-button custom-target-icon pi pi-times p-text-secondary"
-                                onClick={() => { setTabs([]); }}
-                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                                title="Close all tabs">
-                            </i>
-                        </div>
-                        <div style={{ width: '2.5rem', height: '2rem', textAlign: 'center' }}>
-                            <i className="af-button custom-target-icon pi pi-refresh p-text-secondary"
-                                data-pr-position="right"
-                                data-pr-at="right+5 top"
-                                data-pr-my="left center-2"
-                                style={{ fontSize: '1.5rem', cursor: "pointer" }}
-                                onClick={() => {
-                                    setTabs((prevTabs) => 
-                                        prevTabs.map((tab, index) => {
-                                            if (index === activeIndex) {
-                                                return { 
-                                                    ...tab, 
-                                                    key: `${tab.idx}-key-${new Date().getTime()}` // key 변경하여 iframe 리프레시
-                                                };
-                                            }
-                                            return tab;
-                                        })
-                                    );
+                            <div
+                                style={{
+                                    width: "2.5rem",
+                                    height: "2rem",
+                                    textAlign: "center",
                                 }}
-                                title="Reload current tab">    
-                            </i>
+                            >
+                                <i
+                                    className="af-button custom-target-icon pi pi-times p-text-secondary"
+                                    onClick={() => {
+                                        setTabs([]);
+                                    }}
+                                    style={{
+                                        fontSize: "1.5rem",
+                                        cursor: "pointer",
+                                    }}
+                                    title="Close all tabs"
+                                ></i>
+                            </div>
+                            <div
+                                style={{
+                                    width: "2.5rem",
+                                    height: "2rem",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <i
+                                    className="af-button custom-target-icon pi pi-refresh p-text-secondary"
+                                    data-pr-position="right"
+                                    data-pr-at="right+5 top"
+                                    data-pr-my="left center-2"
+                                    style={{
+                                        fontSize: "1.5rem",
+                                        cursor: "pointer",
+                                    }}
+                                    onClick={() => {
+                                        setTabs((prevTabs) =>
+                                            prevTabs.map((tab, index) => {
+                                                if (index === activeIndex) {
+                                                    return {
+                                                        ...tab,
+                                                        key: `${tab.idx}-key-${new Date().getTime()}`, // key 변경하여 iframe 리프레시
+                                                    };
+                                                }
+                                                return tab;
+                                            }),
+                                        );
+                                    }}
+                                    title="Reload current tab"
+                                ></i>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-                <div id='mobileLogOut' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '7px' }}>
-                    <button style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>    
-                </div>
-                <div id='menuTopWrapper' style={{ marginBottom: '1.5rem', width: '100%', padding: '0', marginLeft: '7px', paddingTop: '35px' }}>
-                    <button style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.sessionStorage.removeItem('AF_ERP_USERINFO'); deleteCookie(`AF_ERP_USERINFO_${userInfoForAuth.userId}`); window.location.href = `${BASE_URL}login`; }}>Log out</button>
-                    <button style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.open('https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba', 'blank'); }}>Manual</button>
-                    <button id='btnAuth' style={{ marginBottom: '0.5rem', width: '92%', height: '20px', display:'none'}} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/authority.html`, 'blank'); }}>권한 설정</button>
-                    <button id='btnTrLog' style={{ marginBottom: '0.5rem', width: '92%', height: '20px', display:'none'}} onClick={() => { window.open(`${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`, 'blank'); }}>Transaction LOG</button>
-                    {/*<button id='btnDevManual' style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.open(`https://www.notion.so/shints/1cf09bcd64ff803ea457dc278b9ba591?v=1cf09bcd64ff8031b40e000c9bdf5071`, 'blank'); }}>화면 분석서</button>*/}
-                    <div className="testEnvLabel blink" style={{ marginBottom: '1rem', width: '92%', height: '20px', backgroundColor: 'purple', borderRadius: '3px', color: 'white', fontWeight: '700', textAlign: 'center', alignContent:'center' }}>TEST 환경 ({dbName})</div>
-                    <div className="workingMrpIcon">
-                        <dotlottie-player 
-                            src="https://lottie.host/8bad9105-8a45-4862-a1bc-ff9efaa5a99b/hiboDpMUKL.lottie" 
-                            background="transparent" 
-                            speed="1" 
-                            style={{ width: '20px', height: '20px' }} 
-                            direction="1" 
-                            playMode="normal" 
-                            loop autoplay>
-                        </dotlottie-player>
-                        <span>WORKING MRPLIST…</span>
-                    </div>
-                </div>
-                {favorites.length > 0 && (
-                    <div 
-                        id='favoritesWrapper' 
-                        style={{ 
-                            width: '100%', 
-                            padding: sidebarCollapsed ? '0' : '0' 
+                    <div
+                        id="mobileLogOut"
+                        style={{
+                            marginBottom: "1.5rem",
+                            width: "100%",
+                            padding: "0",
+                            marginLeft: "7px",
+                            paddingTop: "7px",
                         }}
                     >
-                        <div 
-                            style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                justifyContent: 'space-between',
-                                margin: '6px 0 4px 6px' 
+                        <button
+                            style={{
+                                marginBottom: "0.5rem",
+                                width: "92%",
+                                height: "20px",
+                            }}
+                            onClick={() => {
+                                window.sessionStorage.removeItem(
+                                    "AF_ERP_USERINFO",
+                                );
+                                deleteCookie(
+                                    `AF_ERP_USERINFO_${userInfoForAuth.userId}`,
+                                );
+                                window.location.href = `${BASE_URL}login`;
                             }}
                         >
-                            <div style={{ fontWeight: 700, fontSize: '12px' }}>
-                                <span style={{ color: '#f59e0b' }}>★</span> Favorites
-                            </div>
-                            <Button
-                                icon="pi pi-trash"
-                                className="p-button-text p-button-plain p-button-sm"
-                                onClick={() => { 
-                                    setFavorites([]); 
-                                    saveFavorites([]); 
-                                }}
-                                style={{ fontSize: '1.5rem', height: '1.3rem', color: 'gray' }}
-                            />
+                            Log out
+                        </button>
+                    </div>
+                    <div
+                        id="menuTopWrapper"
+                        style={{
+                            marginBottom: "1.5rem",
+                            width: "100%",
+                            padding: "0",
+                            marginLeft: "7px",
+                            paddingTop: "35px",
+                        }}
+                    >
+                        <button
+                            style={{
+                                marginBottom: "0.5rem",
+                                width: "92%",
+                                height: "20px",
+                            }}
+                            onClick={() => {
+                                window.sessionStorage.removeItem(
+                                    "AF_ERP_USERINFO",
+                                );
+                                deleteCookie(
+                                    `AF_ERP_USERINFO_${userInfoForAuth.userId}`,
+                                );
+                                window.location.href = `${BASE_URL}login`;
+                            }}
+                        >
+                            Log out
+                        </button>
+                        <button
+                            style={{
+                                marginBottom: "0.5rem",
+                                width: "92%",
+                                height: "20px",
+                            }}
+                            onClick={() => {
+                                window.open(
+                                    "https://shints.notion.site/shints-erp-manual?v=abd027845fc846f49081807f183af5ba",
+                                    "blank",
+                                );
+                            }}
+                        >
+                            Manual
+                        </button>
+                        <button
+                            id="btnAuth"
+                            style={{
+                                marginBottom: "0.5rem",
+                                width: "92%",
+                                height: "20px",
+                                display: "none",
+                            }}
+                            onClick={() => {
+                                window.open(
+                                    `${window.location.protocol}//${window.location.hostname}:3201/authority.html`,
+                                    "blank",
+                                );
+                            }}
+                        >
+                            권한 설정
+                        </button>
+                        <button
+                            id="btnTrLog"
+                            style={{
+                                marginBottom: "0.5rem",
+                                width: "92%",
+                                height: "20px",
+                                display: "none",
+                            }}
+                            onClick={() => {
+                                window.open(
+                                    `${window.location.protocol}//${window.location.hostname}:3201/tr_log.html`,
+                                    "blank",
+                                );
+                            }}
+                        >
+                            Transaction LOG
+                        </button>
+                        {/*<button id='btnDevManual' style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.open(`https://www.notion.so/shints/1cf09bcd64ff803ea457dc278b9ba591?v=1cf09bcd64ff8031b40e000c9bdf5071`, 'blank'); }}>화면 분석서</button>*/}
+                        <div
+                            className="testEnvLabel blink"
+                            style={{
+                                marginBottom: "1rem",
+                                width: "92%",
+                                height: "20px",
+                                backgroundColor: "purple",
+                                borderRadius: "3px",
+                                color: "white",
+                                fontWeight: "700",
+                                textAlign: "center",
+                                alignContent: "center",
+                            }}
+                        >
+                            TEST 환경 ({dbName})
                         </div>
+                        <div className="workingMrpIcon">
+                            <dotlottie-player
+                                src="https://lottie.host/8bad9105-8a45-4862-a1bc-ff9efaa5a99b/hiboDpMUKL.lottie"
+                                background="transparent"
+                                speed="1"
+                                style={{ width: "20px", height: "20px" }}
+                                direction="1"
+                                playMode="normal"
+                                loop
+                                autoplay
+                            ></dotlottie-player>
+                            <span>WORKING MRPLIST…</span>
+                        </div>
+                    </div>
+                    {favorites.length > 0 && (
+                        <div
+                            id="favoritesWrapper"
+                            style={{
+                                width: "100%",
+                                padding: sidebarCollapsed ? "0" : "0",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    margin: "6px 0 4px 6px",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontWeight: 700,
+                                        fontSize: "12px",
+                                    }}
+                                >
+                                    <span style={{ color: "#f59e0b" }}>★</span>{" "}
+                                    Favorites
+                                </div>
+                                <Button
+                                    icon="pi pi-trash"
+                                    className="p-button-text p-button-plain p-button-sm"
+                                    onClick={() => {
+                                        setFavorites([]);
+                                        saveFavorites([]);
+                                    }}
+                                    style={{
+                                        fontSize: "1.5rem",
+                                        height: "1.3rem",
+                                        color: "gray",
+                                    }}
+                                />
+                            </div>
 
-                        <Tree
-                            value={
-                                favorites.map(f => ({
+                            <Tree
+                                value={favorites.map((f) => ({
                                     key: f.key,
                                     label: f.label,
                                     url: f.url,
-                                }))
-                            }
-                            style={{ width: "100%", marginBottom: '0px' }}
-                            nodeTemplate={nodeTemplate}
-                        />
-                    </div>
-                )}
-                
-                <Tree
-                    id='menuTree'
-                    value={menuInfo}
-                    style={{ width: "100%", marginTop: '10px'}}
-                    expandedKeys={expandedKeys}
-                    onToggle={(e) => setExpandedKeys(e.value)}
-                    nodeTemplate={nodeTemplate}
-                />
+                                }))}
+                                style={{ width: "100%", marginBottom: "0px" }}
+                                nodeTemplate={nodeTemplate}
+                            />
+                        </div>
+                    )}
+
+                    <Tree
+                        id="menuTree"
+                        value={menuInfo}
+                        style={{ width: "100%", marginTop: "10px" }}
+                        expandedKeys={expandedKeys}
+                        onToggle={(e) => setExpandedKeys(e.value)}
+                        nodeTemplate={nodeTemplate}
+                    />
                 </div>
 
                 <div
                     className={`sidebar-pin ${sidebarPinned ? "pinned" : "unpinned"}`}
-                    onClick={() => setSidebarPinned(prev => !prev)}
+                    onClick={() => setSidebarPinned((prev) => !prev)}
                     title={sidebarPinned ? "Unpin sidebar" : "Pin sidebar"}
                 >
                     <i className="fas fa-thumbtack" />
@@ -637,7 +891,7 @@ const App = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            pointerEvents: "none"
+                            pointerEvents: "none",
                         }}
                     >
                         <img
@@ -646,53 +900,71 @@ const App = () => {
                             className="logo-placeholder"
                             style={{
                                 width: "300px",
-                                opacity: 0.8
+                                opacity: 0.8,
                             }}
                         />
                     </div>
                 )}
 
-
                 <Tooltip target=".tab-header" position="bottom" />
-                <TabView 
-                    activeIndex={activeIndex} 
+                <TabView
+                    activeIndex={activeIndex}
                     onTabChange={(e) => setActiveIndex(e.index)}
-                    renderActiveOnly={false}  // 모든 탭 패널을 렌더링하여 상태 유지
+                    renderActiveOnly={false} // 모든 탭 패널을 렌더링하여 상태 유지
                 >
                     {tabs.map((tab, index) => (
-                        <TabPanel 
+                        <TabPanel
                             key={tab.idx}
                             header={
-                                <span 
+                                <span
                                     className="tab-header"
                                     style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        width: '132px',
-                                        height: '15px',
-                                        overflow: 'hidden',
-                                        padding: '0 2px 0 2px',
-                                    }}>
-                                    <span style={{ 
-                                        width: '110px', 
-                                        overflow: 'hidden', 
-                                        height: '25px',
-                                        paddingTop: '9px'
+                                        display: "flex",
+                                        alignItems: "center",
+                                        width: "132px",
+                                        height: "15px",
+                                        overflow: "hidden",
+                                        padding: "0 2px 0 2px",
                                     }}
-                                    title={tab.url.split('#/')[1].split('?')[0]}
-                                    >{tab.label}</span>
+                                >
+                                    <span
+                                        style={{
+                                            width: "110px",
+                                            overflow: "hidden",
+                                            height: "25px",
+                                            paddingTop: "9px",
+                                        }}
+                                        title={
+                                            tab.url.split("#/")[1].split("?")[0]
+                                        }
+                                    >
+                                        {tab.label}
+                                    </span>
 
                                     {/* 즐겨찾기 토글 버튼 */}
                                     <Button
-                                        icon={isFavoriteTab(tab) ? 'pi pi-star-fill' : 'pi pi-star'}
+                                        icon={
+                                            isFavoriteTab(tab)
+                                                ? "pi pi-star-fill"
+                                                : "pi pi-star"
+                                        }
                                         className="p-button-text p-button-sm"
-                                        onClick={(e) => { e.stopPropagation(); toggleFavoriteFromTab(tab); }}
-                                        style={{ 
-                                        color: isFavoriteTab(tab) ? '#f59e0b' : '#8a8a8a'
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleFavoriteFromTab(tab);
                                         }}
-                                        title={isFavoriteTab(tab) ? 'Remove favorite' : 'Add favorite'}
+                                        style={{
+                                            color: isFavoriteTab(tab)
+                                                ? "#f59e0b"
+                                                : "#8a8a8a",
+                                        }}
+                                        title={
+                                            isFavoriteTab(tab)
+                                                ? "Remove favorite"
+                                                : "Add favorite"
+                                        }
                                     />
-                                 
+
                                     <Button
                                         icon="pi pi-times"
                                         className="p-button-text p-button-sm"
@@ -700,9 +972,13 @@ const App = () => {
                                             e.stopPropagation();
                                             removeTab(index);
                                         }}
-                                        style={{ textAlign: 'right', marginRight: "5px", color: "red" }}
-                                        title='CLOSE TAB'
-                                        accessKey='x'
+                                        style={{
+                                            textAlign: "right",
+                                            marginRight: "5px",
+                                            color: "red",
+                                        }}
+                                        title="CLOSE TAB"
+                                        accessKey="x"
                                     />
                                 </span>
                             }
@@ -713,7 +989,10 @@ const App = () => {
                                     key={tab.key}
                                     src={tab.url}
                                     height="100%"
-                                    style={{ border: "none", marginTop:'-5px' }}
+                                    style={{
+                                        border: "none",
+                                        marginTop: "-5px",
+                                    }}
                                 />
                             </div>
                         </TabPanel>
@@ -729,14 +1008,24 @@ const App = () => {
                 onHide={() => setPasswordModalVisible(false)}
                 footer={
                     <div>
-                        <Button label="Cancel" icon="pi pi-times" onClick={handleCancel} />
-                        <Button label="Save" icon="pi pi-check" onClick={handleSave} />
+                        <Button
+                            label="Cancel"
+                            icon="pi pi-times"
+                            onClick={handleCancel}
+                        />
+                        <Button
+                            label="Save"
+                            icon="pi pi-check"
+                            onClick={handleSave}
+                        />
                     </div>
                 }
             >
                 <div className="p-fluid">
                     <div className="field">
-                        <label htmlFor="currentPassword">Current Password</label>
+                        <label htmlFor="currentPassword">
+                            Current Password
+                        </label>
                         <Password
                             id="currentPassword"
                             value={currentPassword}
@@ -754,7 +1043,9 @@ const App = () => {
                         />
                     </div>
                     <div className="field">
-                        <label htmlFor="confirmPassword">Confirm New Password</label>
+                        <label htmlFor="confirmPassword">
+                            Confirm New Password
+                        </label>
                         <Password
                             id="confirmPassword"
                             value={confirmPassword}
@@ -763,10 +1054,15 @@ const App = () => {
                             feedback={false}
                         />
                     </div>
-                    <p style={{ color: '#BF0000' }}>
-                        Password must be at least 8 characters, include letters, numbers, and special characters, and must not contain 4 consecutive characters.
-                        <br/><br/>
-                        비밀번호는 최소 8자 이상이어야 하며, 영문자, 숫자, 특수문자를 포함해야 합니다. 또한, 4자리 이상의 연속된 문자를 포함할 수 없습니다.
+                    <p style={{ color: "#BF0000" }}>
+                        Password must be at least 8 characters, include letters,
+                        numbers, and special characters, and must not contain 4
+                        consecutive characters.
+                        <br />
+                        <br />
+                        비밀번호는 최소 8자 이상이어야 하며, 영문자, 숫자,
+                        특수문자를 포함해야 합니다. 또한, 4자리 이상의 연속된
+                        문자를 포함할 수 없습니다.
                     </p>
                 </div>
             </Dialog>

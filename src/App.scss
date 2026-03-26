@@ -1,14 +1,14 @@
 /* 전체 애플리케이션에 Roboto 폰트 적용 */
 body {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Roboto", sans-serif !important;
 }
 
 /* PrimeReact 기본 컴포넌트 폰트 설정 */
 .p-component {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Roboto", sans-serif !important;
 }
 
-body { 
+body {
     background-color: #e5e5e5 !important;
     transform-origin: top left;
     transition: transform 0.5s ease;
@@ -17,19 +17,58 @@ body {
 
 /* 모바일에서만 overflow 해제 */
 @media (max-width: 1000px) {
-    html, body {
+    html,
+    body {
         overflow: auto !important;
     }
 }
 
-.hidden { display:none; }
-.show0 { z-index:1; display:block; }
-.wrapperClass9 { position:'fixed'; padding: 0rem 0rem 0rem 0rem; top:0rem; left: 0rem; height:67.3rem; width:139.0rem;  }
-.layout-main-container9 { z-index:1; position:'absolute'; padding: 1rem 0rem 0rem 1.5rem; top:1rem; left: 19rem; height: 65rem; width:124.5rem;  }
-.layout-sidebar { z-index:1; position:'absolute'; padding: 1rem 0rem 0rem 1rem;  top: 1rem; left: 1rem; height:718px; overflow-x:hidden; box-shadow: none; border-radius: 0px;}
-.p-tree { padding: 0rem 0rem 0rem 0rem; border: 0; }
-.p-tree-content { margin: 0rem; padding: 0rem; }
-.p-treenode .p-treenode-leaf { padding: 3px 0 0px 0 !important; }
+.hidden {
+    display: none;
+}
+.show0 {
+    z-index: 1;
+    display: block;
+}
+.wrapperClass9 {
+    position: "fixed";
+    padding: 0rem 0rem 0rem 0rem;
+    top: 0rem;
+    left: 0rem;
+    height: 67.3rem;
+    width: 139rem;
+}
+.layout-main-container9 {
+    z-index: 1;
+    position: "absolute";
+    padding: 1rem 0rem 0rem 1.5rem;
+    top: 1rem;
+    left: 19rem;
+    height: 65rem;
+    width: 124.5rem;
+}
+.layout-sidebar {
+    z-index: 1;
+    position: "absolute";
+    padding: 1rem 0rem 0rem 1rem;
+    top: 1rem;
+    left: 1rem;
+    height: 718px;
+    overflow-x: hidden;
+    box-shadow: none;
+    border-radius: 0px;
+}
+.p-tree {
+    padding: 0rem 0rem 0rem 0rem;
+    border: 0;
+}
+.p-tree-content {
+    margin: 0rem;
+    padding: 0rem;
+}
+.p-treenode .p-treenode-leaf {
+    padding: 3px 0 0px 0 !important;
+}
 
 #mainFooter {
     position: fixed;
@@ -41,13 +80,13 @@ body {
 }
 
 button {
-    background-color: #6366F1;
+    background-color: #6366f1;
     border-radius: 3px !important;
-    border:none;
-    color:white;
+    border: none;
+    color: white;
     font-weight: 700;
     font-size: 1rem;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .p-treenode-icon {
@@ -56,14 +95,13 @@ button {
 
 .p-treenode span {
     font-weight: 650;
-    font-size:12px !important;
+    font-size: 12px !important;
 }
-
 
 .p-treenode .p-treenode-children span {
     font-weight: 400;
-    color:#000397;
-    font-size:11px !important;
+    color: #000397;
+    font-size: 11px !important;
 }
 
 .p-treenode .disabled {
@@ -74,11 +112,11 @@ button {
 }
 
 .p-menuitem-link {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .testEnvLabel {
-    display:none;
+    display: none;
 }
 
 .blink {
@@ -94,11 +132,16 @@ button {
     overflow-x: hidden;
 }
 
-
 @keyframes fadein {
-    0%   { opacity: 1; }
-    25%  { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .p-tabmenu-nav li {
@@ -110,7 +153,7 @@ button {
     justify-content: center; /* 중앙 정렬 */
 }
 
-.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link  {
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
     text-align: center;
 }
 
@@ -129,40 +172,45 @@ button {
 }
 
 .workingMrpIcon {
-    display:none;
+    display: none;
     margin-left: 10px;
 }
 
 .workingMrpIcon dotlottie-player {
-
 }
 
 .workingMrpIcon span {
     font-size: 1rem;
     font-weight: 600;
     vertical-align: middle;
-    margin-top:6px;
-    margin-left:5px;
-    color:rgb(196, 10, 10);
+    margin-top: 6px;
+    margin-left: 5px;
+    color: rgb(196, 10, 10);
 }
 
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
-    padding: 13px 10px ;
+    padding: 13px 10px;
 }
 
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
-    color:#495057;
+    color: #495057;
 }
 
-.p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler {
-    color:#495057;
+.p-tree
+    .p-tree-container
+    .p-treenode
+    .p-treenode-content.p-highlight
+    .p-tree-toggler {
+    color: #495057;
 }
 
-div:where(.swal2-container).swal2-top, div:where(.swal2-container).swal2-center, div:where(.swal2-container).swal2-bottom {
+div:where(.swal2-container).swal2-top,
+div:where(.swal2-container).swal2-center,
+div:where(.swal2-container).swal2-bottom {
     z-index: 1102;
 }
 
-div:where(.swal2-container).swal2-center>.swal2-popup {
+div:where(.swal2-container).swal2-center > .swal2-popup {
     position: fixed !important;
     top: 33% !important;
     left: 38% !important;
@@ -198,7 +246,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 }
 
 .p-tree-container {
-    overflow:auto;
+    overflow: auto;
     background-color: rgb(248, 249, 250);
 }
 
@@ -212,17 +260,17 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 }
 
 #favoritesWrapper .p-treenode-content button {
-    display:none;
+    display: none;
 }
 
 #favoritesWrapper .tree-node-custom {
-    margin-left:10px;
+    margin-left: 10px;
 }
 
 #favoritesWrapper .p-treenode span {
     font-weight: normal;
-    font-size:11px !important;
-    color:#000397;
+    font-size: 11px !important;
+    color: #000397;
 }
 
 .p-tree .p-treenode-content {
@@ -289,7 +337,6 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 /* ============================= */
 
 @media (max-width: 1000px) {
-
     .iframe-scroll-wrapper {
         width: 100%;
         height: 100vh;
@@ -327,8 +374,8 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
     width: calc(100vw - 160px) !important;
 }
 .p-tabview .p-tabview-nav {
-//    width: 1341px;
-    margin-top:0px;
+    //    width: 1341px;
+    margin-top: 0px;
     z-index: 1000;
     position: relative;
 }
@@ -337,7 +384,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
     width: 132px !important;
     height: 42px !important;
     margin-right: 0px !important;
-    margin-left:2px !important
+    margin-left: 2px !important;
 }
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
@@ -352,7 +399,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 /* 각 TabPanel 내부 컨텐츠 기본 스타일 */
 .p-hidden {
     position: absolute !important;
-    display:block !important;
+    display: block !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
@@ -366,13 +413,13 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 .p-tabview-panel[aria-hidden="false"] {
     z-index: 999 !important;
     opacity: 1 !important;
-    pointer-events: auto !important; 
+    pointer-events: auto !important;
     position: relative;
 }
 
 .table-row {
-  display: grid;
-  grid-template-columns: auto auto 1fr; /* 마지막 1fr이 남은 공간 */
+    display: grid;
+    grid-template-columns: auto auto 1fr; /* 마지막 1fr이 남은 공간 */
 }
 
 .af-button:hover {
@@ -488,15 +535,15 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 .sidebar:not(:hover):not(.pinned) #userInfoWrapper,
 .sidebar:not(:hover):not(.pinned) #menuTopWrapper,
 .sidebar:not(:hover):not(.pinned) #favoritesWrapper {
-    visibility:hidden;
+    visibility: hidden;
 }
 
 .sidebar:not(:hover):not(.pinned) .p-treenode-children {
     display: none;
-} 
-.tree-node-custom i{
-    font-size:14px;
-    min-width:14px;
+}
+.tree-node-custom i {
+    font-size: 14px;
+    min-width: 14px;
 }
 
 /* =========================
@@ -504,7 +551,7 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 ========================= */
 
 .sidebar-pin {
-    position: fixed;   /* 화면 기준 */
+    position: fixed; /* 화면 기준 */
     bottom: 4px;
     left: 2px;
 
