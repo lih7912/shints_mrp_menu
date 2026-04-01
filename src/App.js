@@ -103,7 +103,7 @@ const App = () => {
     const [sendMessage, setSendMessage] = useState("");
     const toast = useRef(null);
     const DEFAULT_NOTICE_MESSAGE =
-        "수정내용을 5분후 반영합니다. 서버가 재시작되면 화면의 내용을 잃을 수 있고 잠시 작동이 멈출 수 있습니다.";
+        "개발팀이 수정내용을 5분안에 반영합니다. 서버가 재시작되면 화면의 내용을 잃을 수 있고 잠시 작동이 멈출 수 있습니다.";
 
     const BASE_URL = `https://${window.location.hostname}:3201/#/`;
 
