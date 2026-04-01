@@ -96,7 +96,14 @@ const App = () => {
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [sseLastMsg, setSseLastMsg] = useState("");
+    const [sseLastTime, setSseLastTime] = useState("");
+    const [sseDialogVisible, setSseDialogVisible] = useState(false);
+    const [sendDialogVisible, setSendDialogVisible] = useState(false);
+    const [sendMessage, setSendMessage] = useState("");
     const toast = useRef(null);
+    const DEFAULT_NOTICE_MESSAGE =
+        "수정내용을 5분후 반영합니다. 서버가 재시작되면 화면의 내용을 잃을 수 있고 잠시 작동이 멈출 수 있습니다.";
 
     const BASE_URL = `https://${window.location.hostname}:3201/#/`;
 
@@ -186,6 +193,52 @@ const App = () => {
             window.removeEventListener("keydown", blockF5, true);
         };
     }, []);
+
+    useEffect(() => {
+        const eventUrl = `https://${window.location.hostname}:${apolloOption.server_port}/restapi/events`;
+        const evtSource = new EventSource(eventUrl);
+
+        evtSource.onopen = () => {};
+
+        evtSource.onmessage = (e) => {
+            try {
+                const data = JSON.parse(e.data || "{}");
+                const msg = data.msg || "알림";
+                setSseLastMsg(msg);
+                setSseLastTime(new Date().toLocaleTimeString());
+                setSseDialogVisible(true);
+            } catch (err) {
+                console.error("SSE parse error", err);
+            }
+        };
+
+        evtSource.onerror = (err) => {
+            console.error("SSE connection error", err);
+        };
+
+        return () => {
+            evtSource.close();
+        };
+    }, []);
+
+    const sendSseNotification = async () => {
+        const message = (sendMessage || "").trim();
+
+        try {
+            await axios.post(
+                `${window.location.protocol}//${window.location.hostname}:${apolloOption.server_port}/restapi/events/send`,
+                { message },
+            );
+            setSendDialogVisible(false);
+            setSendMessage("");
+        } catch (err) {
+            console.error("SSE send error", err);
+            Swal.fire({
+                icon: "error",
+                html: "알림 전송에 실패했습니다.",
+            });
+        }
+    };
 
     const openTab = (item) => {
         if (item.url1) {
@@ -760,6 +813,17 @@ const App = () => {
                             권한 설정
                         </button>
                         <button
+                            id="btnNotify"
+                            style={{
+                                marginBottom: "0.5rem",
+                                width: "92%",
+                                height: "20px",
+                            }}
+                            onClick={() => setSendDialogVisible(true)}
+                        >
+                            알림보내기
+                        </button>
+                        <button
                             id="btnTrLog"
                             style={{
                                 marginBottom: "0.5rem",
@@ -999,6 +1063,89 @@ const App = () => {
                     ))}
                 </TabView>
             </div>
+
+            <Dialog
+                header="알림 보내기"
+                visible={sendDialogVisible}
+                style={{ width: "560px", maxWidth: "90vw" }}
+                modal
+                onHide={() => setSendDialogVisible(false)}
+                footer={
+                    <div>
+                        <Button
+                            label="취소"
+                            icon="pi pi-times"
+                            onClick={() => setSendDialogVisible(false)}
+                        />
+                        <Button
+                            label="알림보내기"
+                            icon="pi pi-send"
+                            onClick={sendSseNotification}
+                        />
+                    </div>
+                }
+            >
+                <div className="p-fluid">
+                    <div className="field">
+                        <label htmlFor="noticeMessage">알림 내용</label>
+                        <textarea
+                            id="noticeMessage"
+                            rows={5}
+                            value={sendMessage}
+                            onChange={(e) => setSendMessage(e.target.value)}
+                            style={{ width: "100%", resize: "vertical" }}
+                            placeholder="비워두면 기본 안내 문구가 전송됩니다."
+                        />
+                    </div>
+                    <p style={{ color: "#666", marginTop: "8px" }}>
+                        입력값이 없으면 아래 기본 문구를 전송합니다.
+                        <br />
+                        {DEFAULT_NOTICE_MESSAGE}
+                    </p>
+                </div>
+            </Dialog>
+
+            <Dialog
+                header="NOTICE"
+                visible={sseDialogVisible}
+                style={{ width: "40vw", maxWidth: "800px" }}
+                modal
+                onHide={() => setSseDialogVisible(false)}
+                footer={
+                    <div>
+                        <Button
+                            label="닫기"
+                            icon="pi pi-times"
+                            onClick={() => setSseDialogVisible(false)}
+                        />
+                    </div>
+                }
+            >
+                <div
+                    style={{
+                        minHeight: "180px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        textAlign: "center",
+                        gap: "12px",
+                    }}
+                >
+                    <div
+                        style={{
+                            fontSize: "2rem",
+                            fontWeight: 700,
+                            whiteSpace: "pre-line",
+                        }}
+                    >
+                        {sseLastMsg || "알림"}
+                    </div>
+                    <div style={{ fontSize: "1rem", color: "#666" }}>
+                        수신 시간: {sseLastTime || "-"}
+                    </div>
+                </div>
+            </Dialog>
 
             <Dialog
                 header="Change Password"
