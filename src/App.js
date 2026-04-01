@@ -818,6 +818,7 @@ const App = () => {
                                 marginBottom: "0.5rem",
                                 width: "92%",
                                 height: "20px",
+                                display: "none",
                             }}
                             onClick={() => setSendDialogVisible(true)}
                         >
