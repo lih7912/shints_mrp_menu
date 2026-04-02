@@ -102,6 +102,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
         $("#btnAuth").css("display", "block");
         $("#btnTrLog").css("display", "block");
         $("#btnNotify").css("display", "block");
+        return;
     }
 
     let authInfoList = await getAuthInfo(window, apolloOption, userId);
