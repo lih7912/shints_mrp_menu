@@ -75,18 +75,18 @@ function showTestEnvLabel(window) {
     }
 }
 
-function clearAllColumnOrders() {
+function clearAllColumnOrders(activeIndex) {
     const confirmMessage =
         "현재 탭의 컬럼 순서정보만 삭제하시겠습니까?\nDo you want to delete column order only for the active tab?";
     if (confirm(confirmMessage)) {
-        const iframe = document.getElementById("tabIframe");
+        const iframe = document.getElementById(`tabIframe-${activeIndex}`);
         if (iframe && iframe.contentWindow) {
             iframe.contentWindow.postMessage(
                 { type: "CLEAR_AF_COLUMNS_ACTIVE" },
                 "*",
             );
         } else {
-            console.warn('iframe with id "tabIframe" not found.');
+            console.warn(`iframe with id "tabIframe-${activeIndex}" not found.`);
         }
     }
 }
@@ -629,7 +629,7 @@ const App = () => {
                                 <i
                                     className="af-button custom-target-icon pi pi-arrows-h p-text-secondary"
                                     onClick={() => {
-                                        clearAllColumnOrders();
+                                        clearAllColumnOrders(activeIndex);
                                     }}
                                     style={{
                                         fontSize: "1.5rem",
