@@ -254,7 +254,7 @@ const menu1 = [
             },
             { key: "6-8", label: "Sample Cost", url: "S0203_SAMPLE_COST" },
             { key: "6-9", label: "CMPT Confirmation", url: "S0212_NEGO_CMPT" },
-            //{ key: '6-10', label: 'ETC Cost', url: 'S0803_ETC_COST'},
+            { key: '6-10', label: 'ETC Cost', url: 'S0803_ETC_COST'},
         ],
     },
     {
