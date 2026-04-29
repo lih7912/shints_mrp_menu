@@ -249,7 +249,7 @@ const menu1 = [
             },
             {
                 key: "6-7",
-                label: "Debit Note(E)",
+                label: "Debit Note(ETP)",
                 url: "S070301_DEBIT_NOTE_FACTORY_ETP",
             },
             { key: "6-8", label: "Sample Cost", url: "S0203_SAMPLE_COST" },
@@ -438,7 +438,7 @@ const menu3 = [
     },
     {
         key: "6-7",
-        label: "Debit Note(E)",
+        label: "Debit Note(ETP)",
         url: "S070301_DEBIT_NOTE_FACTORY_ETP",
     },
     { key: "6-8", label: "Sample Cost", url: "S0203_SAMPLE_COST" },
