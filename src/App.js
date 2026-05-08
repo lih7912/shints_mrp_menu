@@ -197,8 +197,14 @@ const App = () => {
     useEffect(() => {
         const eventUrl = `https://${window.location.hostname}:${apolloOption.server_port}/restapi/events`;
         const evtSource = new EventSource(eventUrl);
+        let hasLoggedConnectionError = false;
+        let hasConnected = false;
 
-        evtSource.onopen = () => {};
+        evtSource.onopen = () => {
+            hasConnected = true;
+            hasLoggedConnectionError = false;
+            console.log("[SSE] Connected");
+        };
 
         evtSource.onmessage = (e) => {
             try {
@@ -213,11 +219,17 @@ const App = () => {
         };
 
         evtSource.onerror = (err) => {
-            console.error("SSE connection error", err);
+            const isConnectedError = hasConnected;
+            if (!hasLoggedConnectionError) {
+                console.warn(`[SSE] ${isConnectedError ? 'Disconnected' : 'Connection Failed'}. Status: ${evtSource.readyState}`);
+                hasLoggedConnectionError = true;
+            }
+            hasConnected = false;
         };
 
         return () => {
             evtSource.close();
+            console.log("[SSE] Closed");
         };
     }, []);
 
