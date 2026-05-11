@@ -166,7 +166,7 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                     menuName == 'Bill Manager' ||
                     menuName == 'Clearance_Arrival(BVT)' ||
                     menuName == 'Clearance_Arrival(ETP)' ||
-                    menuName == 'FAC-IN(Inspection)' ||
+                    menuName == 'Insepection Record' ||
                     menuName == 'FAC-IN List' ||
                     menuName == 'Fac-Out Record' ||
                     menuName == 'Fac-Out List' ||

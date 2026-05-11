@@ -193,7 +193,7 @@ const menu1 = [
             },
             {
                 key: "5-3",
-                label: "FAC-IN(Inspection)",
+                label: "Insepection Record",
                 url: "S0519_INSPECT_REPORT",
             },
             { key: "5-4", label: "FAC-IN List", url: "S051901_FACIN_LIST" },
@@ -416,7 +416,7 @@ const menu3 = [
         label: "Clearance_Arrival(ETP)",
         url: "S0518_FACTORY_ARRIVAL?FACTORY=ETP",
     },
-    { key: "5-3", label: "FAC-IN(Inspection)", url: "S0519_INSPECT_REPORT" },
+    { key: "5-3", label: "Insepection Record", url: "S0519_INSPECT_REPORT" },
     { key: "5-4", label: "FAC-IN List", url: "S051901_FACIN_LIST" },
     { key: "5-5", label: "Stock Confirm", url: "S0516_STOCK_USE_CONFIRM" },
     { key: "5-6", label: "Fac-Out Record", url: "S0520_FACOUT_RECORD" },
