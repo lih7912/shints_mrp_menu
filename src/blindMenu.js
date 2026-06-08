@@ -67,13 +67,10 @@ function forceOpen(userId, menuName) {
         if (menuName.includes("Debit Note")) ret = true;
     }
 
-    console.log(userId, menuName, ret);
-
     return ret;
 }
 
 function setBlind(menu, menuName) {
-    console.log(menu, menuName);
     let li = $(menu).closest("li");
     li.children().css("display", "none");
     li.append(`<span class="menu_blind disabled">${menuName}</span>`);
@@ -118,8 +115,6 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
             menuList.each((index, menu) => {
                 let menuName = $(menu).text();
 
-                console.log(menuName);
-
                 if (
                     menuName !== "INFO" &&
                     menuName !== "ORDER" &&
@@ -136,7 +131,6 @@ async function blindMenu(window, apolloOption, userInfoForAuth) {
                             !forceOpenCapa(userId, menuName) &&
                             !forceOpen(userId, menuName)
                         ) {
-                            console.log(menuName);
                             setBlind(menu, menuName);
                         }
                     }

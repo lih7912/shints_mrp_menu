@@ -166,9 +166,42 @@ const App = () => {
         window.addEventListener(
             "message",
             (e) => {
+                if (!e?.data || typeof e.data !== "object") return;
+
                 if (e.data.func && e.data.func === "call_url") {
                     console.log(e.data.message);
                     openTab(e.data.message);
+                }
+
+                if (
+                    e.data.func &&
+                    e.data.func === "mrp_requery_parent_center"
+                ) {
+                    const tSource = String(
+                        e?.data?.message?.SOURCE || "",
+                    ).toUpperCase();
+                    const tTargetPage =
+                        tSource === "S0303"
+                            ? "S0303_MRP_RECORD_STYLE"
+                            : "S0306_MRP_BY_ORDER";
+
+                    const iframes = Array.from(
+                        document.querySelectorAll('iframe[id^="tabIframe-"]'),
+                    );
+
+                    const tTargetIdx = iframes.findIndex((iframe) =>
+                        String(iframe?.src || "").includes(`#/${tTargetPage}`),
+                    );
+
+                    if (tTargetIdx >= 0) {
+                        setActiveIndex(tTargetIdx);
+                    }
+
+                    iframes.forEach((iframe) => {
+                        if (iframe?.contentWindow) {
+                            iframe.contentWindow.postMessage(e.data, "*");
+                        }
+                    });
                 }
             },
             false,
