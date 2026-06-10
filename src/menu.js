@@ -361,6 +361,7 @@ const menu3 = [
     { key: "2-25", label: "MRP List", url: "S030513_MRP_LIST" },
     { key: "2-26", label: "PO List", url: "S030514_PO_LIST" },
     { key: "2-27", label: "MRP Pack Down", url: "S030515_MRP_PACK" },
+    { key: "2-28", label: "Material Po List", url: "S030516_MATERIAL_PO_LIST" },
     { key: "2-8", label: "Stock Check", url: "S030503_STOCK_CHECK" },
     { key: "2-9", label: "PO Revise", url: "S030504_REVISE" },
     { key: "2-10", label: "Matl Add", url: "S030505_PO_RECORD_MATL_ADD" },

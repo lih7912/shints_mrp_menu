@@ -93,6 +93,7 @@ function clearAllColumnOrders(activeIndex) {
 
 const App = () => {
     const [tabs, setTabs] = useState([]);
+    const tabsRef = useRef([]);
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -106,6 +107,16 @@ const App = () => {
         "개발팀이 수정내용을 5분안에 반영합니다. 서버가 재시작되면 화면의 내용을 잃을 수 있고 잠시 작동이 멈출 수 있습니다.";
 
     const BASE_URL = `https://${window.location.hostname}:3201/#/`;
+
+    const buildTabUrl = (url1, label) => {
+        if (!url1) return "";
+
+        const tBase = `${BASE_URL}${url1}`;
+        if (!label) return tBase;
+
+        const tSep = tBase.includes("?") ? "&" : "?";
+        return `${tBase}${tSep}label=${encodeURI(label)}`;
+    };
 
     function getCookie(name) {
         const cookies = document.cookie.split("; ");
@@ -123,6 +134,10 @@ const App = () => {
         document.cookie =
             name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
+
+    useEffect(() => {
+        tabsRef.current = tabs;
+    }, [tabs]);
 
     useEffect(() => {
         // 쿠키에서 사용자 정보 가져오기
@@ -153,9 +168,7 @@ const App = () => {
         const transformMenuUrls = (menu) => {
             return menu.map((item) => ({
                 ...item,
-                url: item.url
-                    ? `${BASE_URL}${item.url}?label=${encodeURI(item.label)}`
-                    : "",
+                url: item.url ? buildTabUrl(item.url, item.label) : "",
                 children: item.children ? transformMenuUrls(item.children) : [],
             }));
         };
@@ -180,28 +193,72 @@ const App = () => {
                     const tSource = String(
                         e?.data?.message?.SOURCE || "",
                     ).toUpperCase();
+                    const tMessage = e?.data?.message || {};
                     const tTargetPage =
                         tSource === "S0303"
                             ? "S0303_MRP_RECORD_STYLE"
                             : "S0306_MRP_BY_ORDER";
 
-                    const iframes = Array.from(
-                        document.querySelectorAll('iframe[id^="tabIframe-"]'),
-                    );
+                    const tParams = [];
+                    if (tMessage.STYLE_CD)
+                        tParams.push(
+                            `STYLE_CD=${encodeURIComponent(tMessage.STYLE_CD)}`,
+                        );
+                    if (tMessage.ORDER_CD)
+                        tParams.push(
+                            `ORDER_CD=${encodeURIComponent(tMessage.ORDER_CD)}`,
+                        );
+                    if (tMessage.ORDER_MRP_SEQ)
+                        tParams.push(
+                            `ORDER_MRP_SEQ=${encodeURIComponent(
+                                tMessage.ORDER_MRP_SEQ,
+                            )}`,
+                        );
 
-                    const tTargetIdx = iframes.findIndex((iframe) =>
-                        String(iframe?.src || "").includes(`#/${tTargetPage}`),
+                    const tTargetUrl1 =
+                        tParams.length > 0
+                            ? `${tTargetPage}?${tParams.join("&")}`
+                            : tTargetPage;
+
+                    const tTargetMeta =
+                        tSource === "S0303"
+                            ? {
+                                  key: "2-3",
+                                  label: "MRP Record(Style)",
+                                  icon: "pi pi-fw pi-user-edit",
+                                  url1: tTargetUrl1,
+                              }
+                            : {
+                                  key: "2-6",
+                                  label: "MRP Record(Order)",
+                                  icon: "pi pi-fw pi-user-edit",
+                                  url1: tTargetUrl1,
+                              };
+
+                    const tTargetIdx = tabsRef.current.findIndex((tab) =>
+                        String(tab?.url || "").includes(`#/${tTargetPage}`),
                     );
 
                     if (tTargetIdx >= 0) {
                         setActiveIndex(tTargetIdx);
+                    } else {
+                        openTab(tTargetMeta);
                     }
 
-                    iframes.forEach((iframe) => {
-                        if (iframe?.contentWindow) {
-                            iframe.contentWindow.postMessage(e.data, "*");
-                        }
-                    });
+                    const postToAllIframes = () => {
+                        const iframes = Array.from(
+                            document.querySelectorAll('iframe[id^="tabIframe-"]'),
+                        );
+
+                        iframes.forEach((iframe) => {
+                            if (iframe?.contentWindow) {
+                                iframe.contentWindow.postMessage(e.data, "*");
+                            }
+                        });
+                    };
+
+                    postToAllIframes();
+                    setTimeout(() => postToAllIframes(), 350);
                 }
             },
             false,
@@ -287,7 +344,7 @@ const App = () => {
 
     const openTab = (item) => {
         if (item.url1) {
-            item.url = `${BASE_URL}${item.url1}?label=${encodeURI(item.label)}`;
+            item.url = buildTabUrl(item.url1, item.label);
         }
         if (!item.url) return;
 
