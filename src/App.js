@@ -945,7 +945,7 @@ const App = () => {
                         </button>
                         {/*<button id='btnDevManual' style={{ marginBottom: '0.5rem', width: '92%', height: '20px' }} onClick={() => { window.open(`https://www.notion.so/shints/1cf09bcd64ff803ea457dc278b9ba591?v=1cf09bcd64ff8031b40e000c9bdf5071`, 'blank'); }}>화면 분석서</button>*/}
                         <div
-                            className="testEnvLabel blink"
+                            className="testEnvLabel"
                             style={{
                                 marginBottom: "1rem",
                                 width: "92%",
