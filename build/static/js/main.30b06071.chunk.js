@@ -621,6 +621,37 @@
                                             var i = e.data.message;
                                             Pn(i);
                                         }
+                                        if (
+                                            e.data.func &&
+                                            "requery_s0305_mrp_manager" ===
+                                                e.data.func
+                                        ) {
+                                            var t = function () {
+                                                Array.from(
+                                                    document.querySelectorAll(
+                                                        'iframe[id^="tabIframe-"]',
+                                                    ),
+                                                )
+                                                    .filter(function (e) {
+                                                        return String(
+                                                            (e && e.src) || "",
+                                                        ).includes(
+                                                            "#/S0305_MRP_MANAGER",
+                                                        );
+                                                    })
+                                                    .forEach(function (i) {
+                                                        i &&
+                                                            i.contentWindow &&
+                                                            i.contentWindow.postMessage(
+                                                                e.data,
+                                                                "*",
+                                                            );
+                                                    });
+                                            };
+                                            t(), setTimeout(function () {
+                                                t();
+                                            }, 350);
+                                        }
                                     },
                                     !1,
                                 ));

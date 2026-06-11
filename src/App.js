@@ -260,6 +260,30 @@ const App = () => {
                     postToAllIframes();
                     setTimeout(() => postToAllIframes(), 350);
                 }
+
+                if (
+                    e.data.func &&
+                    e.data.func === "requery_s0305_mrp_manager"
+                ) {
+                    const postToS0305Iframes = () => {
+                        const iframes = Array.from(
+                            document.querySelectorAll('iframe[id^="tabIframe-"]'),
+                        ).filter((iframe) =>
+                            String(iframe?.src || "").includes(
+                                "#/S0305_MRP_MANAGER",
+                            ),
+                        );
+
+                        iframes.forEach((iframe) => {
+                            if (iframe?.contentWindow) {
+                                iframe.contentWindow.postMessage(e.data, "*");
+                            }
+                        });
+                    };
+
+                    postToS0305Iframes();
+                    setTimeout(() => postToS0305Iframes(), 350);
+                }
             },
             false,
         );
