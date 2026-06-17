@@ -94,6 +94,7 @@ function clearAllColumnOrders(activeIndex) {
 const App = () => {
     const [tabs, setTabs] = useState([]);
     const tabsRef = useRef([]);
+    const toast = useRef(null);
     const [userInfo, setUserInfo] = useState({});
     const [menuInfo, setMenuInfo] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -102,7 +103,6 @@ const App = () => {
     const [sseDialogVisible, setSseDialogVisible] = useState(false);
     const [sendDialogVisible, setSendDialogVisible] = useState(false);
     const [sendMessage, setSendMessage] = useState("");
-    const toast = useRef(null);
     const DEFAULT_NOTICE_MESSAGE =
         "개발팀이 수정내용을 5분안에 반영합니다. 서버가 재시작되면 화면의 내용을 잃을 수 있고 잠시 작동이 멈출 수 있습니다.";
 
@@ -134,7 +134,6 @@ const App = () => {
         document.cookie =
             name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
-
     useEffect(() => {
         tabsRef.current = tabs;
     }, [tabs]);
@@ -184,6 +183,32 @@ const App = () => {
                 if (e.data.func && e.data.func === "call_url") {
                     console.log(e.data.message);
                     openTab(e.data.message);
+                }
+
+                if (e.data.func && e.data.func === "s0301_set_matl_cd") {
+                    const tMessage = e.data.message || {};
+                    const tTargetPage = "S0301_MATL_RECORD";
+
+                    const tTargetIdx = tabsRef.current.findIndex((tab) =>
+                        String(tab?.url || "").includes(`#/${tTargetPage}`),
+                    );
+
+                    if (tTargetIdx >= 0) {
+                        setActiveIndex(tTargetIdx);
+
+                        const tTargetIframe = document.getElementById(
+                            `tabIframe-${tTargetIdx}`,
+                        );
+                        if (tTargetIframe?.contentWindow) {
+                            tTargetIframe.contentWindow.postMessage(
+                                {
+                                    func: "s0301_set_matl_cd",
+                                    message: tMessage,
+                                },
+                                "*",
+                            );
+                        }
+                    }
                 }
 
                 if (
@@ -372,10 +397,37 @@ const App = () => {
         }
         if (!item.url) return;
 
+        const getRoutePath = (url) => {
+            const tUrl = String(url || "");
+            const tHashIdx = tUrl.indexOf("#/");
+            if (tHashIdx < 0) return "";
+
+            const tRouteWithQuery = tUrl.substring(tHashIdx + 2);
+            return tRouteWithQuery.split("?")[0] || "";
+        };
+
+        const tRequestedRoute =
+            getRoutePath(buildTabUrl(item.url1 || "", item.label)) ||
+            getRoutePath(item.url);
+        const tAlwaysReuseRoutes = ["S0301_MATL_RECORD"];
+        const tShouldForceReuse = tAlwaysReuseRoutes.includes(tRequestedRoute);
+
         setTabs((prevTabs) => {
-            const existingTabIndex = prevTabs.findIndex(
+            let existingTabIndex = prevTabs.findIndex(
                 (tab) => tab.label === item.label,
             );
+
+            if ((item.keepStateIfOpen || tShouldForceReuse) && tRequestedRoute) {
+                const tRouteMatchIndex = prevTabs.findIndex((tab) => {
+                    const tTabRoute = getRoutePath(tab?.url);
+                    return tTabRoute === tRequestedRoute;
+                });
+
+                if (tRouteMatchIndex >= 0) {
+                    existingTabIndex = tRouteMatchIndex;
+                }
+            }
+
             if (existingTabIndex === -1) {
                 if (prevTabs.length >= 10) {
                     toast.current.show({
@@ -392,6 +444,12 @@ const App = () => {
                 setActiveIndex(newTabs.length - 1);
                 return newTabs;
             } else {
+                if (item.keepStateIfOpen || tShouldForceReuse) {
+                    // Keep existing iframe state and just focus the tab.
+                    setActiveIndex(existingTabIndex);
+                    return prevTabs;
+                }
+
                 // 기존 탭이 있으면 URL을 업데이트하면서 key도 변경하여 리렌더링 유도
                 const updatedTabs = prevTabs.map((tab, index) => {
                     if (index === existingTabIndex) {
