@@ -92,6 +92,7 @@ function clearAllColumnOrders(activeIndex) {
 }
 
 const App = () => {
+    const MATL_RECORD_CODE_CACHE_KEY = "S0301_MATL_RECORD_CODE_CACHE";
     const [tabs, setTabs] = useState([]);
     const tabsRef = useRef([]);
     const toast = useRef(null);
@@ -181,8 +182,53 @@ const App = () => {
                 if (!e?.data || typeof e.data !== "object") return;
 
                 if (e.data.func && e.data.func === "call_url") {
-                    console.log(e.data.message);
-                    openTab(e.data.message);
+                    const tMessage = e.data.message || {};
+                    console.log(tMessage);
+
+                    // Hard bypass for S0301: if opened already, focus existing tab only.
+                    const tUrl1 = String(tMessage.url1 || "");
+                    const tRoute = tUrl1.split("?")[0] || "";
+                    if (tRoute === "S0301_MATL_RECORD") {
+                        const tTargetIdx = tabsRef.current.findIndex((tab) =>
+                            String(tab?.url || "").includes(
+                                "#/S0301_MATL_RECORD",
+                            ),
+                        );
+
+                        if (tTargetIdx >= 0) {
+                            setActiveIndex(tTargetIdx);
+
+                            // Legacy fallback: extract MATL_CD from query and forward.
+                            const tQuery = tUrl1.includes("?")
+                                ? tUrl1.split("?")[1]
+                                : "";
+                            const tParams = new URLSearchParams(tQuery);
+                            const tMatlCd = (tParams.get("MATL_CD") || "").trim();
+
+                            if (tMatlCd) {
+                                const tTargetIframe = document.getElementById(
+                                    `tabIframe-${tTargetIdx}`,
+                                );
+                                if (tTargetIframe?.contentWindow) {
+                                    tTargetIframe.contentWindow.postMessage(
+                                        {
+                                            func: "s0301_set_matl_cd",
+                                            message: {
+                                                MATL_CD: tMatlCd,
+                                                SOURCE: "LEGACY_CALL_URL",
+                                                TS: Date.now(),
+                                            },
+                                        },
+                                        "*",
+                                    );
+                                }
+                            }
+
+                            return;
+                        }
+                    }
+
+                    openTab(tMessage);
                 }
 
                 if (e.data.func && e.data.func === "s0301_set_matl_cd") {
@@ -470,24 +516,45 @@ const App = () => {
 
     // 탭 닫기 (iframe도 삭제)
     const removeTab = (index) => {
-        // 현재 탭 목록에서 해당 인덱스의 탭 제거
-        const newTabs = tabs.filter((_, i) => i !== index);
-        setTabs(newTabs);
+        const tRunRemove = () => {
+            // 현재 탭 목록에서 해당 인덱스의 탭 제거
+            const newTabs = tabs.filter((_, i) => i !== index);
+            setTabs(newTabs);
 
-        if (index === 0 && newTabs.length > 0) {
-            // 첫번째 탭이 닫혔을 때: 남은 탭의 첫번째(원래 두번째 탭)를 활성화
-            setActiveIndex(0);
-        } else if (index < activeIndex) {
-            // 닫은 탭이 현재 활성 탭보다 앞쪽에 있다면, 인덱스가 한 칸씩 당겨지므로 activeIndex 조정
-            setActiveIndex(activeIndex - 1);
-        } else if (index === activeIndex) {
-            // 닫은 탭이 현재 활성 탭일 경우: 남은 탭이 있다면 동일 인덱스 유지, 없으면 마지막 탭 활성화
-            if (newTabs.length > activeIndex) {
-                setActiveIndex(activeIndex);
-            } else {
-                setActiveIndex(newTabs.length - 1);
+            if (index === 0 && newTabs.length > 0) {
+                // 첫번째 탭이 닫혔을 때: 남은 탭의 첫번째(원래 두번째 탭)를 활성화
+                setActiveIndex(0);
+            } else if (index < activeIndex) {
+                // 닫은 탭이 현재 활성 탭보다 앞쪽에 있다면, 인덱스가 한 칸씩 당겨지므로 activeIndex 조정
+                setActiveIndex(activeIndex - 1);
+            } else if (index === activeIndex) {
+                // 닫은 탭이 현재 활성 탭일 경우: 남은 탭이 있다면 동일 인덱스 유지, 없으면 마지막 탭 활성화
+                if (newTabs.length > activeIndex) {
+                    setActiveIndex(activeIndex);
+                } else {
+                    setActiveIndex(newTabs.length - 1);
+                }
             }
+        };
+
+        const tClosedTab = tabs[index];
+        const tClosedUrl = String(tClosedTab?.url || "");
+        if (tClosedUrl.includes("#/S0301_MATL_RECORD")) {
+            window.sessionStorage.removeItem(MATL_RECORD_CODE_CACHE_KEY);
+
+            const tTargetIframe = document.getElementById(`tabIframe-${index}`);
+            if (tTargetIframe?.contentWindow) {
+                tTargetIframe.contentWindow.postMessage(
+                    { func: "s0301_clear_code_cache" },
+                    "*",
+                );
+            }
+
+            setTimeout(tRunRemove, 120);
+            return;
         }
+
+        tRunRemove();
     };
 
     const [expandedKeys, setExpandedKeys] = useState({});
@@ -593,7 +660,8 @@ const App = () => {
             const { type, url } = event.data;
 
             if (type === "closeTab" && url) {
-                setTabs((prevTabs) => {
+                const tClosedUrl = String(url || "");
+                const tRunRemove = () => setTabs((prevTabs) => {
                     const tabIndex = prevTabs.findIndex(
                         (tab) => tab.url === url,
                     );
@@ -614,6 +682,30 @@ const App = () => {
                     }
                     return prevTabs;
                 });
+
+                if (tClosedUrl.includes("#/S0301_MATL_RECORD")) {
+                    window.sessionStorage.removeItem(MATL_RECORD_CODE_CACHE_KEY);
+
+                    const tTabIndex = tabsRef.current.findIndex(
+                        (tab) => tab.url === url,
+                    );
+                    if (tTabIndex !== -1) {
+                        const tTargetIframe = document.getElementById(
+                            `tabIframe-${tTabIndex}`,
+                        );
+                        if (tTargetIframe?.contentWindow) {
+                            tTargetIframe.contentWindow.postMessage(
+                                { func: "s0301_clear_code_cache" },
+                                "*",
+                            );
+                        }
+                    }
+
+                    setTimeout(tRunRemove, 120);
+                    return;
+                }
+
+                tRunRemove();
             }
         };
 
